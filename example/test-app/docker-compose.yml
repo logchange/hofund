@@ -1,0 +1,17 @@
+version: '3.5'
+
+services:
+  test-app-db:
+    image: postgres
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=test_app_db
+  test-app:
+    container_name: test-app
+    build:
+      context: .
+    ports:
+      - 18081:8080

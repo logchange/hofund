@@ -1,4 +1,4 @@
-package dev.hofund.testapp.testapp;
+package dev.logchange.hofund.testapp.testapp;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

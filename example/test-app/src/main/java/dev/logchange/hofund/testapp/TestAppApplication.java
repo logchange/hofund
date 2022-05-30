@@ -1,4 +1,4 @@
-package dev.hofund.testapp.testapp;
+package dev.logchange.hofund.testapp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
