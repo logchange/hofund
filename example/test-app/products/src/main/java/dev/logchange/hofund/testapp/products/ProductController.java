@@ -1,4 +1,4 @@
-package dev.logchange.hofund.testapp;
+package dev.logchange.hofund.testapp.products;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -6,28 +6,28 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 @RestController
-public class TestEntityController {
+public class ProductController {
 
-    private final TestEntityRepository repository;
+    private final ProductRepository repository;
 
     @Autowired
-    public TestEntityController(TestEntityRepository repository) {
+    public ProductController(ProductRepository repository) {
         this.repository = repository;
     }
 
-    @GetMapping("/test/all")
-    Iterable<TestEntity> all() {
+    @GetMapping("/products")
+    Iterable<Product> all() {
         return repository.findAll();
     }
 
-    @GetMapping("/test/{id}")
-    TestEntity userById(@PathVariable Long id) {
+    @GetMapping("/products/{id}")
+    Product userById(@PathVariable Long id) {
         return repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    @PostMapping("/user/save")
-    TestEntity save(@RequestBody TestEntity user) {
-        return repository.save(user);
+    @PostMapping("/products")
+    Product save(@RequestBody Product product) {
+        return repository.save(product);
     }
 
 }

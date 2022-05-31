@@ -1,13 +1,13 @@
-package dev.logchange.hofund.testapp;
+package dev.logchange.hofund.testapp.products;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TestAppApplication {
+public class ProductsApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TestAppApplication.class, args);
+		SpringApplication.run(ProductsApplication.class, args);
 	}
 
 }

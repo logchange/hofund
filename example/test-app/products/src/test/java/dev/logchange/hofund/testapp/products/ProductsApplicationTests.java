@@ -1,10 +1,10 @@
-package dev.logchange.hofund.testapp.testapp;
+package dev.logchange.hofund.testapp.products;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class TestAppApplicationTests {
+class ProductsApplicationTests {
 
 	@Test
 	void contextLoads() {

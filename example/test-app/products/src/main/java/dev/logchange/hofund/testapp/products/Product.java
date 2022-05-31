@@ -1,4 +1,4 @@
-package dev.logchange.hofund.testapp;
+package dev.logchange.hofund.testapp.products;
 
 
 import jakarta.persistence.Entity;
@@ -6,14 +6,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
 @Entity
-public class TestEntity {
+public class Product {
 
     @Id
     @GeneratedValue
     private Long id;
     private String name;
 
-    public TestEntity() {
+    public Product() {
     }
 
     public Long getId() {
