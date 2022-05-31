@@ -9,12 +9,12 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
-	<groupId>dev.logchange.hofund.test-app</groupId>
-	<artifactId>test-app</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>test-app</name>
+	<groupId>dev.logchange.hofund.test-app.products</groupId>
+	<artifactId>products</artifactId>
+	<version>1.0.4-SNAPSHOT</version>
+	<name>products</name>
 
-	<description>Test app to develop Hofund</description>
+	<description>Test app (Product service) to develop Hofund</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
