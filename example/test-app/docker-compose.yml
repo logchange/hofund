@@ -1,17 +1,33 @@
 version: '3.5'
 
 services:
-  test-app-db:
+  products-db:
+    container_name: products-db
     image: postgres
     ports:
-      - 5432:5432
+      - 15432:5432
     environment:
       - POSTGRES_PASSWORD=password
       - POSTGRES_USER=postgres
-      - POSTGRES_DB=test_app_db
-  test-app:
-    container_name: test-app
+      - POSTGRES_DB=products
+  products-app:
+    container_name: products-app
     build:
-      context: .
+      context: ./products
     ports:
       - 18081:8080
+  cart-db:
+    container_name: cart-db
+    image: postgres
+    ports:
+      - 25432:5432
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=cart
+  cart-app:
+    container_name: cart-app
+    build:
+      context: ./cart
+    ports:
+      - 18082:8080

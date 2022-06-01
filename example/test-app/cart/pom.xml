@@ -9,12 +9,12 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
-	<groupId>dev.logchange.hofund.test-app.products</groupId>
-	<artifactId>products</artifactId>
+	<groupId>dev.logchange.hofund.test-app.cart</groupId>
+	<artifactId>cart</artifactId>
 	<version>1.0.4-SNAPSHOT</version>
-	<name>products</name>
+	<name>cart</name>
 
-	<description>Test app (Product service) to develop Hofund</description>
+	<description>Test app (Cart service) to develop Hofund</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
@@ -52,7 +52,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>products</finalName>
+		<finalName>cart</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
