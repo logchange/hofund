@@ -14,3 +14,5 @@ Hofund, often simply referred as the Bifrost Sword, was an Asgardian sword used
 by Heimdall and, during his exile, Skurge. 
 It also served as a key to activate the switch that opens the Bifrost Bridge.
 ```
+
+Compatible with Spring Boot >= 2.2.0 and Spring 
