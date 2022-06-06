@@ -1,0 +1,14 @@
+{
+  "properties": [
+    {
+      "name": "hofund.info.application.name",
+      "type": "java.lang.String",
+      "description": "The name of your application (will be used in queries so simpler names are prefered) name from pom.xml will be use, whe you set this to @application.version@"
+    },
+    {
+      "name": "hofund.info.application.version",
+      "type": "java.lang.String",
+      "description": "The version of yuor application, standard approach is the version from pom.xml by using @application.version@"
+    }
+  ]
+}
