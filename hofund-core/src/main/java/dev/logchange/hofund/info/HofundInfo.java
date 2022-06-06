@@ -3,7 +3,6 @@ package dev.logchange.hofund.info;
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Tag;
-import io.micrometer.core.instrument.Tags;
 import io.micrometer.core.instrument.binder.MeterBinder;
 
 import java.util.LinkedList;
@@ -22,7 +21,7 @@ public class HofundInfo implements MeterBinder {
 
     @Override
     public void bindTo(MeterRegistry meterRegistry) {
-        Gauge.builder(NAME, null, value -> 1.0)
+        Gauge.builder(NAME, 1.0, value -> value)
                 .description(DESCRIPTION)
                 .tags(tags())
                 .register(meterRegistry);

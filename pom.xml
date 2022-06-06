@@ -44,6 +44,7 @@
         <lombok.version>1.18.24</lombok.version>
         <lombok-maven.version>1.18.22.0</lombok-maven.version>
 
+        <micrometer-io.version>[1.3.0,)</micrometer-io.version>
         <spring-framework.version>[5.2.12.RELEASE,)</spring-framework.version>
         <spring-boot.version>[2.2.0.RELEASE,)</spring-boot.version>
 
