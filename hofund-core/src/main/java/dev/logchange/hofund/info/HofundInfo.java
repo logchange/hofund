@@ -7,6 +7,7 @@ import io.micrometer.core.instrument.binder.MeterBinder;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class HofundInfo implements MeterBinder {
 
@@ -14,14 +15,16 @@ public class HofundInfo implements MeterBinder {
     private static final String DESCRIPTION = "TODO";
 
     private final HofundInfoProvider provider;
+    private final AtomicInteger atomicInteger;
 
     public HofundInfo(HofundInfoProvider provider) {
         this.provider = provider;
+        this.atomicInteger = new AtomicInteger(1);
     }
 
     @Override
     public void bindTo(MeterRegistry meterRegistry) {
-        Gauge.builder(NAME, 1.0, value -> value)
+        Gauge.builder(NAME, atomicInteger, AtomicInteger::doubleValue)
                 .description(DESCRIPTION)
                 .tags(tags())
                 .register(meterRegistry);
