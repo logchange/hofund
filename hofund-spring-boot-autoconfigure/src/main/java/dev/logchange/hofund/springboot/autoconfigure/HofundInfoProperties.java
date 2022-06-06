@@ -16,13 +16,13 @@ public class HofundInfoProperties {
 
         /**
          * The name of your application (will be used in queries so simpler names
-         * are prefered) name from pom.xml will be use, whe you set this to @application.version@
+         * are prefered) name from pom.xml will be use, whe you set this to @project.version@
          */
         private String name;
 
         /**
          * The version of yuor application, standard approach is the version
-         * from pom.xml by using @application.version@
+         * from pom.xml by using @project.version@
          */
         private String version;
 

@@ -31,11 +31,11 @@ public class HofundInfo implements MeterBinder {
         List<Tag> tags = new LinkedList<>();
 
         if(provider.getAppName().isPresent()){
-            tags.add(Tag.of("app_name", provider.getAppName().get()));
+            tags.add(Tag.of("application_name", provider.getAppName().get()));
         }
 
         if(provider.getAppVersion().isPresent()){
-            tags.add(Tag.of("app_version", provider.getAppVersion().get()));
+            tags.add(Tag.of("application_version", provider.getAppVersion().get()));
         }
 
         return tags;
