@@ -17,7 +17,8 @@
     <modules>
         <module>hofund-core</module>
         <module>hofund-spring</module>
-        <module>hofund-spring-boot</module>
+        <module>hofund-spring-boot-autoconfigure</module>
+        <module>hofund-spring-boot-starter</module>
     </modules>
 
     <licenses>
@@ -42,6 +43,9 @@
 
         <lombok.version>1.18.24</lombok.version>
         <lombok-maven.version>1.18.22.0</lombok-maven.version>
+
+        <spring-framework.version>[5.2.12.RELEASE,)</spring-framework.version>
+        <spring-boot.version>[2.2.0.RELEASE,)</spring-boot.version>
 
         <!-- TESTS -->
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
