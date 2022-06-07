@@ -1,4 +1,4 @@
-package dev.logchange.hofund.springboot.autoconfigure;
+package dev.logchange.hofund.springboot.autoconfigure.info;
 
 import lombok.Getter;
 import lombok.Setter;

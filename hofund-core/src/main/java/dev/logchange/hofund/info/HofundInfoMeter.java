@@ -9,7 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class HofundInfo implements MeterBinder {
+public class HofundInfoMeter implements MeterBinder {
 
     private static final String NAME = "hofund_info";
     private static final String DESCRIPTION = "TODO";
@@ -17,7 +17,7 @@ public class HofundInfo implements MeterBinder {
     private final HofundInfoProvider provider;
     private final AtomicInteger atomicInteger;
 
-    public HofundInfo(HofundInfoProvider provider) {
+    public HofundInfoMeter(HofundInfoProvider provider) {
         this.provider = provider;
         this.atomicInteger = new AtomicInteger(1);
     }
@@ -27,19 +27,16 @@ public class HofundInfo implements MeterBinder {
         Gauge.builder(NAME, atomicInteger, AtomicInteger::doubleValue)
                 .description(DESCRIPTION)
                 .tags(tags())
+                .baseUnit("status")
                 .register(meterRegistry);
     }
 
     private List<Tag> tags() {
         List<Tag> tags = new LinkedList<>();
 
-        if(provider.getAppName().isPresent()){
-            tags.add(Tag.of("application_name", provider.getAppName().get()));
-        }
-
-        if(provider.getAppVersion().isPresent()){
-            tags.add(Tag.of("application_version", provider.getAppVersion().get()));
-        }
+        tags.add(Tag.of("id", provider.getApplicationName()));
+        tags.add(Tag.of("application_name", provider.getApplicationName()));
+        tags.add(Tag.of("application_version", provider.getApplicationVersion()));
 
         return tags;
     }
