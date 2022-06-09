@@ -24,7 +24,7 @@ public class HofundInfoAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public HofundInfoMeter hofundInfo(HofundInfoProvider infoProvider) {
+    public HofundInfoMeter hofundInfoMeter(HofundInfoProvider infoProvider) {
         return new HofundInfoMeter(infoProvider);
     }
 

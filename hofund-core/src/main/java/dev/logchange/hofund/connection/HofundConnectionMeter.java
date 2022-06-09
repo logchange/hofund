@@ -15,22 +15,22 @@ public class HofundConnectionMeter implements MeterBinder {
     private static final String DESCRIPTION = "TODO";
 
     private final HofundInfoProvider infoProvider;
-    private final HofundConnectionsProvider connectionsProvider;
+    private final List<HofundConnectionsProvider> connectionsProviders;
 
-    public HofundConnectionMeter(HofundInfoProvider infoProvider, HofundConnectionsProvider connectionsProvider) {
+    public HofundConnectionMeter(HofundInfoProvider infoProvider, List<HofundConnectionsProvider> connectionsProviders) {
         this.infoProvider = infoProvider;
-        this.connectionsProvider = connectionsProvider;
+        this.connectionsProviders = connectionsProviders;
     }
 
     @Override
     public void bindTo(MeterRegistry meterRegistry) {
-        connectionsProvider.getConnections().forEach(connection -> {
+        connectionsProviders.forEach(provider -> provider.getConnections().forEach(connection -> {
             Gauge.builder(NAME, connection, con -> con.getFun().getStatus().getValue())
                     .description(DESCRIPTION)
                     .tags(tags(connection))
                     .baseUnit("status")
                     .register(meterRegistry);
-        });
+        }));
     }
 
     private List<Tag> tags(HofundConnection connection) {

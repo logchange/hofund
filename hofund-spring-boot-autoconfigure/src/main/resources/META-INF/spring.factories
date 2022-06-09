@@ -1,1 +1,3 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=dev.logchange.hofund.springboot.autoconfigure.info.HofundInfoAutoConfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+dev.logchange.hofund.springboot.autoconfigure.info.HofundInfoAutoConfiguration,\
+dev.logchange.hofund.springboot.autoconfigure.connection.HofundConnectionAutoConfiguration
