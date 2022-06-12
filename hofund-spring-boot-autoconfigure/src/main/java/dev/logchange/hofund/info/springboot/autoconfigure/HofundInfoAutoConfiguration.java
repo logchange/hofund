@@ -1,4 +1,4 @@
-package dev.logchange.hofund.springboot.autoconfigure.info;
+package dev.logchange.hofund.info.springboot.autoconfigure;
 
 import dev.logchange.hofund.info.HofundInfoMeter;
 import dev.logchange.hofund.info.HofundInfoProvider;

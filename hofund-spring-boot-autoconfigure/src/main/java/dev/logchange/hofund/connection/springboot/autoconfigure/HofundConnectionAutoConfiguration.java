@@ -1,9 +1,9 @@
-package dev.logchange.hofund.springboot.autoconfigure.connection;
+package dev.logchange.hofund.connection.springboot.autoconfigure;
 
 import dev.logchange.hofund.connection.HofundConnectionMeter;
 import dev.logchange.hofund.connection.HofundConnectionsProvider;
 import dev.logchange.hofund.info.HofundInfoProvider;
-import dev.logchange.hofund.springboot.autoconfigure.info.HofundInfoAutoConfiguration;
+import dev.logchange.hofund.info.springboot.autoconfigure.HofundInfoAutoConfiguration;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
