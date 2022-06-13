@@ -2,6 +2,7 @@ package dev.logchange.hofund.connection.springboot.autoconfigure;
 
 import dev.logchange.hofund.connection.HofundConnectionMeter;
 import dev.logchange.hofund.connection.HofundConnectionsProvider;
+import dev.logchange.hofund.connection.spring.datasource.DataSourceConnectionsProvider;
 import dev.logchange.hofund.info.HofundInfoProvider;
 import dev.logchange.hofund.info.springboot.autoconfigure.HofundInfoAutoConfiguration;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.sql.DataSource;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -30,5 +32,11 @@ public class HofundConnectionAutoConfiguration {
     @ConditionalOnBean(HofundInfoProvider.class)
     public HofundConnectionMeter hofundConnectionMeter(HofundInfoProvider infoProvider, List<HofundConnectionsProvider> hofundConnectionsProviders) {
         return new HofundConnectionMeter(infoProvider, hofundConnectionsProviders);
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public DataSourceConnectionsProvider dataSourceConnectionsProvider(List<DataSource> dataSources) {
+        return new DataSourceConnectionsProvider(dataSources);
     }
 }
