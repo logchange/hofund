@@ -2,7 +2,7 @@
 
 # hofund
 
-hofund is a tool set to monitor applications, connections and discover current state of components of the system
+🗡️💥 `hofund` ([pronunciation in Old Norse](https://forvo.com/word/h%C7%ABfu%C3%B0/), also you can pronunce it as`ho` `fund`) is a tool set to monitor applications, connections and discover current state of components of the system 💥🗡️
 
 ```
 Hǫfuð ("man-head," Norwegian hoved, Danish hoved, Swedish huvud and Icelandic höfuð) 
@@ -19,9 +19,13 @@ Compatible with Spring Boot >= 2.2.0 and Spring
 
 ### Requirements
 
-Your project contains:
+You can check following requiremnts by running `mvn dependency:tree`, but if you are using `spring-boot` in version at least `2.2.0` everthing should be alright.
+
+Your project has to contain:
 
 - spring-framework in version at least 5.2.12.RELEASE
 - spring-boot in version at least 2.2.0
 - micrometer-io in version at least 1.3.0
-  You can check it by running `mvn dependency:tree`
+- slf4j in version at least 1.7.28
+  
+ ### Usage
