@@ -3,12 +3,12 @@
     {
       "name": "hofund.info.application.name",
       "type": "java.lang.String",
-      "description": "The name of your application (will be used in queries so simpler names are prefered) name from pom.xml will be use, whe you set this to @application.version@"
+      "description": "The name of your application (will be used in queries so simpler names are preferred) name from pom.xml will be use, whe you set this to @application.name@ ."
     },
     {
       "name": "hofund.info.application.version",
       "type": "java.lang.String",
-      "description": "The version of yuor application, standard approach is the version from pom.xml by using @application.version@"
+      "description": "The version of your application, standard approach is the version from pom.xml by using @application.version@ ."
     }
   ]
 }
