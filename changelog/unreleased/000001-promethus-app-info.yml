@@ -1,0 +1,18 @@
+title: Using hofund allows you to specify version and name of your application in prometheus metric.
+authors:
+  - name: Peter Zmilczak
+    nick: marwin1991
+    url: https://github.com/marwin1991
+type: added
+configurations:
+  - type: application.properties
+    action: add
+    key: hofund.info.application.name
+    default_value: ''
+    description: The name of your application, for maven project you can use `@project.name@` and this will set the name from pom.xml
+  - type: application.properties
+    action: add
+    key: hofund.info.application.version
+    default_value: ''
+    description: The version of your application, for maven project you can use `@project.version@` and this will set the version from pom.xml
+
