@@ -70,6 +70,7 @@ And your application has the following configuration:
 management.endpoints.web.exposure.include=prometheus
 ```
 
+To define basic information about our application in hofund metric we need some configuration.
 For maven project add to your `application.properties` following entries, but you can define it as you wish:
 
 ```properties
@@ -77,7 +78,8 @@ hofund.info.application.name=@project.name@
 hofund.info.application.version=@project.version@
 ```
 
-3. Now you can start your application and verify exposed prometheus metric, it should include:
+3. Now you can start your application and verify exposed prometheus metric, it should include (example for postgres
+   datasource):
 
 ```text
 # HELP hofund_info_status Basic information about application
