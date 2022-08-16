@@ -1,0 +1,6 @@
+title: Auto detection of data sources in spring boot projects and included metrics for postgres connections.
+authors:
+  - name: Peter Zmilczak
+    nick: marwin1991
+    url: https://github.com/marwin1991
+type: added
