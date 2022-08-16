@@ -25,4 +25,4 @@ jobs:
         env:
           # Cannot use GITHUB_TOKEN because of:
           # https://github.com/orgs/community/discussions/27028
-          GITHUB_TOKEN: ${{ secrets.HOFUND_PAT_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.LOGCHANGE_PAT_TOKEN }}
