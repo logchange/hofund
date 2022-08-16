@@ -90,5 +90,5 @@ hofund_info_status{application_name="cart",application_version="1.0.4-SNAPSHOT",
 hofund_connection_status{id="cart-cart-database",source="cart",target="cart",type="database",} 1.0
 ```
 
-4. Currently supported spring datasource's for auto-detection and providing hofund_connection_status:
-    - PostgreSQL
+4. Currently supported spring datasource's for auto-detection and providing `hofund_connection_status`:
+   - PostgreSQL
