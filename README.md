@@ -27,5 +27,60 @@ Your project has to contain:
 - spring-boot in version at least 2.2.0
 - micrometer-io in version at least 1.3.0
 - slf4j in version at least 1.7.28
-  
- ### Usage
+
+### Usage
+
+#### SpringBoot based projects
+
+1. Add to your pom.xml:
+
+```xml
+
+<dependency>
+    <groupId>dev.logchange.hofund</groupId>
+    <artifactId>hofund-spring-boot-starter</artifactId>
+    <version>0.1.0</version>
+</dependency>
+```
+
+2. Your project already contains SpringBoot Actuator with Micrometer:
+
+```xml
+
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-actuator</artifactId>
+</dependency>
+
+<dependency>
+<groupId>io.micrometer</groupId>
+<artifactId>micrometer-registry-prometheus</artifactId>
+</dependency>
+```
+
+And your application has the following configuration:
+
+```properties
+management.endpoints.web.exposure.include=prometheus
+```
+
+For maven project add to your `application.properties` following entries, but you can define it as you wish:
+
+```properties
+hofund.info.application.name=@project.name@
+hofund.info.application.version=@project.version@
+```
+
+3. Now you can start your application and verify exposed prometheus metric, it should include:
+
+```text
+# HELP hofund_info_status Basic information about application
+# TYPE hofund_info_status gauge
+hofund_info_status{application_name="cart",application_version="1.0.4-SNAPSHOT",id="cart",} 1.0
+# HELP hofund_connection_status Current status of given connection
+# TYPE hofund_connection_status gauge
+hofund_connection_status{id="cart-cart-database",source="cart",target="cart",type="database",} 1.0
+```
+
+4. Currently supported spring datasource's for auto-detection and providing hofund_connection_status:
+    - PostgreSQL
