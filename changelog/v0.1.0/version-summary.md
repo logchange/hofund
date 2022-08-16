@@ -2,12 +2,13 @@
 <!-- noinspection -->
 <!-- Prevents auto format, for JetBrains IDE File > Settings > Editor > Code Style (Formatter Tab) > Turn formatter on/off with markers in code comments  -->
 
-[unreleased]
-------------
+[0.1.0] - 2022-08-16
+--------------------
 
-### Added (1 change)
+### Added (2 changes)
 
 - Using hofund allows you to specify version and name of your application in prometheus metric. ([Peter Zmilczak](https://github.com/marwin1991) @marwin1991)
+- Auto detection of data sources in spring boot projects and included metrics for postgres connections. ([Peter Zmilczak](https://github.com/marwin1991) @marwin1991)
 
 ### Configuration changes
 
