@@ -2,7 +2,9 @@
 
 # hofund
 
-🗡️💥 `hofund` ([pronunciation in Old Norse](https://forvo.com/word/h%C7%ABfu%C3%B0/), also you can pronunce it as`ho` `fund`) is a tool set to monitor applications, connections and discover current state of components of the system 💥🗡️
+🗡️💥 `hofund` ([pronunciation in Old Norse](https://forvo.com/word/h%C7%ABfu%C3%B0/), also you can pronunce it
+as`ho` `fund`) is a tool set to monitor applications, connections and discover current state of components of the system
+💥🗡️
 
 ```
 Hǫfuð ("man-head," Norwegian hoved, Danish hoved, Swedish huvud and Icelandic höfuð) 
@@ -19,7 +21,8 @@ Compatible with Spring Boot >= 2.2.0 and Spring
 
 ### Requirements
 
-You can check following requiremnts by running `mvn dependency:tree`, but if you are using `spring-boot` in version at least `2.2.0` everthing should be alright.
+You can check following requiremnts by running `mvn dependency:tree`, but if you are using `spring-boot` in version at
+least `2.2.0` everthing should be alright.
 
 Your project has to contain:
 
@@ -35,27 +38,30 @@ Your project has to contain:
 1. Add to your pom.xml:
 
 ```xml
-
-<dependency>
-    <groupId>dev.logchange.hofund</groupId>
-    <artifactId>hofund-spring-boot-starter</artifactId>
-    <version>0.1.0</version>
-</dependency>
+<dependencies>
+    <dependency>
+        <groupId>dev.logchange.hofund</groupId>
+        <artifactId>hofund-spring-boot-starter</artifactId>
+        <version>0.1.0</version>
+    </dependency>
+</dependencies>
 ```
 
 2. Your project already contains SpringBoot Actuator with Micrometer:
 
 ```xml
 
-<dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-actuator</artifactId>
-</dependency>
+<dependencies>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency>
 
-<dependency>
-<groupId>io.micrometer</groupId>
-<artifactId>micrometer-registry-prometheus</artifactId>
-</dependency>
+    <dependency>
+        <groupId>io.micrometer</groupId>
+        <artifactId>micrometer-registry-prometheus</artifactId>
+    </dependency>
+</dependencies>
 ```
 
 And your application has the following configuration:
