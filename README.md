@@ -3,7 +3,7 @@
 <p align="center">
     <a href="https://github.com/logchange/hofund/graphs/contributors" alt="Contributors">
         <img src="https://img.shields.io/github/contributors/logchange/hofund" /></a>
-    <a href="https://github.com/badges/shields/pulse" alt="Activity">
+    <a href="https://github.com/logchange/hofund/pulse" alt="Activity">
         <img src="https://img.shields.io/github/commit-activity/m/logchange/hofund" /></a>
     <a href="https://search.maven.org/search?q=g:%22dev.logchange.hofund%22%20AND%20a:%22hofund-spring-boot-starter%22" alt="Maven Central">
         <img src="https://img.shields.io/maven-central/v/dev.logchange.hofund/hofund-spring-boot-starter.svg?label=Maven%20Central" /></a>
