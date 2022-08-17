@@ -1,10 +1,17 @@
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/logchange/hofund)
+# 🗡️💥 hofund 💥🗡️
 
-# hofund
+<p align="center">
+    <a href="https://github.com/logchange/hofund/graphs/contributors" alt="Contributors">
+        <img src="https://img.shields.io/github/contributors/logchange/hofund" /></a>
+    <a href="https://github.com/badges/shields/pulse" alt="Activity">
+        <img src="https://img.shields.io/github/commit-activity/m/logchange/hofund" /></a>
+    <a href="https://search.maven.org/search?q=g:%22dev.logchange.hofund%22%20AND%20a:%22hofund-spring-boot-starter%22" alt="Maven Central">
+        <img src="https://img.shields.io/maven-central/v/dev.logchange.hofund/hofund-spring-boot-starter.svg?label=Maven%20Central" /></a>
+</p>
 
-🗡️💥 `hofund` ([pronunciation in Old Norse](https://forvo.com/word/h%C7%ABfu%C3%B0/), also you can pronunce it
-as`ho` `fund`) is a tool set to monitor applications, connections and discover current state of components of the system
-💥🗡️
+- [pronunciation in Old Norse](https://forvo.com/word/h%C7%ABfu%C3%B0/) also you can pronunce it as`ho` `fund`
+- is a tool set to monitor applications, connections and discover current state of components of the system
+
 
 ```
 Hǫfuð ("man-head," Norwegian hoved, Danish hoved, Swedish huvud and Icelandic höfuð) 
@@ -92,3 +99,7 @@ hofund_connection_status{id="cart-cart-database",source="cart",target="cart",typ
 
 4. Currently supported spring datasource's for auto-detection and providing `hofund_connection_status`:
    - PostgreSQL
+   
+## Contribution
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/logchange/hofund)
