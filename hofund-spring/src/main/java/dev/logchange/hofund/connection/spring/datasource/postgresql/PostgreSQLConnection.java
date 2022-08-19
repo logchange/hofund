@@ -20,7 +20,10 @@ public class PostgreSQLConnection extends DatasourceConnection {
     protected String getTarget() throws SQLException {
         String url = metaData.getURL();
         int slashIndex = url.lastIndexOf('/');
-        int to = Math.max(url.length(), url.lastIndexOf("?") + 1);
+        int to = url.length();
+        if (url.lastIndexOf("?") != -1) {
+            to = url.lastIndexOf("?");
+        }
         return url.substring(slashIndex + 1, to).toLowerCase(Locale.ROOT);
     }
 
