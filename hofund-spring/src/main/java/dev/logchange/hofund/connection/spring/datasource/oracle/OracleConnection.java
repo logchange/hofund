@@ -5,6 +5,7 @@ import dev.logchange.hofund.connection.spring.datasource.DatasourceConnection;
 import javax.sql.DataSource;
 import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
+import java.util.Locale;
 
 public class OracleConnection extends DatasourceConnection {
 
@@ -20,6 +21,6 @@ public class OracleConnection extends DatasourceConnection {
      */
     @Override
     protected String getTarget() throws SQLException {
-        return metaData.getUserName();
+        return metaData.getUserName().toLowerCase(Locale.ROOT);
     }
 }
