@@ -10,7 +10,7 @@ import java.util.Locale;
 
 public class PostgreSQLConnection extends DatasourceConnection {
 
-    private static final String TEST_QUERY = "SELECT 1;";
+    private static final String TEST_QUERY = "SELECT 1";
 
     public PostgreSQLConnection(DatabaseMetaData metaData, DataSource dataSource) {
         super(metaData, dataSource, TEST_QUERY);

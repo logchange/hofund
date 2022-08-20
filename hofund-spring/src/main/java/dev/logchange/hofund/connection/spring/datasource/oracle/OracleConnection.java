@@ -9,7 +9,7 @@ import java.util.Locale;
 
 public class OracleConnection extends DatasourceConnection {
 
-    private static final String TEST_QUERY = "SELECT 1 FROM DUAL;";
+    private static final String TEST_QUERY = "SELECT 1 FROM DUAL";
 
     public OracleConnection(DatabaseMetaData metaData, DataSource dataSource) {
         super(metaData, dataSource, TEST_QUERY);
