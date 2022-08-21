@@ -1,0 +1,6 @@
+title: Fixed getting database name for postgres datasource when url is with params.
+authors:
+  - name: Peter Zmilczak
+    nick: marwin1991
+    url: https://github.com/marwin1991
+type: fixed

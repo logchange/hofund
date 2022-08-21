@@ -73,6 +73,8 @@
         <!-- TESTS -->
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
         <junit-jupiter.version>5.8.2</junit-jupiter.version>
+        <mockito-junit-jupiter.version>4.6.1</mockito-junit-jupiter.version>
+        <assertj.version>3.23.1</assertj.version>
     </properties>
 
     <dependencies>
@@ -90,6 +92,20 @@
             <version>${junit-jupiter.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <version>${mockito-junit-jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>${assertj.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -97,7 +113,7 @@
             <plugin>
                 <groupId>dev.logchange</groupId>
                 <artifactId>logchange-maven-plugin</artifactId>
-                <version>0.5.0</version>
+                <version>0.6.0</version>
                 <inherited>false</inherited> <!-- For multi module project -->
             </plugin>
             <plugin>

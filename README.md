@@ -99,6 +99,7 @@ hofund_connection_status{id="cart-cart-database",source="cart",target="cart",typ
 
 4. Currently supported spring datasource's for auto-detection and providing `hofund_connection_status`:
    - PostgreSQL
+   - Oracle
    
 ## Contribution
 
