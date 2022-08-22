@@ -40,10 +40,10 @@ public class HofundConnectionMeter implements MeterBinder {
 
     private List<Tag> tags(HofundConnection connection) {
         List<Tag> tags = new LinkedList<>();
-        tags.add(Tag.of("id", infoProvider.getApplicationName() + "-" + connection.getTarget() + "-" + connection.getType()));
+        tags.add(Tag.of("id", infoProvider.getApplicationName() + "-" + connection.getTarget() + "_" + connection.getType()));
 
         tags.add(Tag.of("source", infoProvider.getApplicationName()));
-        tags.add(Tag.of("target", connection.getTarget()));
+        tags.add(Tag.of("target", connection.getTarget() + "_" + connection.getType()));
 
         tags.add(Tag.of("type", connection.getType().toString()));
 

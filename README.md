@@ -12,7 +12,6 @@
 - [pronunciation in Old Norse](https://forvo.com/word/h%C7%ABfu%C3%B0/) also you can pronunce it as`ho` `fund`
 - is a tool set to monitor applications, connections and discover current state of components of the system
 
-
 ```
 Hǫfuð ("man-head," Norwegian hoved, Danish hoved, Swedish huvud and Icelandic höfuð) 
 is the sword of Heimdallr.
@@ -45,6 +44,7 @@ Your project has to contain:
 1. Add to your pom.xml:
 
 ```xml
+
 <dependencies>
     <dependency>
         <groupId>dev.logchange.hofund</groupId>
@@ -94,13 +94,24 @@ hofund.info.application.version=@project.version@
 hofund_info_status{application_name="cart",application_version="1.0.4-SNAPSHOT",id="cart",} 1.0
 # HELP hofund_connection_status Current status of given connection
 # TYPE hofund_connection_status gauge
-hofund_connection_status{id="cart-cart-database",source="cart",target="cart",type="database",} 1.0
+hofund_connection_status{id="cart-cart_database",source="cart",target="cart_database",type="database",} 1.0
 ```
 
-4. Currently supported spring datasource's for auto-detection and providing `hofund_connection_status`:
+4. Metrics description
+
+   - `hofund_info_status` - used to detect if application is running and what version is used. Application name and id
+     in the metric is always lowercase to make easier creation of connection graph. (This metric provides info about
+     graph nodes)
+   - `hofund_connection_status` - used to examine connection status to given services such as databases, rest apis etc.
+     Source is a name of the current application (lowercase) and target is a name of service that we want to connect
+     to joint with target type(also lowercase). Id is created by joining this two properties. (This metric provides
+     info about graph edges)
+
+
+5. Currently supported spring datasource's for auto-detection and providing `hofund_connection_status`:
    - PostgreSQL
    - Oracle
-   
+
 ## Contribution
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/logchange/hofund)

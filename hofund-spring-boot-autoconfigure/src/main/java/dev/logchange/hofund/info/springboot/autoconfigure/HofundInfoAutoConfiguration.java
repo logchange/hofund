@@ -33,7 +33,7 @@ public class HofundInfoAutoConfiguration {
         return new HofundInfoProvider() {
             @Override
             public String getApplicationName() {
-                return properties.getApplication().getName();
+                return properties.getApplication().getName().toLowerCase();
             }
 
             @Override
