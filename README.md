@@ -49,7 +49,7 @@ Your project has to contain:
     <dependency>
         <groupId>dev.logchange.hofund</groupId>
         <artifactId>hofund-spring-boot-starter</artifactId>
-        <version>0.2.0</version>
+        <version>0.3.0</version>
     </dependency>
 </dependencies>
 ```
