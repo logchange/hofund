@@ -1,0 +1,6 @@
+title: Removed status word from metrics `hofund_info_status` and `hofund_connection_status`.
+authors:
+  - name: Peter Zmilczak
+    nick: marwin1991
+    url: https://github.com/marwin1991
+type: changed  #[added/changed/deprecated/removed/fixed/security/other]

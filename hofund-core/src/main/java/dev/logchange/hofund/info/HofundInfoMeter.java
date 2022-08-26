@@ -27,7 +27,6 @@ public class HofundInfoMeter implements MeterBinder {
         Gauge.builder(NAME, atomicInteger, AtomicInteger::doubleValue)
                 .description(DESCRIPTION)
                 .tags(tags())
-                .baseUnit("status")
                 .register(meterRegistry);
     }
 
