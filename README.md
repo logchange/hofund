@@ -107,7 +107,7 @@ hofund_connection{id="cart-cart_database",source="cart",target="cart_database",t
       to joint with target type(also lowercase). Id is created by joining this two properties.
 
 
-5. Currently supported spring datasource's for auto-detection and providing `hofund_connection_status`:
+5. Currently supported spring datasource's for auto-detection and providing `hofund_connection`:
     - PostgreSQL
     - Oracle
 
