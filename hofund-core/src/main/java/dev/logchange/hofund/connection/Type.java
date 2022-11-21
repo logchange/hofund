@@ -1,7 +1,9 @@
 package dev.logchange.hofund.connection;
 
 public enum Type {
-    DATABASE("database");
+    DATABASE("database"),
+    RESTAPI("restapi");
+
 
     private final String name;
 
