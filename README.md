@@ -23,7 +23,12 @@ by Heimdall and, during his exile, Skurge.
 It also served as a key to activate the switch that opens the Bifrost Bridge.
 ```
 
-Compatible with Spring Boot >= 2.2.0 and Spring
+### Compatibility
+
+|  Version  |     SpringBoot Version      |
+|:---------:|:---------------------------:|
+| **0.X.0** | **2.2.0** (including 3.0.0) |
+| **1.X.0** |        **3.0.0**            |
 
 ### Requirements
 
@@ -44,14 +49,37 @@ Your project has to contain:
 1. Add to your pom.xml:
 
 ```xml
-
-<dependencies>
-    <dependency>
-        <groupId>dev.logchange.hofund</groupId>
-        <artifactId>hofund-spring-boot-starter</artifactId>
-        <version>0.3.0</version>
-    </dependency>
-</dependencies>
+<project>
+   ...
+   <dependencies>
+      ...
+       <dependency>
+           <groupId>dev.logchange.hofund</groupId>
+           <artifactId>hofund-spring-boot-starter</artifactId>
+           <version>0.3.0</version>
+       </dependency>
+      ...
+   </dependencies>
+   
+   <build>
+       ...
+       <plugins>
+          ...
+          <plugin>
+             <groupId>pl.project13.maven</groupId>
+             <artifactId>git-commit-id-plugin</artifactId>
+             <version>4.9.10</version> <!-- for java 11 you can use 5.0.0 (https://github.com/git-commit-id/git-commit-id-maven-plugin#relocation-of-the-project) -->
+             <configuration>
+                <failOnNoGitDirectory>false</failOnNoGitDirectory>
+                <injectAllReactorProjects>true</injectAllReactorProjects>
+             </configuration>
+          </plugin>
+          ...
+       </plugins>
+       ...
+   </build>
+   ...
+</project>
 ```
 
 2. Your project already contains SpringBoot Actuator with Micrometer:
@@ -83,6 +111,13 @@ For maven project add to your `application.properties` following entries, but yo
 ```properties
 hofund.info.application.name=@project.name@
 hofund.info.application.version=@project.version@
+
+hofund.git-info.commit.id=@git.commit.id@
+hofund.git-info.commit.id-abbrev=@git.commit.id.abbrev@
+hofund.git-info.dirty=@git.dirty@
+hofund.git-info.branch=@git.branch@
+hofund.git-info.build.host=@git.build.host@
+hofund.git-info.build.time=@git.build.time@
 ```
 
 3. Now you can start your application and verify exposed prometheus metric, it should include (example for postgres
@@ -95,16 +130,23 @@ hofund_info{application_name="cart",application_version="1.0.4-SNAPSHOT",id="car
 # HELP hofund_connection Current status of given connection
 # TYPE hofund_connection gauge
 hofund_connection{id="cart-cart_database",source="cart",target="cart_database",type="database",} 1.0
+# HELP hofund_git_info Basic information about application based on git
+# TYPE hofund_git_info gauge
+hofund_git_info{branch="master",build_host="DESKTOP-AAAAA",build_time="2023-02-19T11:22:34+0100",commit_id="0d32d0f",dirty="true",} 1.0
 ```
 
 4. Metrics description
 
-    - `hofund_info` - used to detect if application is running and what version is used. Application name and id
-      in the metric is always lowercase to make easier creation of connection graph.
+   - `hofund_info` - used to detect if application is running and what version is used. Application name and id
+     in the metric is always lowercase to make easier creation of connection graph.
 
-    - `hofund_connection` - used to examine connection status to given services such as databases, rest apis etc.
-      Source is a name of the current application (lowercase) and target is a name of service that we want to connect
-      to joint with target type(also lowercase). Id is created by joining this two properties.
+   - `hofund_connection` - used to examine connection status to given services such as databases, rest apis etc.
+     Source is a name of the current application (lowercase) and target is a name of service that we want to connect
+     to joint with target type(also lowercase). Id is created by joining this two properties.
+
+   - `hofund_git_info` - used to inform about build and git-based information such as: commit id(short),
+     dirtiness(dirty - uncommitted changes), build machine name and time, branch. This information is useful
+     for sandbox environments, where everything is changing really fast.
 
 
 5. Currently supported spring datasource's for auto-detection and providing `hofund_connection`:

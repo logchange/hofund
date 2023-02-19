@@ -1,0 +1,39 @@
+title: Added git based information to metrics in `hofund_git_info`
+authors:
+  - name: Peter Zmilczak
+    nick: marwin1991
+    url: https://github.com/marwin1991
+type: added #[added/changed/deprecated/removed/fixed/security/other]
+merge_requests:
+  - 12
+configurations:
+  - type: application.properties
+    action: add
+    key: hofund.git-info.commit.id
+    default_value: ''
+    description: Git commit id, set it to `@git.commit.id@` and configure `git-commit-id-plugin`, see README.md.
+  - type: application.properties
+    action: add
+    key: hofund.git-info.commit.id-abbrev
+    default_value: ''
+    description: Short git commit id, set it to `@git.commit.id.abbrev@` and configure `git-commit-id-plugin` see README.md.
+  - type: application.properties
+    action: add
+    key: hofund.git-info.dirty
+    default_value: ''
+    description: Short git commit id, set it to `@git.dirty@` and configure `git-commit-id-plugin` see README.md.
+  - type: application.properties
+    action: add
+    key: hofund.git-info.branch
+    default_value: ''
+    description: Short git commit id, set it to `@git.branch@` and configure `git-commit-id-plugin` see README.md.
+  - type: application.properties
+    action: add
+    key: hofund.git-info.build.host
+    default_value: ''
+    description: Short git commit id, set it to `@git.build.host@` and configure `git-commit-id-plugin` see README.md.
+  - type: application.properties
+    action: add
+    key: hofund.git-info.build.time
+    default_value: ''
+    description: Short git commit id, set it to `@git.build.time@` and configure `git-commit-id-plugin` see README.md.
