@@ -1,0 +1,13 @@
+title: Spring Boot 3 compatibility
+authors:
+  - name: Peter Zmilczak
+    nick: marwin1991
+    url: https://github.com/marwin1991
+  - nick: jfoder
+    url: https://github.com/jfoder
+type: fixed #[added/changed/deprecated/removed/fixed/security/other]
+merge_requests:
+  - 14
+links:
+  - name: [ source ]
+    url: https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-3.0.0-M5-Release-Notes#auto-configuration-registration
