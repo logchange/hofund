@@ -23,14 +23,14 @@ by Heimdall and, during his exile, Skurge.
 It also served as a key to activate the switch that opens the Bifrost Bridge.
 ```
 
-### Compatibility
+# Compatibility
 
 |  Version  |     SpringBoot Version      |
 |:---------:|:---------------------------:|
 | **0.X.0** | **2.2.0** (including 3.0.0) |
 | **1.X.0** |        **3.0.0**            |
 
-### Requirements
+# Requirements
 
 You can check following requiremnts by running `mvn dependency:tree`, but if you are using `spring-boot` in version at
 least `2.2.0` everthing should be alright.
@@ -42,11 +42,11 @@ Your project has to contain:
 - micrometer-io in version at least 1.3.0
 - slf4j in version at least 1.7.28
 
-### Usage
+# Usage
 
-#### SpringBoot based projects
+## SpringBoot based projects
 
-1. Add to your pom.xml:
+### 1. Add to your pom.xml:
 
 ```xml
 <project>
@@ -82,7 +82,7 @@ Your project has to contain:
 </project>
 ```
 
-2. Your project already contains SpringBoot Actuator with Micrometer:
+### 2. Your project already contains SpringBoot Actuator with Micrometer:
 
 ```xml
 
@@ -149,7 +149,7 @@ hofund:
       time: @git.build.time@
 ```
 
-3. Now you can start your application and verify exposed prometheus metric, it should include (example for postgres
+### 3. Now you can start your application and verify exposed prometheus metric, it should include (example for postgres
    datasource):
 
 ```text
@@ -164,7 +164,7 @@ hofund_connection{id="cart-cart_database",source="cart",target="cart_database",t
 hofund_git_info{branch="master",build_host="DESKTOP-AAAAA",build_time="2023-02-19T11:22:34+0100",commit_id="0d32d0f",dirty="true",} 1.0
 ```
 
-4. Metrics description
+### 4. Metrics description
 
    - `hofund_info` - used to detect if application is running and what version is used. Application name and id
      in the metric is always lowercase to make easier creation of connection graph.
@@ -177,11 +177,10 @@ hofund_git_info{branch="master",build_host="DESKTOP-AAAAA",build_time="2023-02-1
      dirtiness(dirty - uncommitted changes), build machine name and time, branch. This information is useful
      for sandbox environments, where everything is changing really fast.
 
-
-5. Currently supported spring datasource's for auto-detection and providing `hofund_connection`:
+### 5. Currently supported spring datasource's for auto-detection and providing `hofund_connection`:
     - PostgreSQL
     - Oracle
 
-## Contribution
+# Contribution
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/logchange/hofund)
