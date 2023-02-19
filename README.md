@@ -25,15 +25,14 @@ It also served as a key to activate the switch that opens the Bifrost Bridge.
 
 # Compatibility
 
-|  Version  |     SpringBoot Version      |
-|:---------:|:---------------------------:|
-| **0.X.0** | **2.2.0** (including 3.0.0) |
-| **1.X.0** |        **3.0.0**            |
+|  Version  |           SpringBoot Version            |
+|:---------:|:---------------------------------------:|
+| **0.X.0** | from **2.2.0** (including 3.0.0 and up) |
 
 # Requirements
 
-You can check following requiremnts by running `mvn dependency:tree`, but if you are using `spring-boot` in version at
-least `2.2.0` everthing should be alright.
+You can check following requirements by running `mvn dependency:tree`, but if you are using `spring-boot` in version at
+least `2.2.0` everything should be alright.
 
 Your project has to contain:
 

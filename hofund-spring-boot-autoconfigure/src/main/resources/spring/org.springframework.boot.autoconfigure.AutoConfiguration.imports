@@ -1,0 +1,4 @@
+dev.logchange.hofund.info.springboot.autoconfigure.HofundInfoAutoConfiguration
+dev.logchange.hofund.git.springboot.autoconfigure.HofundGitInfoAutoConfiguration
+dev.logchange.hofund.connection.springboot.autoconfigure.HofundConnectionAutoConfiguration
+dev.logchange.hofund.graph.springboot.autoconfigure.HofundGraphAutoConfiguration
