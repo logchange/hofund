@@ -105,6 +105,16 @@ And your application has the following configuration:
 management.endpoints.web.exposure.include=prometheus
 ```
 
+or
+
+```yaml
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "prometheus"
+```
+
 To define basic information about our application in hofund metric we need some configuration.
 For maven project add to your `application.properties` following entries, but you can define it as you wish:
 
@@ -118,6 +128,25 @@ hofund.git-info.dirty=@git.dirty@
 hofund.git-info.branch=@git.branch@
 hofund.git-info.build.host=@git.build.host@
 hofund.git-info.build.time=@git.build.time@
+```
+
+or
+
+```yaml
+hofund:
+  info:
+    application:
+      name: @project.name@
+      version: @project.version@
+  git-info:
+    commit:
+      id: @git.commit.id@
+      id-abbrev: @git.commit.id.abbrev@
+    dirty: @git.dirty@
+    branch: @git.branch@
+    build:
+      host: @git.build.host@
+      time: @git.build.time@
 ```
 
 3. Now you can start your application and verify exposed prometheus metric, it should include (example for postgres
