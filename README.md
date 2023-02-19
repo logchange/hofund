@@ -65,6 +65,7 @@ Your project has to contain:
        <plugins>
           ...
           <plugin>
+             <!-- For multi-module projects this plugin should be in module which produce final package (.jar/.war/.ear)  -->
              <groupId>pl.project13.maven</groupId>
              <artifactId>git-commit-id-plugin</artifactId>
              <version>4.9.10</version> <!-- for java 11 you can use 5.0.0 (https://github.com/git-commit-id/git-commit-id-maven-plugin#relocation-of-the-project) -->
