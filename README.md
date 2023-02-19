@@ -82,7 +82,7 @@ Your project has to contain:
 </project>
 ```
 
-### 2. Your project already contains SpringBoot Actuator with Micrometer:
+### 2. Check if your project already contains SpringBoot Actuator with Micrometer or add it:
 
 ```xml
 
@@ -99,7 +99,7 @@ Your project has to contain:
 </dependencies>
 ```
 
-And your application has the following configuration:
+And your application should have the following configuration:
 
 ```properties
 management.endpoints.web.exposure.include=prometheus
@@ -149,8 +149,7 @@ hofund:
       time: @git.build.time@
 ```
 
-### 3. Now you can start your application and verify exposed prometheus metric, it should include (example for postgres
-   datasource):
+### 3. Now you can start your application and verify exposed prometheus metric:
 
 ```text
 # HELP hofund_info Basic information about application
