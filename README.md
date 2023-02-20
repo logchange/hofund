@@ -14,8 +14,14 @@
   <img src="https://github.com/logchange/hofund/raw/master/hofund.gif" />
 </div>
 
-- [pronunciation in Old Norse](https://forvo.com/word/h%C7%ABfu%C3%B0/) also you can pronunce it as`ho` `fund`
-- is a tool set to monitor applications, connections and discover current state of components of the system
+# Introduction
+
+Hofund is a tool set to monitor applications, connections and discover current state of components of the system.
+Exposed metric are gathered by prometheus and provides information about system health.
+
+## Project name and pronunciation
+
+[pronunciation in Old Norse](https://forvo.com/word/h%C7%ABfu%C3%B0/) also you can pronunce it as`ho` `fund`
 
 ```
 Hǫfuð ("man-head," Norwegian hoved, Danish hoved, Swedish huvud and Icelandic höfuð) 
@@ -28,13 +34,13 @@ by Heimdall and, during his exile, Skurge.
 It also served as a key to activate the switch that opens the Bifrost Bridge.
 ```
 
-# Compatibility
+## Compatibility
 
 |  Version  |           SpringBoot Version            |
 |:---------:|:---------------------------------------:|
 | **0.X.0** | from **2.2.0** (including 3.0.0 and up) |
 
-# Requirements
+## Requirements
 
 You can check following requirements by running `mvn dependency:tree`, but if you are using `spring-boot` in version at
 least `2.2.0` everything should be alright.
@@ -168,22 +174,84 @@ hofund_connection{id="cart-cart_database",source="cart",target="cart_database",t
 hofund_git_info{branch="master",build_host="DESKTOP-AAAAA",build_time="2023-02-19T11:22:34+0100",commit_id="0d32d0f",dirty="true",} 1.0
 ```
 
-### 4. Metrics description
+### 4. Testing connections
 
-   - `hofund_info` - used to detect if application is running and what version is used. Application name and id
-     in the metric is always lowercase to make easier creation of connection graph.
+You can define your own `HofundConnectionsProvider` but if you want to test HTTP connection the easiest way
+is to extend `AbstractHofundBasicHttpConnection`. If your project is based on spring you can extend it like below:
 
-   - `hofund_connection` - used to examine connection status to given services such as databases, rest apis etc.
-     Source is a name of the current application (lowercase) and target is a name of service that we want to connect
-     to joint with target type(also lowercase). Id is created by joining this two properties.
+```java
 
-   - `hofund_git_info` - used to inform about build and git-based information such as: commit id(short),
-     dirtiness(dirty - uncommitted changes), build machine name and time, branch. This information is useful
-     for sandbox environments, where everything is changing really fast.
+package dev.logchange.hofund.testapp.stats.health;
 
-### 5. Currently supported spring datasource's for auto-detection and providing `hofund_connection`:
+import dev.logchange.hofund.connection.AbstractHofundBasicHttpConnection;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+@Component
+public class PaymentsHealthCheck extends AbstractHofundBasicHttpConnection {
+
+
+    @Value("${hofund.connection.payment.target:payment}")
+    private String target;
+
+    @Value("${hofund.connection.payment.url:http://host.docker.internal:18083/}")
+    private String basicUrl;
+
+    @Value("${hofund.connection.payment.url.suffix:actuator/health}")
+    private String urlSuffix;
+
+    @Override
+    protected String getTarget() {
+        return target;
+    }
+
+    @Override
+    protected String getUrl() {
+        return basicUrl + urlSuffix;
+    }
+
+}
+
+```
+
+Extending `AbstractHofundBasicHttpConnection` is really simple, you only have to overrider `getTarget()`
+and `getUrl()` methods. The example above allows you to change values through spring application properties.
+
+### 5. Metrics description
+
+- `hofund_info` - used to detect if application is running and what version is used. Application name and id
+  in the metric is always lowercase to make easier creation of connection graph.
+
+- `hofund_connection` - used to examine connection status to given services such as databases, rest apis etc.
+  Source is a name of the current application (lowercase) and target is a name of service that we want to connect
+  to joint with target type(also lowercase). Id is created by joining this two properties.
+
+- `hofund_git_info` - used to inform about build and git-based information such as: commit id(short),
+  dirtiness(dirty - uncommitted changes), build machine name and time, branch. This information is useful
+  for sandbox environments, where everything is changing really fast.
+
+### 6. Currently supported spring datasource's for auto-detection and providing `hofund_connection`:
+
     - PostgreSQL
     - Oracle
+
+# Grafana Dashboards
+
+## [hofund-node-graph.json](https://github.com/logchange/hofund/raw/master/grafana-dashboards/hofund-node-graph.json)
+
+Import [hofund-node-graph.json](https://github.com/logchange/hofund/raw/master/grafana-dashboards/hofund-node-graph.json)
+
+<div align="center">
+  <img src="https://github.com/logchange/hofund/raw/master/hofund.gif" />
+</div>
+
+### Explanation
+
+**Node Colors:**
+
+- ** $\textcolor{green}{\text{green}}$** - node is working correctly
+- ** $\textcolor{red}{\text{red}}$** - node is down, does not respond
+- ** $\textcolor{blue}{\text{blue}}$** - node is not tracked by hofund, it can be external service or database.
 
 # Contribution
 
