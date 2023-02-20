@@ -249,9 +249,9 @@ Import [hofund-node-graph.json](https://github.com/logchange/hofund/raw/master/g
 
 **Node colors:**
 
-- ** $\textcolor{green}{\text{green}}$** - node is working correctly
-- ** $\textcolor{red}{\text{red}}$** - node is down, does not respond
-- ** $\textcolor{blue}{\text{blue}}$** - node is not tracked by hofund, it can be external service or database.
+- **$\textcolor{green}{\text{green}}$** - node is working correctly
+- **$\textcolor{red}{\text{red}}$** - node is down, does not respond
+- **$\textcolor{blue}{\text{blue}}$** - node is not tracked by hofund, it can be external service or database.
 
 **Node values (inside):**
 
