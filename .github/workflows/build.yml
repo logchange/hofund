@@ -19,8 +19,15 @@ jobs:
         with:
           java-version: 1.8
 
+      - name: a
+        run: mvn org.apache.maven.plugins:maven-dependency-plugin:2.1:get -DrepoUrl=https://download.java.net/maven/2/ -D artifact=org.springframework.boot:spring-boot-autoconfigure:2.2.0.RELEASE
+
+      - name: a2
+        run: mvn org.apache.maven.plugins:maven-dependency-plugin:2.1:get -DrepoUrl=https://download.java.net/maven/2/ -D artifact=org.springframework.boot:spring-boot-configuration-processor:2.2.0.RELEASE
+
       - name: Build with Maven
         run: mvn --batch-mode package -DskipTests
+
   test:
     runs-on: ubuntu-latest
     steps:
