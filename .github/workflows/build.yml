@@ -33,3 +33,6 @@ jobs:
 
       - name: Test and Integration Test with Maven
         run: mvn --batch-mode verify
+
+      - name: Verify javadocs
+        run: javadoc:javadoc
