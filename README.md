@@ -247,11 +247,26 @@ Import [hofund-node-graph.json](https://github.com/logchange/hofund/raw/master/g
 
 ### Explanation
 
-**Node Colors:**
+**Node colors:**
 
 - ** $\textcolor{green}{\text{green}}$** - node is working correctly
 - ** $\textcolor{red}{\text{red}}$** - node is down, does not respond
 - ** $\textcolor{blue}{\text{blue}}$** - node is not tracked by hofund, it can be external service or database.
+
+**Node values (inside):**
+
+- **Upper value**: 0 or 1 - 0 node is down and 1 node is up.
+- **Lower value**: from 0 to 1 - % of node is up during week.
+
+**Node title (under node):**
+
+- **title:** name of the node.
+- **subtitle:** version (for monitored nodes) and type for external nodes.
+
+**Edge values (when hovered):**
+
+- **Upper value**: 0 or 1 - 0 connection is down and 1 connection is ok.
+- **Lower value**: from 0 to 1 - % of connection is ok during week.
 
 # Contribution
 
