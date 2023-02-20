@@ -9,6 +9,11 @@
         <img src="https://img.shields.io/maven-central/v/dev.logchange.hofund/hofund-spring-boot-starter.svg?label=Maven%20Central" /></a>
 </p>
 
+
+<div align="center">
+  <img src="https://github.com/logchange/hofund/raw/master/hofund.gif" />
+</div>
+
 - [pronunciation in Old Norse](https://forvo.com/word/h%C7%ABfu%C3%B0/) also you can pronunce it as`ho` `fund`
 - is a tool set to monitor applications, connections and discover current state of components of the system
 
