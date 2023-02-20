@@ -1,15 +1,14 @@
 package dev.logchange.hofund.graph.edge;
 
 import dev.logchange.hofund.connection.HofundConnection;
+import dev.logchange.hofund.connection.HofundConnectionMeter;
 import dev.logchange.hofund.connection.HofundConnectionsProvider;
 import dev.logchange.hofund.info.HofundInfoProvider;
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.MeterRegistry;
-import io.micrometer.core.instrument.Tag;
 import io.micrometer.core.instrument.binder.MeterBinder;
 
 import java.util.Collection;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
@@ -41,20 +40,9 @@ public class HofundEdgeMeter implements MeterBinder {
         connections.forEach(connection -> {
             Gauge.builder(NAME, atomicInteger, AtomicInteger::doubleValue)
                     .description(DESCRIPTION)
-                    .tags(tags(connection))
+                    .tags(HofundConnectionMeter.tags(infoProvider, connection))
                     .register(meterRegistry);
         });
 
-    }
-
-    private List<Tag> tags(HofundConnection connection) {
-        List<Tag> tags = new LinkedList<>();
-
-        tags.add(Tag.of("id", infoProvider.getApplicationName() + "-" + connection.getTarget() + "_" + connection.getType()));
-        tags.add(Tag.of("source", infoProvider.getApplicationName()));
-        tags.add(Tag.of("target", connection.getTarget() + "_" + connection.getType()));
-        tags.add(Tag.of("type", connection.getType().toString()));
-
-        return tags;
     }
 }

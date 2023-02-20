@@ -1,8 +1,10 @@
 package dev.logchange.hofund.connection.springboot.autoconfigure;
 
+import dev.logchange.hofund.connection.AbstractHofundBasicHttpConnection;
 import dev.logchange.hofund.connection.HofundConnectionMeter;
 import dev.logchange.hofund.connection.HofundConnectionsProvider;
 import dev.logchange.hofund.connection.spring.datasource.DataSourceConnectionsProvider;
+import dev.logchange.hofund.connection.spring.http.HofundBasicHttpConnectionProvider;
 import dev.logchange.hofund.info.HofundInfoProvider;
 import dev.logchange.hofund.info.springboot.autoconfigure.HofundInfoAutoConfiguration;
 import io.micrometer.prometheus.PrometheusMeterRegistry;
@@ -36,5 +38,12 @@ public class HofundConnectionAutoConfiguration {
     @ConditionalOnMissingBean
     public DataSourceConnectionsProvider dataSourceConnectionsProvider(List<DataSource> dataSources) {
         return new DataSourceConnectionsProvider(dataSources);
+    }
+
+
+    @Bean
+    @ConditionalOnMissingBean
+    public HofundBasicHttpConnectionProvider httpBasicConnectionProvider(List<AbstractHofundBasicHttpConnection> hofundBasicHttpConnections) {
+        return new HofundBasicHttpConnectionProvider(hofundBasicHttpConnections);
     }
 }

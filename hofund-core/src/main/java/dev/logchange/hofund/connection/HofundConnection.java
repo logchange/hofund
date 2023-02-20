@@ -12,6 +12,7 @@ public class HofundConnection {
      * Name of the resource that application connects to f.e. cart-db, fcm, products-app
      */
     private final String target;
+    private final String url;
     private final Type type;
     private final AtomicReference<StatusFunction> fun;
 

@@ -2,6 +2,7 @@ package dev.logchange.hofund.graph.node;
 
 import dev.logchange.hofund.connection.HofundConnection;
 import dev.logchange.hofund.connection.HofundConnectionsProvider;
+import dev.logchange.hofund.connection.Type;
 import dev.logchange.hofund.info.HofundInfoProvider;
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.MeterRegistry;
@@ -65,7 +66,11 @@ public class HofundNodeMeter implements MeterBinder {
     private List<Tag> tagsForConnection(HofundConnection connection) {
         List<Tag> tags = new LinkedList<>();
 
-        tags.add(Tag.of("id", connection.getTarget() + "_" + connection.getType()));
+        if (connection.getType() == Type.DATABASE) {
+            tags.add(Tag.of("id", connection.getTarget() + "_" + connection.getType()));
+        } else {
+            tags.add(Tag.of("id", connection.getTarget()));
+        }
         tags.add(Tag.of("title", connection.getTarget() + "_" + connection.getType()));
         tags.add(Tag.of("subtitle", connection.getType().toString()));
         tags.add(Tag.of("type", connection.getType().toString()));

@@ -27,25 +27,29 @@ public class HofundConnectionMeter implements MeterBinder {
                 .collect(Collectors.toList());
     }
 
+    public static List<Tag> tags(HofundInfoProvider infoProvider, HofundConnection connection) {
+        List<Tag> tags = new LinkedList<>();
+        tags.add(Tag.of("id", infoProvider.getApplicationName() + "-" + connection.getTarget() + "_" + connection.getType()));
+        tags.add(Tag.of("source", infoProvider.getApplicationName()));
+
+        if (connection.getType() == Type.DATABASE) {
+            tags.add(Tag.of("target", connection.getTarget() + "_" + connection.getType()));
+        } else {
+            tags.add(Tag.of("target", connection.getTarget()));
+        }
+
+        tags.add(Tag.of("type", connection.getType().toString()));
+
+        return tags;
+    }
+
     @Override
     public void bindTo(MeterRegistry meterRegistry) {
         connections.forEach(connection -> {
             Gauge.builder(NAME, connection, con -> con.getFun().get().getStatus().getValue())
                     .description(DESCRIPTION)
-                    .tags(tags(connection))
+                    .tags(tags(infoProvider, connection))
                     .register(meterRegistry);
         });
-    }
-
-    private List<Tag> tags(HofundConnection connection) {
-        List<Tag> tags = new LinkedList<>();
-        tags.add(Tag.of("id", infoProvider.getApplicationName() + "-" + connection.getTarget() + "_" + connection.getType()));
-
-        tags.add(Tag.of("source", infoProvider.getApplicationName()));
-        tags.add(Tag.of("target", connection.getTarget() + "_" + connection.getType()));
-
-        tags.add(Tag.of("type", connection.getType().toString()));
-
-        return tags;
     }
 }

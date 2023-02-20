@@ -2,7 +2,8 @@ package dev.logchange.hofund.connection;
 
 public enum Type {
     DATABASE("database"),
-    RESTAPI("restapi");
+    HTTP("http"),
+    FTP("ftp");
 
 
     private final String name;

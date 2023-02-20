@@ -28,7 +28,8 @@ public class DataSourceConnectionFactory {
                     log.warn("Currently there is no support for DataSource: " + productName + " please create issue at: https://github.com/logchange/hofund");
                     return null;
             }
-        } catch (SQLException sqlException) {
+        } catch (SQLException e) {
+            log.warn("Error creating HofundConnection", e);
             return null;
         }
     }

@@ -1,28 +1,27 @@
-package dev.logchange.hofund.connection.spring.datasource;
+package dev.logchange.hofund.connection.spring.http;
 
+import dev.logchange.hofund.connection.AbstractHofundBasicHttpConnection;
 import dev.logchange.hofund.connection.HofundConnection;
 import dev.logchange.hofund.connection.HofundConnectionsProvider;
 import lombok.RequiredArgsConstructor;
 
-import javax.sql.DataSource;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
-public class DataSourceConnectionsProvider implements HofundConnectionsProvider {
+public class HofundBasicHttpConnectionProvider implements HofundConnectionsProvider {
 
-    private final List<DataSource> dataSources;
+    private final List<AbstractHofundBasicHttpConnection> connections;
 
     @Override
     public List<HofundConnection> getConnections() {
-        if (dataSources == null) {
+        if (connections == null) {
             return Collections.emptyList();
         }
-
-        return dataSources.stream()
-                .map(DataSourceConnectionFactory::of)
+        return connections.stream()
+                .map(AbstractHofundBasicHttpConnection::toHofundConnection)
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
     }
