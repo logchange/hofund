@@ -1,0 +1,6 @@
+title: Added your custom connection by extending `AbstractHofundBasicHttpConnection` see README for more details.
+authors:
+  - name: Peter Zmilczak
+    nick: marwin1991
+    url: https://github.com/marwin1991
+type: added #[added/changed/deprecated/removed/fixed/security/other]

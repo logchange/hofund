@@ -19,12 +19,14 @@ public abstract class AbstractHofundBasicHttpConnection {
      * hofund.info.application.name property (check target directory, because if
      * you are using @project.name@ it will be evaluated to real name)
      * <p>
-     * TLDR: Use value from <name></name> tag from pom.xml file from project you connect to but lower cased.
+     * TLDR: Use value from name tag from pom.xml file from project you connect to but lower cased.
+     *
+     * @return Name of the target
      */
     protected abstract String getTarget();
 
     /**
-     * Url to test http connection
+     * @return Url to test http connection
      */
     protected abstract String getUrl();
 
