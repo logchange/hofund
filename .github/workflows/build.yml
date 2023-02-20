@@ -35,4 +35,4 @@ jobs:
         run: mvn --batch-mode verify
 
       - name: Verify javadocs
-        run: javadoc:javadoc
+        run: mvn --batch-mode javadoc:javadoc
