@@ -38,6 +38,16 @@ public abstract class AbstractHofundBasicHttpConnection {
         return 1000;
     }
 
+    /**
+     * If your connection can be disabled f.e. by parameter or should be
+     * active between 9am to 5pm you can override this method and implement it as you wish.
+     *
+     * @return checking status - informs if connection check is active
+     */
+    protected CheckingStatus getCheckingStatus() {
+        return CheckingStatus.ACTIVE;
+    }
+
     protected URL getURL() {
         try {
             return new URL(getUrl());
@@ -66,6 +76,11 @@ public abstract class AbstractHofundBasicHttpConnection {
             try {
                 log.debug("Testing http connection to: " + getTarget() + " url: " + getUrl());
 
+                if (getCheckingStatus() == CheckingStatus.INACTIVE) {
+                    log.debug("Skipping checking connection due to inactive status checking");
+                    return Status.INACTIVE;
+                }
+
                 HttpURLConnection urlConn = (HttpURLConnection) getURL().openConnection();
                 urlConn.setConnectTimeout(getConnectTimeout());
                 urlConn.setReadTimeout(getReadTimeout());
@@ -87,5 +102,4 @@ public abstract class AbstractHofundBasicHttpConnection {
             }
         };
     }
-
 }

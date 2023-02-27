@@ -1,0 +1,6 @@
+title: Added inactive connections, in metric `hofund_connection` as `-1.0` value. You can take advantage of this feature by overriding `getCheckingStatus` method in `AbstractHofundBasicHttpConnection`
+authors:
+  - name: Peter Zmilczak
+    nick: marwin1991
+    url: https://github.com/marwin1991
+type: added #[added/changed/deprecated/removed/fixed/security/other]

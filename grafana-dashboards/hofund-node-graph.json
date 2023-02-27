@@ -87,7 +87,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "    (sum by (id, source, target, type) (0 * sum_over_time(hofund_edge[1w])))\r\n  * on (id) group_left (mainstat)\r\n    (\r\n      count_values without () (\r\n        \"mainstat\",\r\n        sum by (id) (sum by (id) (sum without () (hofund_connection) or (0 * sum_over_time(hofund_connection[1d]))))\r\n      )\r\n    )\r\n* on (id) group_left (secondarystat)\r\n  (\r\n    count_values without () (\r\n      \"secondarystat\",\r\n      round(\r\n        avg_over_time((sum without () (hofund_connection) or (0 * sum_over_time(hofund_connection[1d])))[1d:5m]),\r\n        0.001\r\n      )\r\n    )\r\n  )",
+          "expr": "    (sum by (id, source, target, type) (0 * sum_over_time(hofund_edge[1w])))\r\n  * on (id) group_left (mainstat)\r\n    (\r\n      count_values without () (\r\n        \"mainstat\",\r\n        sum by (id) (sum by (id) (sum without () (hofund_connection) or (0 * sum_over_time(hofund_connection[1d]))))\r\n      )\r\n    )\r\n* on (id) group_left (secondarystat)\r\n  (\r\n    count_values without () (\r\n      \"secondarystat\",\r\n      round(\r\n        avg_over_time(((sum without () (hofund_connection) or (0 * sum_over_time(hofund_connection[1d]))) >= 0)[1d:5m]),\r\n        0.001\r\n      )\r\n    )\r\n  )",
           "format": "table",
           "hide": false,
           "instant": true,
