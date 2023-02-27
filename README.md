@@ -224,7 +224,10 @@ and `getUrl()` methods. The example above allows you to change values through sp
 
 - `hofund_connection` - used to examine connection status to given services such as databases, rest apis etc.
   Source is a name of the current application (lowercase) and target is a name of service that we want to connect
-  to joint with target type(also lowercase). Id is created by joining this two properties.
+  to joint with target type(also lowercase). Id is created by joining this two properties. Values:
+  - **1** - Connection is okay (UP)
+  - **0** - Connection is broken (DOWN)
+  - **-1** - Connection is not tested (INACTIVE)
 
 - `hofund_git_info` - used to inform about build and git-based information such as: commit id(short),
   dirtiness(dirty - uncommitted changes), build machine name and time, branch. This information is useful
@@ -265,8 +268,8 @@ Import [hofund-node-graph.json](https://github.com/logchange/hofund/raw/master/g
 
 **Edge values (when hovered):**
 
-- **Upper value**: 0 or 1 - 0 connection is down and 1 connection is ok.
-- **Lower value**: from 0 to 1 - % of connection is ok during week.
+- **Upper value**: -1 or 0 or 1 - 0 connection is down and 1 connection is ok, -1 connection is inactive
+- **Lower value**: from 0 to 1 - % of connection is ok during week (without time when connection is inactive)
 
 # Contribution
 
