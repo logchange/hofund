@@ -77,7 +77,7 @@ public abstract class AbstractHofundBasicHttpConnection {
                 log.debug("Testing http connection to: " + getTarget() + " url: " + getUrl());
 
                 if (getCheckingStatus() == CheckingStatus.INACTIVE) {
-                    log.debug("Skipping checking connection due to inactive status checking");
+                    log.debug("Skipping checking connection to: " + getTarget() + " due to inactive status checking");
                     return Status.INACTIVE;
                 }
 
