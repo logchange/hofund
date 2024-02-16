@@ -6,6 +6,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import javax.sql.DataSource;
 import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
 
@@ -18,8 +19,8 @@ class PostgreSQLConnectionTest {
     @Mock
     private DatabaseMetaData databaseMetaData;
 
-    @InjectMocks
-    private PostgreSQLConnection sut;
+    @Mock
+    private DataSource dataSource;
 
     @Test
     void givenConnectionUrl_whenGetTarget_databaseNameReturned() throws SQLException {
@@ -28,7 +29,7 @@ class PostgreSQLConnectionTest {
         when(databaseMetaData.getURL()).thenReturn(url);
 
         //when:
-        String result = sut.getTarget();
+        String result = new PostgreSQLConnection(databaseMetaData, dataSource).getTarget();
 
         //then:
         assertThat(result).isEqualTo("cart");
@@ -41,7 +42,7 @@ class PostgreSQLConnectionTest {
         when(databaseMetaData.getURL()).thenReturn(url);
 
         //when:
-        String result = sut.getTarget();
+        String result = new PostgreSQLConnection(databaseMetaData, dataSource).getTarget();
 
         //then:
         assertThat(result).isEqualTo("cart");
