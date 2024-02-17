@@ -20,7 +20,7 @@ public class HofundJavaInfoE2ETest {
     private int port;
 
     @Test
-    void shouldContainHofundJavaInfo() {
+    void shouldContainsHofundJavaInfo() {
         //given:
         String path = "http://localhost:" + port + "/actuator/prometheus";
 
