@@ -20,6 +20,8 @@ public class HofundGitInfoAutoConfiguration {
 
     private final HofundGitInfoProperties properties;
 
+    private final HofundDefaultGitInfoProperties defaultProperties;
+
     @Bean
     @ConditionalOnMissingBean
     public HofundGitInfoMeter hofundGitInfoMeter(HofundGitInfoProvider infoProvider) {
@@ -33,30 +35,41 @@ public class HofundGitInfoAutoConfiguration {
         return new HofundGitInfoProvider() {
             @Override
             public String getCommitId() {
-                return properties.getCommit().getIdAbbrev();
+                return defaultIfEmpty(properties.getCommit().getIdAbbrev(), defaultProperties.getCommitIdAbbrev());
             }
 
             @Override
             public String dirty() {
-                return properties.getDirty();
+                return defaultIfEmpty(properties.getDirty(), defaultProperties.getDirty());
             }
 
             @Override
             public String getBranch() {
-                return properties.getBranch();
+                return defaultIfEmpty(properties.getBranch(), defaultProperties.getBranch());
             }
 
             @Override
             public String getBuildHost() {
-                return properties.getBuild().getHost();
+                return defaultIfEmpty(properties.getBuild().getHost(), defaultProperties.getBuildHost());
             }
 
             @Override
             public String getBuildTime() {
-                return properties.getBuild().getTime();
+                return defaultIfEmpty(properties.getBuild().getTime(), defaultProperties.getBuildTime());
             }
         };
     }
 
+    public static String defaultIfEmpty(String val, String defaultVal) {
+        if (isEmpty(val)) {
+            return defaultVal;
+        }
+
+        return val;
+    }
+
+    public static boolean isEmpty(String val) {
+        return val == null || val.trim().isEmpty();
+    }
 
 }

@@ -13,8 +13,10 @@
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
+        <start-class>dev.logchange.hofund.HofundE2E</start-class>
 
         <spring-boot-for-e2e.version>3.2.2</spring-boot-for-e2e.version>
+        <git-commit-id-maven-plugin.version>7.0.0</git-commit-id-maven-plugin.version>
     </properties>
 
 
@@ -66,6 +68,33 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${spring-boot-for-e2e.version}</version>
+
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal> <!-- https://stackoverflow.com/a/54867850/10346383 -->
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>io.github.git-commit-id</groupId>
+                <artifactId>git-commit-id-maven-plugin</artifactId>
+                <version>${git-commit-id-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>get-the-git-infos</id>
+                        <goals>
+                            <goal>revision</goal>
+                        </goals>
+                        <phase>initialize</phase>
+                    </execution>
+                </executions>
+                <configuration>
+                    <generateGitPropertiesFile>true</generateGitPropertiesFile>
+                    <failOnNoGitDirectory>false</failOnNoGitDirectory>
+                    <injectAllReactorProjects>true</injectAllReactorProjects>
+                </configuration>
             </plugin>
         </plugins>
     </build>

@@ -1,0 +1,10 @@
+title: Simplified configuration of metric `hofund_git_info` by reading values from `git.properties` file instead of defining `hofund.git-info`. You can still use this to define custom values for this metric.
+authors:
+  - name: Peter Zmilczak
+    nick: marwin1991
+    url: https://github.com/marwin1991
+type: changed #[added/changed/deprecated/removed/fixed/security/other]
+issues:
+  - 24
+merge_requests:
+  - 25
