@@ -9,6 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 
+import static dev.logchange.hofund.StringUtils.emptyIfNull;
+
 @Slf4j
 @AutoConfigureObservability
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -24,17 +26,17 @@ public class HofundJavaInfoE2ETest {
         //given:
         String path = "http://localhost:" + port + "/actuator/prometheus";
 
-        String jvmName = System.getProperty("java.vm.name");
-        String jvmVendor = System.getProperty("java.vm.vendor");
-        String jvmVersion = System.getProperty("java.vm.version");
+        String jvmName = emptyIfNull(System.getProperty("java.vm.name"));
+        String jvmVendor = emptyIfNull(System.getProperty("java.vm.vendor"));
+        String jvmVersion = emptyIfNull(System.getProperty("java.vm.version"));
 
-        String runtimeName = System.getProperty("java.runtime.name");
-        String runtimeVersion = System.getProperty("java.runtime.version");
+        String runtimeName = emptyIfNull(System.getProperty("java.runtime.name"));
+        String runtimeVersion = emptyIfNull(System.getProperty("java.runtime.version"));
 
-        String vendor = System.getProperty("java.vendor");
-        String vendorVersion = System.getProperty("java.vendor.version");
+        String vendor = emptyIfNull(System.getProperty("java.vendor"));
+        String vendorVersion = emptyIfNull(System.getProperty("java.vendor.version"));
 
-        String javaVersion = System.getProperty("java.version");
+        String javaVersion = emptyIfNull(System.getProperty("java.version"));
 
         String expected =
                 "# HELP hofund_java_info Basic information about java that is running this application\n" +
