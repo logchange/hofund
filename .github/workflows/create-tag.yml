@@ -56,7 +56,7 @@ jobs:
           skip-perform: true
           git-skip-sanity-check: true
         env:
-          JAVA_HOME: /usr/lib/jvm/java-1.8-openjdk/
+          JAVA_HOME: /usr/lib/jvm/java-21-openjdk/
 
       - name: pull-request
         uses: repo-sync/pull-request@v2
