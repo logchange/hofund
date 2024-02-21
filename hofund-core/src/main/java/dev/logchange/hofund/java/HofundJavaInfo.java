@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+import static dev.logchange.hofund.StringUtils.emptyIfNull;
+
 @Getter
 @Builder(access = AccessLevel.PRIVATE)
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
@@ -27,9 +29,6 @@ public class HofundJavaInfo {
     }
 
 
-
-
-    @Getter
     public static class JavaVendorInfo {
 
         private final String name;
@@ -40,9 +39,17 @@ public class HofundJavaInfo {
             this.name = System.getProperty("java.vendor");
             this.version = System.getProperty("java.vendor.version");
         }
+
+        public String getName() {
+            return emptyIfNull(name);
+        }
+
+        public String getVersion() {
+            return emptyIfNull(version);
+        }
     }
 
-    @Getter
+
     public static class JavaRuntimeEnvironmentInfo {
 
         private final String name;
@@ -53,9 +60,16 @@ public class HofundJavaInfo {
             this.name = System.getProperty("java.runtime.name");
             this.version = System.getProperty("java.runtime.version");
         }
+
+        public String getName() {
+            return emptyIfNull(name);
+        }
+
+        public String getVersion() {
+            return emptyIfNull(version);
+        }
     }
 
-    @Getter
     public static class JavaVirtualMachineInfo {
 
         private final String name;
@@ -68,6 +82,18 @@ public class HofundJavaInfo {
             this.name = System.getProperty("java.vm.name");
             this.vendor = System.getProperty("java.vm.vendor");
             this.version = System.getProperty("java.vm.version");
+        }
+
+        public String getName() {
+            return emptyIfNull(name);
+        }
+
+        public String getVendor() {
+            return emptyIfNull(vendor);
+        }
+
+        public String getVersion() {
+            return emptyIfNull(version);
         }
     }
 
