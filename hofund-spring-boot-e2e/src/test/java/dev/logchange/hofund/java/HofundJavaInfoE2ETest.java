@@ -53,7 +53,7 @@ public class HofundJavaInfoE2ETest {
         String response = template.getForObject(path, String.class);
 
         //then:
-        log.info("Expecting: \n{}", expected);
+        log.info("Expecting: \n{}\nResponse: \n{}", expected, response);
         Assertions.assertTrue(response.contains(expected));
     }
 }

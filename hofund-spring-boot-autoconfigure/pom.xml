@@ -24,6 +24,22 @@
         </dependency>
 
         <dependency>
+            <groupId>dev.logchange.hofund</groupId>
+            <artifactId>hofund-spring</artifactId>
+            <version>${project.version}</version>
+            <optional>true</optional> <!-- Optional, because it's defined in -starter module -->
+        </dependency>
+
+        <!-- https://www.baeldung.com/maven-optional-dependency#what-is-ltoptionalgt -->
+
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-core</artifactId>
+            <version>${tomcat-embed-core.version}</version>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
             <version>${spring-boot.version}</version>
@@ -37,12 +53,6 @@
             <optional>true</optional>
         </dependency>
 
-        <dependency>
-            <groupId>dev.logchange.hofund</groupId>
-            <artifactId>hofund-spring</artifactId>
-            <version>${project.version}</version>
-            <optional>true</optional>
-        </dependency>
     </dependencies>
 
 </project>
