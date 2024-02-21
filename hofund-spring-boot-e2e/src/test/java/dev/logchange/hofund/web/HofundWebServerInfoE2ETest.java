@@ -1,7 +1,8 @@
-package dev.logchange.hofund.os;
+package dev.logchange.hofund.web;
 
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.catalina.util.ServerInfo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.actuate.observability.AutoConfigureObservability;
@@ -12,7 +13,7 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 @Slf4j
 @AutoConfigureObservability
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class HofundOsInfoE2ETest {
+public class HofundWebServerInfoE2ETest {
 
     private final TestRestTemplate template = new TestRestTemplate();
 
@@ -24,16 +25,12 @@ public class HofundOsInfoE2ETest {
         //given:
         String path = "http://localhost:" + port + "/actuator/prometheus";
 
-        String name = System.getProperty("os.name");
-        String version = System.getProperty("os.version");
-        String arch = System.getProperty("os.arch");
+        String version = ServerInfo.getServerNumber();
 
         String expected =
-                "# HELP hofund_os_info Basic information about operating system that is running this application\n" +
-                "# TYPE hofund_os_info gauge\n" +
-                "hofund_os_info{arch=\"{arch}\",name=\"{name}\",version=\"{version}\",} 1.0"
-                .replace("{arch}", arch)
-                .replace("{name}", name)
+                "# HELP hofund_web_server_info Basic information about web server that is running this application\n" +
+                "# TYPE hofund_web_server_info gauge\n" +
+                "hofund_web_server_info{name=\"Apache Tomcat\",version=\"{version}\",} 1.0"
                 .replace("{version}", version);
 
         //when:

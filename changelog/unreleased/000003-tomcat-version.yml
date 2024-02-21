@@ -1,0 +1,10 @@
+title: Added new metric `hofund_web_server_info` with information about type and version of web server.
+authors:
+  - name: Peter Zmilczak
+    nick: marwin1991
+    url: https://github.com/marwin1991
+type: added #[added/changed/deprecated/removed/fixed/security/other]
+issues:
+  - 26
+merge_requests:
+  - 27

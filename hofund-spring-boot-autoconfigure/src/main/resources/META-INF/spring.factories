@@ -2,4 +2,7 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 dev.logchange.hofund.info.springboot.autoconfigure.HofundInfoAutoConfiguration,\
 dev.logchange.hofund.git.springboot.autoconfigure.HofundGitInfoAutoConfiguration,\
 dev.logchange.hofund.connection.springboot.autoconfigure.HofundConnectionAutoConfiguration,\
-dev.logchange.hofund.graph.springboot.autoconfigure.HofundGraphAutoConfiguration
+dev.logchange.hofund.graph.springboot.autoconfigure.HofundGraphAutoConfiguration,\
+dev.logchange.hofund.java.springboot.autoconfigure.HofundJavaInfoAutoConfiguration,\
+dev.logchange.hofund.os.springboot.autoconfigure.HofundOsInfoAutoConfiguration,\
+dev.logchange.hofund.web.springboot.autoconfigure.HofundWebServerInfoAutoConfiguration
