@@ -31,7 +31,7 @@ public class HofundOsInfoE2ETest {
         String expected =
                 "# HELP hofund_os_info Basic information about operating system that is running this application\n" +
                 "# TYPE hofund_os_info gauge\n" +
-                "hofund_os_info{arch=\"{arch}\",name=\"{name}\",version=\"{version}\",} 1.0"
+                "hofund_os_info{arch=\"{arch}\",name=\"{name}\",version=\"{version}\"} 1"
                 .replace("{arch}", arch)
                 .replace("{name}", name)
                 .replace("{version}", version);

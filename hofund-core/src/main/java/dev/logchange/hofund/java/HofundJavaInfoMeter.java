@@ -14,7 +14,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class HofundJavaInfoMeter implements MeterBinder {
 
-    private static final String NAME = "hofund_java_info";
+    private static final String NAME = "hofund.java.info";
     private static final String DESCRIPTION = "Basic information about java that is running this application";
 
     private final HofundJavaInfo info;

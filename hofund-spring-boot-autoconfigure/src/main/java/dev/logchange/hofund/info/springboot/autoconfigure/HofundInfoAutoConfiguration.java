@@ -2,9 +2,8 @@ package dev.logchange.hofund.info.springboot.autoconfigure;
 
 import dev.logchange.hofund.info.HofundInfoMeter;
 import dev.logchange.hofund.info.HofundInfoProvider;
-import io.micrometer.prometheus.PrometheusMeterRegistry;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.ConditionalOnEnabledMetricsExport;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -12,9 +11,7 @@ import org.springframework.context.annotation.Configuration;
 
 @RequiredArgsConstructor
 @Configuration(proxyBeanMethods = false)
-//available since spring boot 2.4.0
-//@ConditionalOnEnabledMetricsExport(value="prometheus")
-@ConditionalOnClass(PrometheusMeterRegistry.class)
+@ConditionalOnEnabledMetricsExport(value="prometheus")
 @EnableConfigurationProperties(HofundInfoProperties.class)
 public class HofundInfoAutoConfiguration {
 

@@ -36,9 +36,10 @@ It also served as a key to activate the switch that opens the Bifrost Bridge.
 
 ## Compatibility
 
-|  Version  |           SpringBoot Version            |
-|:---------:|:---------------------------------------:|
-| **0.X.0** | from **2.2.0** (including 3.0.0 and up) |
+|        Version         |     SpringBoot Version      |
+|:----------------------:|:---------------------------:|
+|       **1.1.X**        |       from **3.3.0**        |
+| **1.0.X (deprecated)** | from **2.2.0** to **3.2.X** |
 
 ## Requirements
 

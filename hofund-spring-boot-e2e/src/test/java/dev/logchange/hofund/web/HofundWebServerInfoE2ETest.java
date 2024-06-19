@@ -28,9 +28,9 @@ public class HofundWebServerInfoE2ETest {
         String version = ServerInfo.getServerNumber();
 
         String expected =
-                "# HELP hofund_web_server_info Basic information about web server that is running this application\n" +
-                "# TYPE hofund_web_server_info gauge\n" +
-                "hofund_web_server_info{name=\"Apache Tomcat\",version=\"{version}\",} 1.0"
+                "# HELP hofund_webserver_info Basic information about web server that is running this application\n" +
+                "# TYPE hofund_webserver_info gauge\n" +
+                "hofund_webserver_info{name=\"Apache Tomcat\",version=\"{version}\"} 1"
                 .replace("{version}", version);
 
         //when:

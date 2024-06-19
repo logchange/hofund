@@ -14,7 +14,7 @@
         <maven.compiler.target>21</maven.compiler.target>
         <start-class>dev.logchange.hofund.HofundE2E</start-class>
 
-        <spring-boot-for-e2e.version>3.2.2</spring-boot-for-e2e.version>
+        <spring-boot-for-e2e.version>3.3.0</spring-boot-for-e2e.version>
         <git-commit-id-maven-plugin.version>7.0.0</git-commit-id-maven-plugin.version>
     </properties>
 

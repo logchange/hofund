@@ -34,7 +34,7 @@ public class HofundGitInfoE2ETest {
         String expected =
                 "# HELP hofund_git_info Basic information about application based on git\n" +
                 "# TYPE hofund_git_info gauge\n" +
-                "hofund_git_info{branch=\"feature-1-for-test-e2e\",build_host=\"someHostForTest\",build_time=\"14:12:13T11-11-2023\",commit_id=\"someAbbrevIdForE2eTest\",dirty=\"true\",} 1.0";
+                "hofund_git_info{branch=\"feature-1-for-test-e2e\",build_host=\"someHostForTest\",build_time=\"14:12:13T11-11-2023\",commit_id=\"someAbbrevIdForE2eTest\",dirty=\"true\"} 1";
 
         //when:
         String response = template.getForObject(path, String.class);

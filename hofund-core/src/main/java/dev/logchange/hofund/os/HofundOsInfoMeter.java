@@ -1,6 +1,5 @@
 package dev.logchange.hofund.os;
 
-import dev.logchange.hofund.git.HofundGitInfoProvider;
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Tag;
@@ -12,7 +11,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class HofundOsInfoMeter implements MeterBinder {
 
-    private static final String NAME = "hofund_os_info";
+    private static final String NAME = "hofund.os.info";
     private static final String DESCRIPTION = "Basic information about operating system that is running this application";
 
     private final HofundOsInfo info;
