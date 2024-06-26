@@ -1,0 +1,8 @@
+title: Fixed problem with missing missing url setting when building 'HofundConnection' from 'AbstractHofundBasicHttpConnection' and added missing 'micrometer-registry-prometheus-simpleclient' dependency.
+authors:
+  - name: Mateusz Piekarczyk
+    nick: Athi
+    url: https://github.com/Athi
+type: fixed #[added/changed/deprecated/removed/fixed/security/other]
+merge_requests:
+  - 34
