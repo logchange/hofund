@@ -53,6 +53,16 @@
             <optional>true</optional>
         </dependency>
 
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <!-- usunąć -simpleclient jak hofund oraz softnet-parameters-publisher zostanie dostosowany do SpringBoot 3.3 i micrometer-registry-prometheus 1.13.0-->
+            <!-- https://github.com/micrometer-metrics/micrometer/wiki/1.13-Migration-Guide -->
+            <!-- https://github.com/logchange/hofund/issues/32 -->
+            <!-- https://gitlab.corp.softnet.com.pl/softnet/p31/softnet-parameters-publisher/-/issues/2 -->
+            <artifactId>micrometer-registry-prometheus-simpleclient</artifactId>
+            <version>${micrometer-registry-prometheus.version}</version>
+            <optional>true</optional>
+        </dependency>
     </dependencies>
 
 </project>
