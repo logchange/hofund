@@ -62,6 +62,7 @@ public abstract class AbstractHofundBasicHttpConnection {
             return HofundConnection.builder()
                     .target(getTarget())
                     .type(Type.HTTP)
+                    .url(getUrl())
                     .fun(new AtomicReference<>(testConnection()))
                     .build();
         } catch (Exception e) {
