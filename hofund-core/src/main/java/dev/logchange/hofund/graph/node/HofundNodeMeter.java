@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
  */
 public class HofundNodeMeter implements MeterBinder {
 
-    private static final String NAME = "hofund_node";
+    private static final String NAME = "hofund.node";
     private static final String DESCRIPTION = "Information about hofund nodes, value is always 1.0, to check status use hofund_info";
 
     private final HofundInfoProvider infoProvider;

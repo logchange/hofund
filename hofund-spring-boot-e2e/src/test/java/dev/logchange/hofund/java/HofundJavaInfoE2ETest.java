@@ -41,7 +41,7 @@ public class HofundJavaInfoE2ETest {
         String expected =
                 "# HELP hofund_java_info Basic information about java that is running this application\n" +
                 "# TYPE hofund_java_info gauge\n" +
-                "hofund_java_info{jvm_name=\"{jvmName}\",jvm_vendor=\"{jvmVendor}\",jvm_version=\"{jvmVersion}\",runtime_name=\"{runtimeName}\",runtime_version=\"{runtimeVersion}\",vendor_name=\"{vendor}\",vendor_version=\"{vendorVersion}\",version=\"{javaVersion}\",} 1.0"
+                "hofund_java_info{jvm_name=\"{jvmName}\",jvm_vendor=\"{jvmVendor}\",jvm_version=\"{jvmVersion}\",runtime_name=\"{runtimeName}\",runtime_version=\"{runtimeVersion}\",vendor_name=\"{vendor}\",vendor_version=\"{vendorVersion}\",version=\"{javaVersion}\"} 1"
                 .replace("{jvmName}", jvmName)
                 .replace("{jvmVendor}", jvmVendor)
                 .replace("{jvmVersion}", jvmVersion)

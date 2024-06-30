@@ -31,7 +31,7 @@ public class HofundInfoE2ETest {
 
         String expected = "# HELP hofund_info Basic information about application\n" +
                 "# TYPE hofund_info gauge\n" +
-                "hofund_info{application_name=\"testapp\",application_version=\"1.2.3\",id=\"testapp\",} 1.0";
+                "hofund_info{application_name=\"testapp\",application_version=\"1.2.3\",id=\"testapp\"} 1";
 
         //when:
         String response = template.getForObject(path, String.class);

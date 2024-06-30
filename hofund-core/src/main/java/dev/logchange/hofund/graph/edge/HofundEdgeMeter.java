@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  */
 public class HofundEdgeMeter implements MeterBinder {
 
-    private static final String NAME = "hofund_edge";
+    private static final String NAME = "hofund.edge";
     private static final String DESCRIPTION = "Information about hofund edge, value is always 1.0, to check status use hofund_connection";
 
     private final HofundInfoProvider infoProvider;

@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 public class HofundConnectionMeter implements MeterBinder {
 
-    private static final String NAME = "hofund_connection";
+    private static final String NAME = "hofund.connection";
     private static final String DESCRIPTION = "Current status of given connection";
 
     private final HofundInfoProvider infoProvider;

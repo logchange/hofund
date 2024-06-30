@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class HofundWebServerInfoMeter implements MeterBinder {
 
-    private static final String NAME = "hofund_web_server_info";
+    private static final String NAME = "hofund.webserver.info";
     private static final String DESCRIPTION = "Basic information about web server that is running this application";
 
     private final HofundWebServerInfo info;

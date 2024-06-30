@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class HofundGitInfoMeter implements MeterBinder {
 
-    private static final String NAME = "hofund_git_info";
+    private static final String NAME = "hofund.git.info";
     private static final String DESCRIPTION = "Basic information about application based on git";
 
     private final HofundGitInfoProvider provider;
