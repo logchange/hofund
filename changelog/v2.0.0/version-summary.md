@@ -7,11 +7,11 @@
 <!-- !!! ⚠️ DO NOT MODIFY THIS FILE, YOUR CHANGES WILL BE LOST ⚠️ !!! -->
 
 
-[1.0.2] - 2024-06-26
+[2.0.0] - 2024-06-30
 --------------------
 
-### Fixed (1 change)
+### Changed (1 change)
 
-- Fixed problem with missing missing url setting when building 'HofundConnection' from 'AbstractHofundBasicHttpConnection' and added missing 'micrometer-registry-prometheus-simpleclient' dependency. !34 ([Mateusz Piekarczyk](https://github.com/Athi) @Athi)
+- Adjust project for Spring Boot 3.3 and Java 17. Hofund-Core still is based on Java 8. !33 ([Peter Zmilczak](https://github.com/marwin1991) @marwin1991)
 
 
