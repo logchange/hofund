@@ -4,7 +4,7 @@
 
     <groupId>dev.logchange.hofund</groupId>
     <artifactId>hofund</artifactId>
-    <version>1.1.0-SNAPSHOT</version>
+    <version>2.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>hofund</name>
@@ -61,16 +61,7 @@
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <lombok.version>1.18.32</lombok.version>
-
-        <!-- Provided, project with spring has to have spring, so we should not create jar hell with other spring version -->
-        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot/2.2.0.RELEASE -->
-        <spring-boot.version>[3.3.0,)</spring-boot.version>
-        <micrometer-io.version>[1.13.0,)</micrometer-io.version>
-        <spring-framework.version>[6.1.8,)</spring-framework.version>
-        <tomcat-embed-core.version>[10.1.24,)</tomcat-embed-core.version>
-        <micrometer-registry-prometheus.version>[1.13.0,)</micrometer-registry-prometheus.version>
-        <slf4j.version>[2.0.13,)</slf4j.version>
+        <spring-boot.version>3.3.1</spring-boot.version>
 
         <!-- TESTS -->
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
@@ -79,11 +70,22 @@
         <assertj.version>3.23.1</assertj.version>
     </properties>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -121,12 +123,6 @@
             </plugins>
         </pluginManagement>
         <plugins>
-            <plugin>
-                <groupId>dev.logchange</groupId>
-                <artifactId>logchange-maven-plugin</artifactId>
-                <version>0.6.1</version>
-                <inherited>false</inherited> <!-- For multi module project -->
-            </plugin>
             <plugin>
                 <artifactId>maven-release-plugin</artifactId>
                 <configuration>

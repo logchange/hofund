@@ -74,10 +74,10 @@ public abstract class AbstractHofundBasicHttpConnection {
     private StatusFunction testConnection() {
         return () -> {
             try {
-                log.debug("Testing http connection to: " + getTarget() + " url: " + getUrl());
+                log.debug("Testing http connection to: {} url: {}", getTarget(), getUrl());
 
                 if (getCheckingStatus() == CheckingStatus.INACTIVE) {
-                    log.debug("Skipping checking connection to: " + getTarget() + " due to inactive status checking");
+                    log.debug("Skipping checking connection to: {} due to inactive status checking", getTarget());
                     return Status.INACTIVE;
                 }
 
@@ -87,16 +87,16 @@ public abstract class AbstractHofundBasicHttpConnection {
 
                 urlConn.connect();
                 int responseCode = urlConn.getResponseCode();
-                log.debug("Connection to url: " + getUrl() + " status code: " + responseCode);
+                log.debug("Connection to url: {} status code: {}", getUrl(), responseCode);
 
                 if (responseCode >= 100 && responseCode < 400) {
                     return Status.UP;
                 } else {
-                    log.warn("Error testing connection to: " + getUrl() + " finished with status code: " + responseCode);
+                    log.warn("Error testing connection to: {} finished with status code: {}", getUrl(), responseCode);
                     return Status.DOWN;
                 }
             } catch (IOException e) {
-                log.warn("Error testing connection to: " + getUrl() + " msg: " + e.getMessage());
+                log.warn("Error testing connection to: {} msg: {}", getUrl(), e.getMessage());
                 log.debug("Exception: ", e);
                 return Status.DOWN;
             }

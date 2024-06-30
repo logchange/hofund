@@ -17,7 +17,7 @@ public class HofundWebServerInfo {
     private final String version;
 
     public static HofundWebServerInfo create(String name, String version) {
-        log.info("Server name: " + name + " version: " + version);
+        log.info("Server name: {} version: {}", name, version);
 
         return HofundWebServerInfo.builder()
                 .name(name)
