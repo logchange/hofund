@@ -20,7 +20,6 @@
             <artifactId>hofund-spring-boot-autoconfigure</artifactId>
             <version>${project.version}</version>
         </dependency>
-
         <dependency>
             <groupId>dev.logchange.hofund</groupId>
             <artifactId>hofund-spring</artifactId>
