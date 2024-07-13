@@ -38,6 +38,10 @@ public abstract class AbstractHofundBasicHttpConnection {
         return 1000;
     }
 
+    protected RequestMethod getRequestMethod() {
+        return RequestMethod.GET;
+    }
+
     /**
      * If your connection can be disabled f.e. by parameter or should be
      * active between 9am to 5pm you can override this method and implement it as you wish.
@@ -85,6 +89,7 @@ public abstract class AbstractHofundBasicHttpConnection {
                 HttpURLConnection urlConn = (HttpURLConnection) getURL().openConnection();
                 urlConn.setConnectTimeout(getConnectTimeout());
                 urlConn.setReadTimeout(getReadTimeout());
+                urlConn.setRequestMethod(getRequestMethod().getName());
 
                 urlConn.connect();
                 int responseCode = urlConn.getResponseCode();

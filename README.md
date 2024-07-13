@@ -185,7 +185,31 @@ hofund_git_info{branch="master",build_host="DESKTOP-AAAAA",build_time="2023-02-1
 ### 4. Testing connections
 
 You can define your own `HofundConnectionsProvider` but if you want to test HTTP connection the easiest way
-is to extend `AbstractHofundBasicHttpConnection`. If your project is based on spring you can extend it like below:
+is to configure `SimpleHofundHttpConnection` or extend `AbstractHofundBasicHttpConnection`. If your project is based on spring you can extend it like below:
+
+```java
+package dev.logchange.hofund.testapp.stats.health;
+import dev.logchange.hofund.connection.SimpleHofundHttpConnection;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Bean;
+
+@Configuration
+public class SimpleHofundHttpConnectionConfiguration {
+    
+    @Bean 
+    public SimpleHofundHttpConnection paymentApiSimpleHofundHttpConnection(){
+        return new SimpleHofundHttpConnection("payment-api", "http://host.docker.internal:18083/actuator/health/info");
+    }
+
+    @Bean
+    public SimpleHofundHttpConnection cartApiSimpleHofundHttpConnection(){
+        return new SimpleHofundHttpConnection("car-api", "http://host.docker.internal:18084/actuator/health/info");
+    }
+}
+
+
+```
 
 ```java
 
@@ -205,7 +229,7 @@ public class PaymentsHealthCheck extends AbstractHofundBasicHttpConnection {
     @Value("${hofund.connection.payment.url:http://host.docker.internal:18083/}")
     private String basicUrl;
 
-    @Value("${hofund.connection.payment.url.suffix:actuator/health}")
+    @Value("${hofund.connection.payment.url.suffix:actuator/health/info}")
     private String urlSuffix;
 
     @Override
@@ -224,6 +248,10 @@ public class PaymentsHealthCheck extends AbstractHofundBasicHttpConnection {
 
 Extending `AbstractHofundBasicHttpConnection` is really simple, you only have to overrider `getTarget()`
 and `getUrl()` methods. The example above allows you to change values through spring application properties.
+
+If you want to use f.e `POST` method, you can use `new SimpleHofundHttpConnection("abc", "some_url", RequestMethod.POST)` or override `getRquestMethod()`.
+
+If you don't want to test connection in some conditions, you can use `new SimpleHofundHttpConnection("abc", "some_url", CheckingStatus.INACTIVE)` or override `getCheckingStatus()`.
 
 ### 5. Metrics description
 
