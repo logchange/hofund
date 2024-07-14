@@ -274,6 +274,37 @@ If you don't want to test connection in some conditions, you can use `new Simple
     - PostgreSQL
     - Oracle
 
+### 7. Connection Tabel
+
+This simple functionality allows to print connections status in logger during booting up!
+
+```txt
++----------+--------------+----------+----------------------------------------------+
+| TYPE     | NAME         | STATUS   | URL                                          |
++----------+--------------+----------+----------------------------------------------+
+| DATABASE | mydb         | UP       | jdbc:postgresql://localhost:5432/mydb        |
+| DATABASE | mydb2        | UP       | jdbc:mysql://localhost:3306/mydb2            |
+| DATABASE | orcl         | DOWN     | jdbc:oracle:thin:@localhost:1521:orcl        |
+| HTTP     | external-api | UP       | https://api.external-service.com             |
+| HTTP     | internal-api | UP       | https://api.internal-service.local           |
+| HTTP     | public-API   | INACTIVE | https://api.public-service.com               |
++----------+--------------+----------+----------------------------------------------+
+```
+
+You can achieve this by creating simple class:
+
+```java
+@Slf4j
+@Component
+public class PrintHofundConnectionsTabel {
+
+    @Autowired
+    public PrintHofundConnectionsTabel(HofundConnectionsTable connectionsTable) {
+        log.info(connectionsTable.print());
+    }
+}
+```
+
 # Grafana Dashboards
 
 ## [hofund-node-graph.json](https://github.com/logchange/hofund/raw/master/grafana-dashboards/hofund-node-graph.json)
