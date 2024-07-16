@@ -1,0 +1,8 @@
+title: Added request headers and ability to define it during testing connection using  `AbstractHofundBasicHttpConnection`
+authors:
+  - name: Peter Zmilczak
+    nick: marwin1991
+    url: https://github.com/marwin1991
+type: added #[added/changed/deprecated/removed/fixed/security/other]
+merge_requests:
+  - 45

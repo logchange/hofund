@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 @Slf4j
@@ -40,6 +42,10 @@ public abstract class AbstractHofundBasicHttpConnection {
 
     protected RequestMethod getRequestMethod() {
         return RequestMethod.GET;
+    }
+
+    protected List<RequestHeader> getRequestHeaders() {
+        return Collections.emptyList();
     }
 
     /**
@@ -91,6 +97,8 @@ public abstract class AbstractHofundBasicHttpConnection {
                 urlConn.setReadTimeout(getReadTimeout());
                 urlConn.setRequestMethod(getRequestMethod().getName());
 
+                setRequestHeaders(urlConn);
+
                 urlConn.connect();
                 int responseCode = urlConn.getResponseCode();
                 log.debug("Connection to url: {} status code: {}", getUrl(), responseCode);
@@ -107,5 +115,17 @@ public abstract class AbstractHofundBasicHttpConnection {
                 return Status.DOWN;
             }
         };
+    }
+
+    private void setRequestHeaders(HttpURLConnection urlConn) {
+        List<RequestHeader> requestHeaders = getRequestHeaders();
+
+        if (requestHeaders == null || requestHeaders.isEmpty()) {
+            return;
+        }
+
+        for (RequestHeader header : requestHeaders) {
+            urlConn.setRequestProperty(header.getName(), header.getValue());
+        }
     }
 }
