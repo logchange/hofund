@@ -2,7 +2,6 @@ package dev.logchange.hofund.connection.spring.datasource.postgresql;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -26,26 +25,36 @@ class PostgreSQLConnectionTest {
     void givenConnectionUrl_whenGetTarget_databaseNameReturned() throws SQLException {
         //given:
         String url = "spring.datasource.url=jdbc:postgresql://localhost:5432/cart";
+        String productName = "PostgreSQL";
         when(databaseMetaData.getURL()).thenReturn(url);
+        when(databaseMetaData.getDatabaseProductName()).thenReturn(productName);
 
         //when:
-        String result = new PostgreSQLConnection(databaseMetaData, dataSource).getTarget();
+        PostgreSQLConnection postgreSQLConnection = new PostgreSQLConnection(databaseMetaData, dataSource);
+        String resultTarget = postgreSQLConnection.getTarget();
+        String resultVendor = postgreSQLConnection.getDbVendor();
 
         //then:
-        assertThat(result).isEqualTo("cart");
+        assertThat(resultTarget).isEqualTo("cart");
+        assertThat(resultVendor).isEqualTo(productName);
     }
 
     @Test
     void givenConnectionUrlWithEncoding_whenGetTarget_databaseNameReturned() throws SQLException {
         //given:
         String url = "spring.datasource.url=jdbc:postgresql://localhost:5432/cart?encoding=UTF-8";
+        String productName = "PostgreSQL";
         when(databaseMetaData.getURL()).thenReturn(url);
+        when(databaseMetaData.getDatabaseProductName()).thenReturn(productName);
 
         //when:
-        String result = new PostgreSQLConnection(databaseMetaData, dataSource).getTarget();
+        PostgreSQLConnection postgreSQLConnection = new PostgreSQLConnection(databaseMetaData, dataSource);
+        String resultTarget = postgreSQLConnection.getTarget();
+        String resultVendor = postgreSQLConnection.getDbVendor();
 
         //then:
-        assertThat(result).isEqualTo("cart");
+        assertThat(resultTarget).isEqualTo("cart");
+        assertThat(resultVendor).isEqualTo(productName);
     }
 
 }
