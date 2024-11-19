@@ -7,6 +7,15 @@
 <!-- !!! ⚠️ DO NOT MODIFY THIS FILE, YOUR CHANGES WILL BE LOST ⚠️ !!! -->
 
 
+[2.3.0] - 2024-11-19
+--------------------
+
+### Added (2 changes)
+
+- Added vendor information about db connection !50 #3 ([Mateusz Witkowski](https://github.com/witx98) @witx98)
+- Added more precise OS metrics !52 #31 ([Mateusz Witkowski](https://github.com/witx98) @witx98)
+
+
 [2.2.0] - 2024-07-16
 --------------------
 
