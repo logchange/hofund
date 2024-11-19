@@ -1,0 +1,10 @@
+title: Added more precise OS metrics
+authors:
+  - name: Mateusz Witkowski
+    nick: witx98
+    url: https://github.com/witx98
+type: added #[added/changed/deprecated/removed/fixed/security/other]
+issues:
+  - 31
+merge_requests:
+  - 52
