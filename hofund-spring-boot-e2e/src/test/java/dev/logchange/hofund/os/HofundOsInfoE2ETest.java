@@ -8,6 +8,8 @@ import org.springframework.boot.test.autoconfigure.actuate.observability.AutoCon
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import oshi.SystemInfo;
+import oshi.software.os.OperatingSystem;
 
 @Slf4j
 @AutoConfigureObservability
@@ -24,16 +26,20 @@ public class HofundOsInfoE2ETest {
         //given:
         String path = "http://localhost:" + port + "/actuator/prometheus";
 
-        String name = System.getProperty("os.name");
-        String version = System.getProperty("os.version");
+        OperatingSystem os = new SystemInfo().getOperatingSystem();
+
+        String name = os.getFamily();
+        String manufacturer = os.getManufacturer();
+        String version = os.getVersionInfo().toString();
         String arch = System.getProperty("os.arch");
 
         String expected =
                 "# HELP hofund_os_info Basic information about operating system that is running this application\n" +
                 "# TYPE hofund_os_info gauge\n" +
-                "hofund_os_info{arch=\"{arch}\",name=\"{name}\",version=\"{version}\"} 1"
+                "hofund_os_info{arch=\"{arch}\",manufacturer=\"{manufacturer}\",name=\"{name}\",version=\"{version}\"} 1"
                 .replace("{arch}", arch)
                 .replace("{name}", name)
+                .replace("{manufacturer}", manufacturer)
                 .replace("{version}", version);
 
         //when:

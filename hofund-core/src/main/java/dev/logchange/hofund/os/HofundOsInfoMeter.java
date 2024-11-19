@@ -34,6 +34,7 @@ public class HofundOsInfoMeter implements MeterBinder {
         List<Tag> tags = new LinkedList<>();
 
         tags.add(Tag.of("name", info.getName()));
+        tags.add(Tag.of("manufacturer", info.getManufacturer()));
         tags.add(Tag.of("version", info.getVersion()));
         tags.add(Tag.of("arch", info.getArch()));
 
