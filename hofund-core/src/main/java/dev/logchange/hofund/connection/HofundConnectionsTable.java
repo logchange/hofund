@@ -2,9 +2,9 @@ package dev.logchange.hofund.connection;
 
 import dev.logchange.hofund.AsciiTable;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class HofundConnectionsTable {
 
@@ -13,15 +13,10 @@ public class HofundConnectionsTable {
     private final List<HofundConnection> connections;
 
     public HofundConnectionsTable(List<HofundConnectionsProvider> connectionsProviders) {
-        List<HofundConnection> connections = new ArrayList<>();
-
-        for (HofundConnectionsProvider connectionsProvider : connectionsProviders) {
-            connections.addAll(connectionsProvider.getConnections());
-        }
-
-        connections.sort((d1, d2) -> d2.getType().compareTo(d1.getType()));
-
-        this.connections = connections;
+        this.connections = connectionsProviders.stream()
+                .flatMap(t -> t.getConnections().stream())
+                .sorted((d1, d2) -> d2.getType().compareTo(d1.getType()))
+                .collect(Collectors.toList());
     }
 
     public String print() {

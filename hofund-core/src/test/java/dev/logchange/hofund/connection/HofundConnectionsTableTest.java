@@ -33,6 +33,34 @@ class HofundConnectionsTableTest {
         assertEquals(expected, result);
     }
 
+    @Test
+    void testSortByTypeWithTwoProviders() {
+        // given:
+        TastableHofundConnectionsProvider provider1 = new TastableHofundConnectionsProvider();
+        TastableHofundConnectionsProvider provider2 = new TastableHofundConnectionsProvider();
+
+        HofundConnectionsTable table = new HofundConnectionsTable(Arrays.asList(provider1, provider2));
+        String expected =
+                "+----------+---------+--------+------+\n" +
+                        "| TYPE     | NAME    | STATUS | URL  |\n" +
+                        "+----------+---------+--------+------+\n" +
+                        "| HTTP     | target1 | UP     | fake |\n" +
+                        "| HTTP     | target3 | UP     | fake |\n" +
+                        "| HTTP     | target1 | UP     | fake |\n" +
+                        "| HTTP     | target3 | UP     | fake |\n" +
+                        "| DATABASE | target2 | UP     | fake |\n" +
+                        "| DATABASE | target4 | UP     | fake |\n" +
+                        "| DATABASE | target2 | UP     | fake |\n" +
+                        "| DATABASE | target4 | UP     | fake |\n" +
+                        "+----------+---------+--------+------+\n";
+
+        // when:
+        String result = table.print();
+
+        // then:
+        assertEquals(expected, result);
+    }
+
     private static class TastableHofundConnectionsProvider implements HofundConnectionsProvider {
 
         public List<HofundConnection> getConnections() {
