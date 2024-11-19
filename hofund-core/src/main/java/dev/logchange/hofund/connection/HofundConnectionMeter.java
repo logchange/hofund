@@ -32,12 +32,13 @@ public class HofundConnectionMeter implements MeterBinder {
         tags.add(Tag.of("id", infoProvider.getApplicationName() + "-" + connection.getTarget() + "_" + connection.getType()));
         tags.add(Tag.of("source", infoProvider.getApplicationName()));
 
+        String target = connection.getTarget();
         if (connection.getType() == Type.DATABASE) {
-            tags.add(Tag.of("target", connection.getTarget() + "_" + connection.getType()));
-        } else {
-            tags.add(Tag.of("target", connection.getTarget()));
+            target += "_" + connection.getType();
+            tags.add(Tag.of("db_vendor", ((HofundDatabaseConnection) connection).getDbVendor()));
         }
 
+        tags.add(Tag.of("target", target));
         tags.add(Tag.of("type", connection.getType().toString()));
 
         return tags;

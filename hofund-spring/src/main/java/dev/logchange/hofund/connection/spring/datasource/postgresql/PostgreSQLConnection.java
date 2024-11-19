@@ -15,6 +15,7 @@ public class PostgreSQLConnection extends DatasourceConnection {
 
     private String target;
     private String url;
+    private String dbVendor;
 
     public PostgreSQLConnection(DatabaseMetaData metaData, DataSource dataSource) {
         super(dataSource, TEST_QUERY);
@@ -26,10 +27,12 @@ public class PostgreSQLConnection extends DatasourceConnection {
                 to = url.lastIndexOf("?");
             }
             this.target = url.substring(slashIndex + 1, to).toLowerCase(Locale.ROOT);
+            this.dbVendor = metaData.getDatabaseProductName();
         } catch (SQLException e) {
             log.warn("Error getting db information", e);
             this.target = "ERROR";
             this.url = "ERROR";
+            this.dbVendor = "ERROR";
         }
     }
 
@@ -43,4 +46,8 @@ public class PostgreSQLConnection extends DatasourceConnection {
         return url;
     }
 
+    @Override
+    protected String getDbVendor() {
+        return dbVendor;
+    }
 }
