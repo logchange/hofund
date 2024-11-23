@@ -21,14 +21,9 @@ public class H2Connection extends DatasourceConnection {
         super(dataSource, TEST_QUERY);
         try {
             this.url = metaData.getURL();
-            int slashIndex = url.lastIndexOf('/');
-            int to = url.length();
-            if (url.lastIndexOf("?") != -1) {
-                to = url.lastIndexOf("?");
-            }
-            this.target = url.substring(slashIndex + 1, to).toLowerCase(Locale.ROOT);
+            int colonIndex = url.lastIndexOf(':');
+            this.target = url.substring(colonIndex + 1).toLowerCase(Locale.ROOT);
             this.dbVendor = metaData.getDatabaseProductName();
-            log.info("H2 info: target: {}, url: {}, dbVendor: {}", target, url, dbVendor);
         } catch (SQLException e) {
             log.warn("Error getting db information", e);
             this.target = "ERROR";
