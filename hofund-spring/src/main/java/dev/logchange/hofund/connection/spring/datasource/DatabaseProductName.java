@@ -10,6 +10,7 @@ import java.util.stream.Stream;
 public enum DatabaseProductName {
     POSTGRESQL("PostgreSQL"),
     ORACLE("Oracle"),
+    H2("H2"),
     NOT_RECOGNIZED("Not recognized");
 
     private final String name;
