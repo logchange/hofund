@@ -1,6 +1,7 @@
 package dev.logchange.hofund.connection.spring.datasource;
 
 import dev.logchange.hofund.connection.HofundConnection;
+import dev.logchange.hofund.connection.spring.datasource.h2.H2Connection;
 import dev.logchange.hofund.connection.spring.datasource.oracle.OracleConnection;
 import dev.logchange.hofund.connection.spring.datasource.postgresql.PostgreSQLConnection;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +23,7 @@ public class DataSourceConnectionFactory {
             return switch (dbType) {
                 case POSTGRESQL -> new PostgreSQLConnection(metaData, dataSource).toHofundConnection();
                 case ORACLE -> new OracleConnection(metaData, dataSource).toHofundConnection();
+                case H2 -> new H2Connection(metaData, dataSource).toHofundConnection();
                 default -> {
                     log.warn("Currently there is no support for DataSource: {} please create issue at: https://github.com/logchange/hofund", productName);
                     yield null;
