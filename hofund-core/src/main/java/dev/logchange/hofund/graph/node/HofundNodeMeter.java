@@ -11,6 +11,7 @@ import io.micrometer.core.instrument.binder.MeterBinder;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
@@ -64,7 +65,12 @@ public class HofundNodeMeter implements MeterBinder {
         List<Tag> tags = new LinkedList<>();
         tags.add(Tag.of("id", connection.toTargetTag()));
         tags.add(Tag.of("title", connection.getTarget() + "_" + connection.getType()));
-        tags.add(Tag.of("subtitle", connection.getType().toString() + " (" + connection.getDescription() + ")"));
+
+        String subtitle = Objects.equals(connection.getDescription(), "") ?
+                connection.getType().toString()
+                : String.format("%s (%s)", connection.getType(), connection.getDescription());
+
+        tags.add(Tag.of("subtitle", subtitle));
         tags.add(Tag.of("type", connection.getType().toString()));
         return tags;
     }
