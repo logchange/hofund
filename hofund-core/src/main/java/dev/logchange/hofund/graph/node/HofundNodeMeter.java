@@ -67,7 +67,7 @@ public class HofundNodeMeter implements MeterBinder {
         tags.add(Tag.of("title", connection.getTarget() + "_" + connection.getType()));
 
         String subtitle = Objects.equals(connection.getDescription(), "") ?
-                connection.getTarget()
+                connection.getType().toString()
                 : String.format("%s (%s)", connection.getType(), connection.getDescription());
 
         tags.add(Tag.of("subtitle", subtitle));
