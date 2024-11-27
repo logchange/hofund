@@ -7,6 +7,18 @@
 <!-- !!! ⚠️ DO NOT MODIFY THIS FILE, YOUR CHANGES WILL BE LOST ⚠️ !!! -->
 
 
+[2.4.0] - 2024-11-27
+--------------------
+
+### Added (1 change)
+
+- Added support for H2 datasource type !56 ([Mateusz Witkowski](https://github.com/witx98) @witx98)
+
+### Fixed (1 change)
+
+- Fixed an issue with registering hofund.node, caused by inconsistent sets of tag keys across different connection types !58 !59 #57 ([Mateusz Witkowski](https://github.com/witx98) @witx98)
+
+
 [2.3.0] - 2024-11-20
 --------------------
 
