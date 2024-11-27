@@ -79,7 +79,8 @@ class HofundConnectionsTableTest {
                 target,
                 "fake",
                 type,
-                new AtomicReference<>(() -> Status.UP)
+                new AtomicReference<>(() -> Status.UP),
+                null
         );
     }
 }

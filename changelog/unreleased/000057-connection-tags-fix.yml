@@ -1,0 +1,10 @@
+title: Fixed an issue with registering hofund.node, caused by inconsistent sets of tag keys across different connection types
+authors:
+  - name: Mateusz Witkowski
+    nick: witx98
+    url: https://github.com/witx98
+type: fixed #[added/changed/deprecated/removed/fixed/security/other]
+issues:
+  - 57
+merge_requests:
+  - 58

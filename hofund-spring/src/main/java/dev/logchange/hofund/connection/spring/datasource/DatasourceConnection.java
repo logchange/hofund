@@ -1,11 +1,17 @@
 package dev.logchange.hofund.connection.spring.datasource;
 
-import dev.logchange.hofund.connection.*;
+import dev.logchange.hofund.connection.HofundConnection;
+import dev.logchange.hofund.connection.Status;
+import dev.logchange.hofund.connection.StatusFunction;
+import dev.logchange.hofund.connection.Type;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.sql.DataSource;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -17,11 +23,11 @@ public abstract class DatasourceConnection {
     protected final DataSource dataSource;
     protected final String testQuery;
 
-    public HofundDatabaseConnection toHofundConnection() {
-        return HofundDatabaseConnection.hofundDatabaseConnectionBuilder()
+    public HofundConnection toHofundConnection() {
+        return HofundConnection.builder()
                 .target(getTarget())
                 .type(Type.DATABASE)
-                .dbVendor(getDbVendor())
+                .description(getDbVendor())
                 .url(getUrl())
                 .fun(new AtomicReference<>(testConnection()))
                 .build();
