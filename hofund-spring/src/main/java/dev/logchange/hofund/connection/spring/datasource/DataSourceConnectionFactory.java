@@ -1,6 +1,6 @@
 package dev.logchange.hofund.connection.spring.datasource;
 
-import dev.logchange.hofund.connection.HofundDatabaseConnection;
+import dev.logchange.hofund.connection.HofundConnection;
 import dev.logchange.hofund.connection.spring.datasource.oracle.OracleConnection;
 import dev.logchange.hofund.connection.spring.datasource.postgresql.PostgreSQLConnection;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +13,7 @@ import java.sql.SQLException;
 @Slf4j
 public class DataSourceConnectionFactory {
 
-    public static HofundDatabaseConnection of(DataSource dataSource) {
+    public static HofundConnection of(DataSource dataSource) {
         try (Connection connection = dataSource.getConnection()) {
             DatabaseMetaData metaData = connection.getMetaData();
             String productName = metaData.getDatabaseProductName();
@@ -28,7 +28,7 @@ public class DataSourceConnectionFactory {
                 }
             };
         } catch (SQLException e) {
-            log.warn("Error creating HofundDatabaseConnection", e);
+            log.warn("Error creating datasource HofundConnection", e);
             return null;
         }
     }
