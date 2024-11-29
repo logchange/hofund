@@ -1,0 +1,10 @@
+title: Created configuration to prevent publishing of hofund-spring-boot-e2e and root module. Updated modules descriptions.
+authors:
+  - name: Mateusz Witkowski
+    nick: witx98
+    url: https://github.com/witx98
+type: fixed #[added/changed/deprecated/removed/fixed/security/other]
+issues:
+  - 61
+merge_requests:
+  - 00
