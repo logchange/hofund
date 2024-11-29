@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -9,6 +10,12 @@
     </parent>
 
     <artifactId>hofund-spring-boot-starter</artifactId>
+
+    <description>
+        A Spring Boot starter to easily integrate Hofund functionalities into Spring Boot applications. This starter
+        includes dependencies and configurations for quick setup, while also serving as a toolset to
+        monitor applications, manage connections, and discover the current state of system components.
+    </description>
 
     <dependencies>
         <dependency>
