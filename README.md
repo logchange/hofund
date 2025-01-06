@@ -295,12 +295,14 @@ You can achieve this by creating simple class:
 
 ```java
 @Slf4j
-@Component
+@Configuration
 public class PrintHofundConnectionsTabel {
 
-    @Autowired
-    public PrintHofundConnectionsTabel(HofundConnectionsTable connectionsTable) {
-        log.info(connectionsTable.print());
+    @Bean
+    public CommandLineRunner demo(HofundConnectionsTable connectionsTable) {
+        return (args) -> {
+            log.info(connectionsTable.print());
+        };
     }
 }
 ```
