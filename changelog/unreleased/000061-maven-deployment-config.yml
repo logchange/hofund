@@ -1,4 +1,4 @@
-title: Changed maven deployment configuration to prevent publishing of hofund-spring-boot-e2e and root module. Updated modules descriptions.
+title: Changed maven deployment configuration. Updated modules descriptions.
 authors:
   - name: Mateusz Witkowski
     nick: witx98
@@ -9,3 +9,4 @@ issues:
 merge_requests:
   - 62
   - 63
+  - 64
