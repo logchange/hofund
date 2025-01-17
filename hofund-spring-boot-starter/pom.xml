@@ -48,5 +48,4 @@
             <version>${oshi-core.version}</version>
         </dependency>
     </dependencies>
-
 </project>
