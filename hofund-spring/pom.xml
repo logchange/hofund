@@ -28,5 +28,11 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.slytechs.jnet.jnetpcap</groupId>
+            <artifactId>jnetpcap-wrapper</artifactId>
+            <version>${jnetpcap.version}</version>
+        </dependency>
     </dependencies>
 </project>

@@ -56,13 +56,15 @@
     </distributionManagement>
 
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>23</maven.compiler.source>
+        <maven.compiler.target>23</maven.compiler.target>
+        <maven.compiler.proc>full</maven.compiler.proc>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <spring-boot.version>3.3.1</spring-boot.version>
+        <spring-boot.version>3.4.0</spring-boot.version>
         <oshi-core.version>6.6.5</oshi-core.version>
+        <jnetpcap.version>2.3.0</jnetpcap.version>
 
         <!-- TESTS -->
         <mockwebserver.version>4.12.0</mockwebserver.version>
