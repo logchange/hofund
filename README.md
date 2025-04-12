@@ -67,7 +67,7 @@ Your project has to contain:
        <dependency>
            <groupId>dev.logchange.hofund</groupId>
            <artifactId>hofund-spring-boot-starter</artifactId>
-           <version>1.0.0</version>
+           <version>2.4.0</version>
        </dependency>
       ...
    </dependencies>
@@ -81,7 +81,6 @@ Your project has to contain:
          <version>7.0.0</version> 
          <!-- 
          For older version of java (f.e. 8) see https://github.com/git-commit-id/git-commit-id-maven-plugin 
-         And https://github.com/logchange/hofund/tree/0.6.0?tab=readme-ov-file#1-add-to-your-pomxml 
           -->
          <executions>
            <execution>
@@ -273,6 +272,7 @@ If you don't want to test connection in some conditions, you can use `new Simple
 
     - PostgreSQL
     - Oracle
+    - H2
 
 ### 7. Connection Tabel
 

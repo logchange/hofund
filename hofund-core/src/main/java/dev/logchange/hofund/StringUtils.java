@@ -10,4 +10,11 @@ public class StringUtils {
         }
     }
 
+    public static boolean isEmpty(String description) {
+        if (description == null) {
+            return true;
+        }
+
+        return description.isEmpty();
+    }
 }
