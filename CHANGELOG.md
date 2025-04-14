@@ -7,6 +7,18 @@
 <!-- !!! ⚠️ DO NOT MODIFY THIS FILE, YOUR CHANGES WILL BE LOST ⚠️ !!! -->
 
 
+[2.5.0] - 2025-04-14
+--------------------
+
+### Changed (1 change)
+
+- Changed maven deployment configuration. Updated modules descriptions. !62 !63 !64 #61 ([Mateusz Witkowski](https://github.com/witx98) @witx98)
+
+### Fixed (1 change)
+
+- Fixed problem with graph edge, when application has two database (f.e Postgres and Oracle) with same name. !65 ([Peter Zmilczak](https://github.com/marwin1991) @marwin1991)
+
+
 [2.4.0] - 2024-11-27
 --------------------
 
@@ -115,7 +127,7 @@
 
 ### Fixed (1 change)
 
-- Spring Boot 3 compatibility !14 [source](https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-3.0.0-M5-Release-Notes#auto-configuration-registration) ([Peter Zmilczak](https://github.com/marwin1991) @marwin1991) (@jfoder [LINK](https://github.com/jfoder))
+- Spring Boot 3 compatibility !14 [source](https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-3.0.0-M5-Release-Notes#auto-configuration-registration) ([Peter Zmilczak](https://github.com/marwin1991) @marwin1991) ([LINK](https://github.com/jfoder) @jfoder)
 
 ### Configuration changes
 
