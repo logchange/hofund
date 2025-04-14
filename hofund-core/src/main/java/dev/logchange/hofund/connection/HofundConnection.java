@@ -1,6 +1,7 @@
 package dev.logchange.hofund.connection;
 
 import dev.logchange.hofund.StringUtils;
+import dev.logchange.hofund.info.HofundInfoProvider;
 import lombok.Builder;
 import lombok.Data;
 
@@ -25,5 +26,13 @@ public class HofundConnection {
 
     public String getDescription() {
         return StringUtils.emptyIfNull(description);
+    }
+
+    public String getEdgeId(HofundInfoProvider infoProvider) {
+        if (StringUtils.isEmpty(getDescription())) {
+            return infoProvider.getApplicationName() + "-" + getTarget() + "_" + getType();
+        }
+
+        return infoProvider.getApplicationName() + "-" + getTarget() + "_" + getType() + "_" + getDescription().toLowerCase();
     }
 }

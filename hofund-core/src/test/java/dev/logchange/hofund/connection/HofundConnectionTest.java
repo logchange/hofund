@@ -1,10 +1,15 @@
 package dev.logchange.hofund.connection;
 
+import dev.logchange.hofund.info.HofundInfoProvider;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
+import java.util.concurrent.atomic.AtomicReference;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class HofundConnectionTest {
 
@@ -69,5 +74,65 @@ class HofundConnectionTest {
 
         // then:
         assertEquals(expected, description);
+    }
+
+    @Test
+    void getEdgeId_shouldOmitDescription_whenDescriptionIsNull() {
+        // given
+        HofundInfoProvider provider = mock(HofundInfoProvider.class);
+        when(provider.getApplicationName()).thenReturn("app");
+
+        HofundConnection connection = HofundConnection.builder()
+                .target("products")
+                .type(Type.DATABASE)
+                .description(null)
+                .fun(new AtomicReference<>())
+                .build();
+
+        // when
+        String edgeId = connection.getEdgeId(provider);
+
+        // then
+        assertEquals("app-products_database", edgeId);
+    }
+
+    @Test
+    void getEdgeId_shouldOmitDescription_whenDescriptionIsEmpty() {
+        // given
+        HofundInfoProvider provider = mock(HofundInfoProvider.class);
+        when(provider.getApplicationName()).thenReturn("app");
+
+        HofundConnection connection = HofundConnection.builder()
+                .target("products")
+                .type(Type.DATABASE)
+                .description("")
+                .fun(new AtomicReference<>())
+                .build();
+
+        // when
+        String edgeId = connection.getEdgeId(provider);
+
+        // then
+        assertEquals("app-products_database", edgeId);
+    }
+
+    @Test
+    void getEdgeId_shouldIncludeDescription_whenDescriptionIsPresent() {
+        // given
+        HofundInfoProvider provider = mock(HofundInfoProvider.class);
+        when(provider.getApplicationName()).thenReturn("app");
+
+        HofundConnection connection = HofundConnection.builder()
+                .target("products")
+                .type(Type.DATABASE)
+                .description("Oracle")
+                .fun(new AtomicReference<>())
+                .build();
+
+        // when
+        String edgeId = connection.getEdgeId(provider);
+
+        // then
+        assertEquals("app-products_database_oracle", edgeId);
     }
 }
