@@ -47,7 +47,7 @@ public class HofundEdgeMeter implements MeterBinder {
 
     private List<Tag> tags(HofundConnection connection) {
         List<Tag> tags = new LinkedList<>();
-        tags.add(Tag.of("id", infoProvider.getApplicationName() + "-" + connection.getTarget() + "_" + connection.getType()));
+        tags.add(Tag.of("id", connection.getEdgeId(infoProvider)));
         tags.add(Tag.of("source", infoProvider.getApplicationName()));
         tags.add(Tag.of("target", connection.toTargetTag()));
         tags.add(Tag.of("type", connection.getType().toString()));
