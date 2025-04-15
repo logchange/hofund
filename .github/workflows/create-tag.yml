@@ -52,7 +52,7 @@ jobs:
           # https://github.com/orgs/community/discussions/27028
           access-token: ${{ secrets.LOGCHANGE_PAT_TOKEN }}
           release-branch-name: "release"
-          version-patch: true
+          version-minor: true
           skip-perform: true
           git-skip-sanity-check: true
         env:
