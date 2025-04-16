@@ -42,8 +42,8 @@ public abstract class DatasourceConnection {
     private StatusFunction testConnection() {
         return () -> {
             log.debug("Testing db connection to: {} url: {}", getTarget(), getUrl());
-            try (Connection connection = dataSource.getConnection()) {
-                PreparedStatement statement = connection.prepareStatement(testQuery);
+            try (Connection connection = dataSource.getConnection();
+                 PreparedStatement statement = connection.prepareStatement(testQuery)) {
                 statement.setQueryTimeout(QUERY_TIMEOUT);
                 ResultSet resultSet = statement.executeQuery();
                 if (resultSet.next() && Objects.equals(resultSet.getString(1), "1")) {
