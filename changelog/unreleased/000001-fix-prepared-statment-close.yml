@@ -1,0 +1,8 @@
+title: Change `PreparedStatement` to close after testing connection.
+authors:
+  - name: Peter Zmilczak
+    nick: marwin1991
+    url: https://github.com/marwin1991
+type: fixed #[added/changed/deprecated/removed/fixed/security/other]
+merge_requests:
+  - 69
