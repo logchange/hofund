@@ -7,11 +7,11 @@
 <!-- !!! ⚠️ DO NOT MODIFY THIS FILE, YOUR CHANGES WILL BE LOST ⚠️ !!! -->
 
 
-[2.6.0] - 2025-04-15
+[2.6.1] - 2025-04-16
 --------------------
 
 ### Fixed (1 change)
 
-- Fixed problem with graph edge, when application has two database (f.e Postgres and Oracle) with same name. !65 ([Peter Zmilczak](https://github.com/marwin1991) @marwin1991)
+- Change `PreparedStatement` to close after testing connection. !69 ([Peter Zmilczak](https://github.com/marwin1991) @marwin1991)
 
 
