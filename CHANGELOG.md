@@ -7,6 +7,18 @@
 <!-- !!! ⚠️ DO NOT MODIFY THIS FILE, YOUR CHANGES WILL BE LOST ⚠️ !!! -->
 
 
+[2.6.2] - 2025-05-06
+--------------------
+
+### Changed (1 change)
+
+- Removed dependency to `oshi-core` to fix warning `Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module`. !71 ([Peter Zmilczak](https://github.com/marwin1991) @marwin1991)
+
+### Fixed (1 change)
+
+- Fixed printing connections table when `List<HofundConnectionsProvider>` is empty list !71 ([Peter Zmilczak](https://github.com/marwin1991) @marwin1991)
+
+
 [2.6.1] - 2025-04-16
 --------------------
 
