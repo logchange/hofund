@@ -1,0 +1,8 @@
+title: Removed dependency to `oshi-core` to fix warning `Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module`.
+authors:
+  - name: Peter Zmilczak
+    nick: marwin1991
+    url: https://github.com/marwin1991
+type: changed #[added/changed/deprecated/removed/fixed/security/other]
+merge_requests:
+  - 71
