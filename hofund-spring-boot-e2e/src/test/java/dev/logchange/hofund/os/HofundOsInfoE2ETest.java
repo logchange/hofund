@@ -8,8 +8,8 @@ import org.springframework.boot.test.autoconfigure.actuate.observability.AutoCon
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
-import oshi.SystemInfo;
-import oshi.software.os.OperatingSystem;
+
+import static dev.logchange.hofund.StringUtils.emptyIfNull;
 
 @Slf4j
 @AutoConfigureObservability
@@ -26,12 +26,14 @@ public class HofundOsInfoE2ETest {
         //given:
         String path = "http://localhost:" + port + "/actuator/prometheus";
 
-        OperatingSystem os = new SystemInfo().getOperatingSystem();
+        String osName = System.getProperty("os.name");
+        String osVersion = System.getProperty("os.version");
+        String osArch = System.getProperty("os.arch");
 
-        String name = os.getFamily();
-        String manufacturer = os.getManufacturer();
-        String version = os.getVersionInfo().toString();
-        String arch = System.getProperty("os.arch");
+        String name = getOsFamily(osName);
+        String manufacturer = getManufacturer(osName);
+        String version = emptyIfNull(osVersion);
+        String arch = emptyIfNull(osArch);
 
         String expected =
                 "# HELP hofund_os_info Basic information about operating system that is running this application\n" +
@@ -48,5 +50,51 @@ public class HofundOsInfoE2ETest {
         //then:
         log.info("Expecting: \n{}\nResponse: \n{}", expected, response);
         Assertions.assertTrue(response.contains(expected));
+    }
+
+    private String getOsFamily(String osName) {
+        if (osName == null) {
+            return "";
+        }
+
+        osName = osName.toLowerCase();
+
+        if (osName.contains("windows")) {
+            return "Windows";
+        } else if (osName.contains("mac") || osName.contains("darwin")) {
+            return "macOS";
+        } else if (osName.contains("linux")) {
+            return "Linux";
+        } else if (osName.contains("unix")) {
+            return "Unix";
+        } else if (osName.contains("sun") || osName.contains("solaris")) {
+            return "Solaris";
+        } else if (osName.contains("freebsd")) {
+            return "FreeBSD";
+        } else {
+            return emptyIfNull(osName);
+        }
+    }
+
+    private String getManufacturer(String osName) {
+        if (osName == null) {
+            return "";
+        }
+
+        osName = osName.toLowerCase();
+
+        if (osName.contains("windows")) {
+            return "Microsoft";
+        } else if (osName.contains("mac") || osName.contains("darwin")) {
+            return "Apple";
+        } else if (osName.contains("linux")) {
+            return "GNU/Linux";
+        } else if (osName.contains("sun") || osName.contains("solaris")) {
+            return "Oracle";
+        } else if (osName.contains("freebsd")) {
+            return "FreeBSD Foundation";
+        } else {
+            return "Unknown";
+        }
     }
 }
