@@ -45,7 +45,7 @@ public class HofundNodeMeter implements MeterBinder {
             if (ids.contains(connection.toTargetTag())) {
                 throw new IllegalArgumentException("Connection target id must be unique! Connection target id is: " + connection.toTargetTag() + " and already defined connection target ids are: " + ids);
             }
-            ids.add(connection.getTarget());
+            ids.add(connection.toTargetTag());
         });
 
         if (ids.contains(infoProvider.getApplicationName())) {
