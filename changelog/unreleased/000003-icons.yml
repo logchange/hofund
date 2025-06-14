@@ -6,3 +6,6 @@ authors:
 type: added #[added/changed/deprecated/removed/fixed/security/other]
 merge_requests:
   - 73
+links:
+  - name: "available icons"
+    url: "https://grafana.com/docs/grafana/latest/visualizations/node-graph/#node-parameters"
