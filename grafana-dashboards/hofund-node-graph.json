@@ -1,119 +1,78 @@
 {
-  "annotations": {
-    "list": [
-      {
-        "builtIn": 1,
-        "datasource": {
-          "type": "grafana",
-          "uid": "-- Grafana --"
-        },
-        "enable": true,
-        "hide": true,
-        "iconColor": "rgba(0, 211, 255, 1)",
-        "name": "Annotations & Alerts",
-        "target": {
-          "limit": 100,
-          "matchAny": false,
-          "tags": [],
-          "type": "dashboard"
-        },
-        "type": "dashboard"
-      }
-    ]
+  "id": 2,
+  "type": "nodeGraph",
+  "title": "Panel Title",
+  "gridPos": {
+    "x": 0,
+    "y": 0,
+    "h": 28,
+    "w": 24
   },
-  "editable": true,
-  "fiscalYearStartMonth": 0,
-  "graphTooltip": 0,
-  "id": 1,
-  "links": [],
-  "liveNow": false,
-  "panels": [
+  "fieldConfig": {
+    "defaults": {},
+    "overrides": []
+  },
+  "pluginVersion": "12.0.1+security-01",
+  "targets": [
     {
       "datasource": {
         "type": "prometheus",
         "uid": "PBFA97CFB590B2093"
       },
-      "gridPos": {
-        "h": 17,
-        "w": 23,
-        "x": 0,
-        "y": 0
+      "editorMode": "code",
+      "exemplar": false,
+      "expr": "      (sum by (id, title, subtitle, type, icon) (0 * sum_over_time(hofund_node{type=\"app\"}[1w])))\r\n    * on (id) group_left (mainstat)\r\n      (\r\n        count_values without () (\r\n          \"mainstat\",\r\n          sum by (id) (sum by (id) (sum without () (hofund_info) or (0 * sum_over_time(hofund_info[1w]))))\r\n        )\r\n      )\r\n  * on (id) group_left (secondarystat)\r\n    (\r\n      count_values without () (\r\n        \"secondarystat\",\r\n        round(avg_over_time((sum without () (hofund_info) or (0 * sum_over_time(hofund_info[1w])))[1w:5m]), 0.001)\r\n      )\r\n    )\r\n      * on (id) group_left (detail__upNow)\r\n      (\r\n        count_values without () (\r\n          \"detail__upNow\",\r\n          sum by (id) (sum by (id) (sum without () (hofund_info) or (0 * sum_over_time(hofund_info[1w]))))\r\n        )\r\n      )\r\n  * on (id) group_left (detail__upOver24h)\r\n    (\r\n      count_values without () (\r\n        \"detail__upOver24h\",\r\n        round(avg_over_time((sum without () (hofund_info) or (0 * sum_over_time(hofund_info[1w])))[1d:5m]), 0.001)\r\n      )\r\n    )\r\n  * on (id) group_left (arc__up)\r\n      (\r\n        count_values without () (\r\n          \"arc__up\",\r\n          sum by (id) (sum by (id) (sum without () (hofund_info) or (0 * sum_over_time(hofund_info[1w])))) \r\n        )\r\n      )\r\n  * on (id) group_left (arc__down)\r\n      (\r\n        count_values without () (\r\n          \"arc__down\",\r\n          abs(sum by (id) (sum by (id) (sum without () (hofund_info) or (0 * sum_over_time(hofund_info[1w])))) - 1)\r\n        )\r\n      )\r\nor on (id)\r\n  (sum by (id, title, subtitle, type, icon) (0 * sum_over_time(hofund_node[1w])) * on (id, type) group_left (arc__notfound)\r\n      (\r\n        count_values without () (\r\n          \"arc__notfound\", (0 * sum_over_time(hofund_node[1w]) + 1)\r\n        )\r\n      ))",
+      "format": "table",
+      "instant": true,
+      "interval": "",
+      "legendFormat": "__auto",
+      "range": false,
+      "refId": "Nodes"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
       },
-      "id": 2,
-      "options": {
-        "edges": {
-          "mainStatUnit": "none",
-          "secondaryStatUnit": "percentunit"
-        },
-        "nodes": {
-          "arcs": [
-            {
-              "color": "#37872D",
-              "field": "arc__up"
-            },
-            {
-              "color": "#1F60C4",
-              "field": "arc__notfound"
-            },
-            {
-              "color": "#C4162A",
-              "field": "arc__down"
-            }
-          ],
-          "mainStatUnit": "none",
-          "secondaryStatUnit": "percentunit"
-        }
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "      (sum by (id, title, subtitle, type) (0 * sum_over_time(hofund_node{type=\"app\"}[1w])))\r\n    * on (id) group_left (mainstat)\r\n      (\r\n        count_values without () (\r\n          \"mainstat\",\r\n          sum by (id) (sum by (id) (sum without () (hofund_info) or (0 * sum_over_time(hofund_info[1w]))))\r\n        )\r\n      )\r\n  * on (id) group_left (secondarystat)\r\n    (\r\n      count_values without () (\r\n        \"secondarystat\",\r\n        round(avg_over_time((sum without () (hofund_info) or (0 * sum_over_time(hofund_info[1w])))[1w:5m]), 0.001)\r\n      )\r\n    )\r\n  * on (id) group_left (arc__up)\r\n      (\r\n        count_values without () (\r\n          \"arc__up\",\r\n          sum by (id) (sum by (id) (sum without () (hofund_info) or (0 * sum_over_time(hofund_info[1w])))) * 0.999999\r\n        )\r\n      )\r\n  * on (id) group_left (arc__down)\r\n      (\r\n        count_values without () (\r\n          \"arc__down\",\r\n          abs(sum by (id) (sum by (id) (sum without () (hofund_info) or (0 * sum_over_time(hofund_info[1w])))) - 1) * 0.999999\r\n        )\r\n      )\r\nor on (id)\r\n  (sum by (id, title, subtitle, type) (0 * sum_over_time(hofund_node[1w])) * on (id, type) group_left (arc__notfound)\r\n      (\r\n        count_values without () (\r\n          \"arc__notfound\", (0 * sum_over_time(hofund_node[1w]) + 1) * 0.999999\r\n        )\r\n      ))",
-          "format": "table",
-          "instant": true,
-          "interval": "",
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "Nodes"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "    (sum by (id, source, target, type) (0 * sum_over_time(hofund_edge[1w])))\r\n  * on (id) group_left (mainstat)\r\n    (\r\n      count_values without () (\r\n        \"mainstat\",\r\n        sum by (id) (sum by (id) (sum without () (hofund_connection) or (0 * sum_over_time(hofund_connection[1d]))))\r\n      )\r\n    )\r\n* on (id) group_left (secondarystat)\r\n  (\r\n    count_values without () (\r\n      \"secondarystat\",\r\n      round(\r\n        avg_over_time(((sum without () (hofund_connection) or (0 * sum_over_time(hofund_connection[1d]))))[1d:5m]),\r\n        0.001\r\n      )\r\n    )\r\n  )",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "Edges"
-        }
-      ],
-      "title": "Panel Title",
-      "type": "nodeGraph"
+      "editorMode": "code",
+      "exemplar": false,
+      "expr": "    (sum by (id, source, target, type) (0 * sum_over_time(hofund_edge[1w])))\r\n  * on (id) group_left (mainstat)\r\n    (\r\n      count_values without () (\r\n        \"mainstat\",\r\n        sum by (id) (sum by (id) (sum without () (hofund_connection) or (0 * sum_over_time(hofund_connection[1d]))))\r\n      )\r\n    )\r\n* on (id) group_left (secondarystat)\r\n  (\r\n    count_values without () (\r\n      \"secondarystat\",\r\n      round(\r\n        avg_over_time(((sum without () (hofund_connection) or (0 * sum_over_time(hofund_connection[1d]))) >= 0)[1d:5m]),\r\n        0.001\r\n      )\r\n    )\r\n  )\r\n    * on (id) group_left (detail__upNow)\r\n    (\r\n      count_values without () (\r\n        \"detail__upNow\",\r\n        sum by (id) (sum by (id) (sum without () (hofund_connection) or (0 * sum_over_time(hofund_connection[1d]))))\r\n      )\r\n    )\r\n* on (id) group_left (detail__upOver24h)\r\n  (\r\n    count_values without () (\r\n      \"detail__upOver24h\",\r\n      round(\r\n        avg_over_time(((sum without () (hofund_connection) or (0 * sum_over_time(hofund_connection[1d]))) >= 0)[1d:5m]),\r\n        0.001\r\n      )\r\n    )\r\n  )\r\n* on (id) group_left (color)\r\n  (\r\nlabel_replace(\r\n  sum by (id) (sum by (id) (sum without () (hofund_connection) or (0 * sum_over_time(hofund_connection[1d])))) >= 1,\r\n  \"color\", \r\n  \"green\", \r\n  \"\", \r\n  \".*\"\r\n)\r\n  or\r\nlabel_replace(\r\n  sum by (id) (sum by (id) (sum without () (hofund_connection) or (0 * sum_over_time(hofund_connection[1d])))) < 1,\r\n  \"color\", \r\n  \"red\", \r\n  \"\", \r\n  \".*\"\r\n)\r\n  )",
+      "format": "table",
+      "hide": false,
+      "instant": true,
+      "legendFormat": "__auto",
+      "range": false,
+      "refId": "Edges"
     }
   ],
-  "schemaVersion": 37,
-  "style": "dark",
-  "tags": [],
-  "templating": {
-    "list": []
+  "datasource": {
+    "type": "prometheus",
+    "uid": "PBFA97CFB590B2093"
   },
-  "time": {
-    "from": "now-6h",
-    "to": "now"
-  },
-  "timepicker": {},
-  "timezone": "",
-  "title": "Hofund",
-  "uid": "jF_6aHZ4z",
-  "version": 2,
-  "weekStart": ""
+  "options": {
+    "zoomMode": "cooperative",
+    "layoutAlgorithm": "layered",
+    "nodes": {
+      "arcs": [
+        {
+          "color": "#37872D",
+          "field": "arc__up"
+        },
+        {
+          "color": "#1F60C4",
+          "field": "arc__notfound"
+        },
+        {
+          "color": "#C4162A",
+          "field": "arc__down"
+        }
+      ],
+      "mainStatUnit": "none",
+      "secondaryStatUnit": "percentunit"
+    },
+    "edges": {
+      "mainStatUnit": "none",
+      "secondaryStatUnit": "percentunit"
+    }
+  }
 }

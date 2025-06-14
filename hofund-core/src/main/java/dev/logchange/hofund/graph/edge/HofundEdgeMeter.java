@@ -41,17 +41,8 @@ public class HofundEdgeMeter implements MeterBinder {
     public void bindTo(MeterRegistry meterRegistry) {
         connections.forEach(connection -> Gauge.builder(NAME, atomicInteger, AtomicInteger::doubleValue)
                 .description(DESCRIPTION)
-                .tags(tags(connection))
+                .tags(connection.getTags(infoProvider))
                 .register(meterRegistry));
-    }
-
-    private List<Tag> tags(HofundConnection connection) {
-        List<Tag> tags = new LinkedList<>();
-        tags.add(Tag.of("id", connection.getEdgeId(infoProvider)));
-        tags.add(Tag.of("source", infoProvider.getApplicationName()));
-        tags.add(Tag.of("target", connection.toTargetTag()));
-        tags.add(Tag.of("type", connection.getType().toString()));
-        return tags;
     }
 
     private void checkIdCollision() {
