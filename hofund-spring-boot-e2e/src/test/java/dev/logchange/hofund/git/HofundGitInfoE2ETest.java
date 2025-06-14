@@ -1,15 +1,15 @@
 package dev.logchange.hofund.git;
 
-
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
 import org.springframework.boot.test.autoconfigure.actuate.observability.AutoConfigureObservability;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 
-@Slf4j
+import static org.slf4j.LoggerFactory.getLogger;
+
 @AutoConfigureObservability
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, properties = {
         "hofund.git-info.commit.id=SomeIdForTest",
@@ -20,6 +20,8 @@ import org.springframework.boot.test.web.server.LocalServerPort;
         "hofund.git-info.build.time=14:12:13T11-11-2023"
 })
 public class HofundGitInfoE2ETest {
+
+    private static final Logger log = getLogger(HofundGitInfoE2ETest.class);
 
     private final TestRestTemplate template = new TestRestTemplate();
 

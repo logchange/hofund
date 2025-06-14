@@ -1,21 +1,24 @@
 package dev.logchange.hofund.info.springboot.autoconfigure;
 
+import dev.logchange.hofund.StringUtils;
 import dev.logchange.hofund.info.HofundInfoMeter;
 import dev.logchange.hofund.info.HofundInfoProvider;
-import lombok.RequiredArgsConstructor;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.ConditionalOnEnabledMetricsExport;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@RequiredArgsConstructor
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnEnabledMetricsExport(value="prometheus")
 @EnableConfigurationProperties(HofundInfoProperties.class)
 public class HofundInfoAutoConfiguration {
 
     private final HofundInfoProperties properties;
+
+    public HofundInfoAutoConfiguration(HofundInfoProperties properties) {
+        this.properties = properties;
+    }
 
     @Bean
     @ConditionalOnMissingBean
@@ -36,6 +39,28 @@ public class HofundInfoAutoConfiguration {
             @Override
             public String getApplicationVersion() {
                 return properties.getApplication().getVersion();
+            }
+
+            @Override
+            public String getApplicationType() {
+                if (StringUtils.isEmpty(properties.getApplication().getType())){
+                    return "app";
+                }
+
+                return properties.getApplication().getType();
+            }
+
+            @Override
+            public String getApplicationIcon() {
+                if (StringUtils.isEmpty(properties.getApplication().getIcon())){
+                    return "docker";
+                }
+
+                if (properties.getApplication().getIcon().equalsIgnoreCase("empty")){
+                    return "";
+                }
+
+                return properties.getApplication().getIcon();
             }
         };
     }

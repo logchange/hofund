@@ -1,15 +1,18 @@
 package dev.logchange.hofund.connection.spring.datasource.oracle;
 
 import dev.logchange.hofund.connection.spring.datasource.DatasourceConnection;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
 
 import javax.sql.DataSource;
 import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
 import java.util.Locale;
 
-@Slf4j
+import static org.slf4j.LoggerFactory.getLogger;
+
 public class OracleConnection extends DatasourceConnection {
+
+    private static final Logger log = getLogger(OracleConnection.class);
 
     private static final String TEST_QUERY = "SELECT 1 FROM DUAL";
 

@@ -1,9 +1,8 @@
 package dev.logchange.hofund.git;
 
-
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
 import org.springframework.boot.test.autoconfigure.actuate.observability.AutoConfigureObservability;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -11,10 +10,13 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 
-@Slf4j
+import static org.slf4j.LoggerFactory.getLogger;
+
 @AutoConfigureObservability
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class HofundDefaultGitInfoE2ETest {
+
+    private static final Logger log = getLogger(HofundDefaultGitInfoE2ETest.class);
 
     private final TestRestTemplate template = new TestRestTemplate();
 

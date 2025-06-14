@@ -1,15 +1,7 @@
 package dev.logchange.hofund.os;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-
 import static dev.logchange.hofund.StringUtils.emptyIfNull;
 
-@Getter
-@Builder(access = AccessLevel.PRIVATE)
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class HofundOsInfo {
 
     private final String name;
@@ -17,17 +9,23 @@ public class HofundOsInfo {
     private final String arch;
     private final String manufacturer;
 
+    private HofundOsInfo(String name, String version, String arch, String manufacturer) {
+        this.name = name;
+        this.version = version;
+        this.arch = arch;
+        this.manufacturer = manufacturer;
+    }
+
     public static HofundOsInfo get() {
         String osName = System.getProperty("os.name");
         String osVersion = System.getProperty("os.version");
         String osArch = System.getProperty("os.arch");
 
-        return HofundOsInfo.builder()
-                .name(getOsFamily(osName))
-                .version(emptyIfNull(osVersion))
-                .arch(emptyIfNull(osArch))
-                .manufacturer(getManufacturer(osName))
-                .build();
+        return new HofundOsInfo(
+                getOsFamily(osName),
+                emptyIfNull(osVersion),
+                emptyIfNull(osArch),
+                getManufacturer(osName));
     }
 
     private static String getOsFamily(String osName) {
@@ -74,5 +72,21 @@ public class HofundOsInfo {
         } else {
             return "Unknown";
         }
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public String getArch() {
+        return arch;
+    }
+
+    public String getManufacturer() {
+        return manufacturer;
     }
 }

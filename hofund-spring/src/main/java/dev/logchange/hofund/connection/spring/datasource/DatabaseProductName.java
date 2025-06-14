@@ -1,12 +1,7 @@
 package dev.logchange.hofund.connection.spring.datasource;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
 import java.util.stream.Stream;
 
-@Getter
-@AllArgsConstructor
 public enum DatabaseProductName {
     POSTGRESQL("PostgreSQL"),
     ORACLE("Oracle"),
@@ -15,10 +10,18 @@ public enum DatabaseProductName {
 
     private final String name;
 
+    DatabaseProductName(String name) {
+        this.name = name;
+    }
+
     public static DatabaseProductName of(String name) {
         return Stream.of(values())
                 .filter(v -> v.getName().equals(name))
                 .findFirst()
                 .orElse(NOT_RECOGNIZED);
+    }
+
+    public String getName() {
+        return name;
     }
 }

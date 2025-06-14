@@ -33,16 +33,16 @@ public class HofundEdgeMeter implements MeterBinder {
                 .flatMap(Collection::stream)
                 .collect(Collectors.toList());
         this.atomicInteger = new AtomicInteger(1);
+
+        checkIdCollision();
     }
 
     @Override
     public void bindTo(MeterRegistry meterRegistry) {
-
         connections.forEach(connection -> Gauge.builder(NAME, atomicInteger, AtomicInteger::doubleValue)
                 .description(DESCRIPTION)
                 .tags(tags(connection))
                 .register(meterRegistry));
-
     }
 
     private List<Tag> tags(HofundConnection connection) {
@@ -52,5 +52,17 @@ public class HofundEdgeMeter implements MeterBinder {
         tags.add(Tag.of("target", connection.toTargetTag()));
         tags.add(Tag.of("type", connection.getType().toString()));
         return tags;
+    }
+
+    private void checkIdCollision() {
+        List<String> ids = new LinkedList<>();
+
+        connections.forEach(connection -> {
+            if (ids.contains(connection.getEdgeId(infoProvider))) {
+                throw new IllegalArgumentException("Connection edge id must be unique! Connection edge id is: " + connection.getEdgeId(infoProvider) + " and already defined connection edge ids are: " + ids);
+            }
+            ids.add(connection.getEdgeId(infoProvider));
+        });
+
     }
 }

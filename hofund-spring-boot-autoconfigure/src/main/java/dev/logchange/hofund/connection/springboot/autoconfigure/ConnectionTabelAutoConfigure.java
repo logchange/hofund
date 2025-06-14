@@ -2,7 +2,6 @@ package dev.logchange.hofund.connection.springboot.autoconfigure;
 
 import dev.logchange.hofund.connection.HofundConnectionsTable;
 import dev.logchange.hofund.connection.HofundConnectionsProvider;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
@@ -10,7 +9,6 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
 
-@Slf4j
 @Configuration(proxyBeanMethods = false)
 public class ConnectionTabelAutoConfigure {
 

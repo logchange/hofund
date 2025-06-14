@@ -1,20 +1,17 @@
 package dev.logchange.hofund.git.springboot.autoconfigure;
-
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 
-@Getter
-@Setter
 @Configuration
 @PropertySource(value = "git.properties", ignoreResourceNotFound = true)
-@RequiredArgsConstructor
 public class HofundDefaultGitInfoProperties {
 
     private final Environment env;
+
+    public HofundDefaultGitInfoProperties(Environment env) {
+        this.env = env;
+    }
 
     public String getCommitId(){
         return get("git.commit.id");

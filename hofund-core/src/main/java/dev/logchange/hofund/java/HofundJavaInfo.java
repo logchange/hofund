@@ -1,15 +1,7 @@
 package dev.logchange.hofund.java;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-
 import static dev.logchange.hofund.StringUtils.emptyIfNull;
 
-@Getter
-@Builder(access = AccessLevel.PRIVATE)
-@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class HofundJavaInfo {
     private final String version;
 
@@ -19,15 +11,36 @@ public class HofundJavaInfo {
 
     private final JavaVirtualMachineInfo jvm;
 
-    public static HofundJavaInfo get() {
-        return HofundJavaInfo.builder()
-                .version(System.getProperty("java.version"))
-                .vendor(new JavaVendorInfo())
-                .runtime(new JavaRuntimeEnvironmentInfo())
-                .jvm(new JavaVirtualMachineInfo())
-                .build();
+    public HofundJavaInfo(String version, JavaVendorInfo vendor, JavaRuntimeEnvironmentInfo runtime, JavaVirtualMachineInfo jvm) {
+        this.version = version;
+        this.vendor = vendor;
+        this.runtime = runtime;
+        this.jvm = jvm;
     }
 
+    public static HofundJavaInfo get() {
+        return new HofundJavaInfo(
+                System.getProperty("java.version"),
+                new JavaVendorInfo(),
+                new JavaRuntimeEnvironmentInfo(),
+                new JavaVirtualMachineInfo());
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public JavaVendorInfo getVendor() {
+        return vendor;
+    }
+
+    public JavaRuntimeEnvironmentInfo getRuntime() {
+        return runtime;
+    }
+
+    public JavaVirtualMachineInfo getJvm() {
+        return jvm;
+    }
 
     public static class JavaVendorInfo {
 
@@ -96,6 +109,8 @@ public class HofundJavaInfo {
             return emptyIfNull(version);
         }
     }
+
+
 
 }
 

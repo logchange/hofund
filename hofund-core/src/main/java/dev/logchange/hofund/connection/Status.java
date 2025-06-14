@@ -1,11 +1,5 @@
 package dev.logchange.hofund.connection;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-
-@Getter
-@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class Status {
 
     private static final double UP_VALUE = 1.0;
@@ -19,6 +13,10 @@ public class Status {
 
     private final double value;
 
+    private Status(double value) {
+        this.value = value;
+    }
+
     public String getName() {
         if (value == UP_VALUE) {
             return "UP";
@@ -31,4 +29,7 @@ public class Status {
         }
     }
 
+    public double getValue() {
+        return value;
+    }
 }

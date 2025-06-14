@@ -1,10 +1,5 @@
 package dev.logchange.hofund.connection;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-
-@Getter
-@RequiredArgsConstructor
 public enum RequestMethod {
 
     GET("GET"),
@@ -17,4 +12,13 @@ public enum RequestMethod {
     TRACE("TRACE");
 
     private final String name;
+
+
+    RequestMethod(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
 }

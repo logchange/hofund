@@ -7,7 +7,6 @@ import dev.logchange.hofund.connection.spring.datasource.DataSourceConnectionsPr
 import dev.logchange.hofund.connection.spring.http.HofundBasicHttpConnectionProvider;
 import dev.logchange.hofund.info.HofundInfoProvider;
 import dev.logchange.hofund.info.springboot.autoconfigure.HofundInfoAutoConfiguration;
-import lombok.RequiredArgsConstructor;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.ConditionalOnEnabledMetricsExport;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -18,7 +17,6 @@ import org.springframework.context.annotation.Configuration;
 import javax.sql.DataSource;
 import java.util.List;
 
-@RequiredArgsConstructor
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnEnabledMetricsExport(value="prometheus")
 @AutoConfigureAfter(HofundInfoAutoConfiguration.class)

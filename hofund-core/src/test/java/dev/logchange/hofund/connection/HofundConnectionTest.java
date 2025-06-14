@@ -21,10 +21,12 @@ class HofundConnectionTest {
             mode = EnumSource.Mode.EXCLUDE)
     void shouldTargetPropertyWhenTypeIsDifferentThanDB() {
         // given:
-        HofundConnection connection = HofundConnection.builder()
-                .target("Target")
-                .type(Type.HTTP)
-                .build();
+        HofundConnection connection = new HofundConnection(
+                "Target",
+                "url",
+                Type.HTTP,
+                new AtomicReference<>(),
+                "");
 
         // when:
         String targetTag = connection.toTargetTag();
@@ -36,10 +38,13 @@ class HofundConnectionTest {
     @Test
     void shouldTargetPropertyWhenTypeIsDB() {
         // given:
-        HofundConnection connection = HofundConnection.builder()
-                .target("Target")
-                .type(Type.DATABASE)
-                .build();
+        HofundConnection connection = new HofundConnection(
+                "Target",
+                "url",
+                Type.DATABASE,
+                new AtomicReference<>(),
+                "");
+
 
         String expected = "Target_database";
 
@@ -53,7 +58,13 @@ class HofundConnectionTest {
     @Test
     void shouldReturnEmptyDescriptionWhenPropertyIsNull() {
         // given:
-        HofundConnection connection = HofundConnection.builder().build();
+        HofundConnection connection = new HofundConnection(
+                "Target",
+                "url",
+                Type.HTTP,
+                new AtomicReference<>(),
+                null);
+
 
         // when:
         String description = connection.getDescription();
@@ -67,7 +78,13 @@ class HofundConnectionTest {
         // given:
 
         String expected = "Description";
-        HofundConnection connection = HofundConnection.builder().description(expected).build();
+
+        HofundConnection connection = new HofundConnection(
+                "products",
+                "url",
+                Type.DATABASE,
+                new AtomicReference<>(),
+                expected);
 
         // when:
         String description = connection.getDescription();
@@ -82,12 +99,13 @@ class HofundConnectionTest {
         HofundInfoProvider provider = mock(HofundInfoProvider.class);
         when(provider.getApplicationName()).thenReturn("app");
 
-        HofundConnection connection = HofundConnection.builder()
-                .target("products")
-                .type(Type.DATABASE)
-                .description(null)
-                .fun(new AtomicReference<>())
-                .build();
+        HofundConnection connection = new HofundConnection(
+                "products",
+                "url",
+                Type.DATABASE,
+                new AtomicReference<>(),
+                null);
+
 
         // when
         String edgeId = connection.getEdgeId(provider);
@@ -102,12 +120,13 @@ class HofundConnectionTest {
         HofundInfoProvider provider = mock(HofundInfoProvider.class);
         when(provider.getApplicationName()).thenReturn("app");
 
-        HofundConnection connection = HofundConnection.builder()
-                .target("products")
-                .type(Type.DATABASE)
-                .description("")
-                .fun(new AtomicReference<>())
-                .build();
+        HofundConnection connection = new HofundConnection(
+                "products",
+                "url",
+                Type.DATABASE,
+                new AtomicReference<>(),
+                "");
+
 
         // when
         String edgeId = connection.getEdgeId(provider);
@@ -122,12 +141,13 @@ class HofundConnectionTest {
         HofundInfoProvider provider = mock(HofundInfoProvider.class);
         when(provider.getApplicationName()).thenReturn("app");
 
-        HofundConnection connection = HofundConnection.builder()
-                .target("products")
-                .type(Type.DATABASE)
-                .description("Oracle")
-                .fun(new AtomicReference<>())
-                .build();
+        HofundConnection connection = new HofundConnection(
+                "products",
+                "url",
+                Type.DATABASE,
+                new AtomicReference<>(),
+                "Oracle");
+
 
         // when
         String edgeId = connection.getEdgeId(provider);

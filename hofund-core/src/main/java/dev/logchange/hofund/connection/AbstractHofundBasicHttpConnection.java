@@ -1,6 +1,6 @@
 package dev.logchange.hofund.connection;
 
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -10,8 +10,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
-@Slf4j
+import static org.slf4j.LoggerFactory.getLogger;
+
 public abstract class AbstractHofundBasicHttpConnection {
+
+    private static final Logger log = getLogger(AbstractHofundBasicHttpConnection.class);
 
     /**
      * Name of the resource that application connects to f.e. products.
@@ -31,6 +34,13 @@ public abstract class AbstractHofundBasicHttpConnection {
      * @return Url to test http connection
      */
     protected abstract String getUrl();
+
+    /**
+     * @return Description of the connection f.e for Database it is a type like Oracle/PostgreSQL
+     */
+    protected String getDescription() {
+        return "";
+    }
 
     protected int getConnectTimeout() {
         return 1000;
@@ -69,12 +79,13 @@ public abstract class AbstractHofundBasicHttpConnection {
 
     public HofundConnection toHofundConnection() {
         try {
-            return HofundConnection.builder()
-                    .target(getTarget())
-                    .type(Type.HTTP)
-                    .url(getUrl())
-                    .fun(new AtomicReference<>(testConnection()))
-                    .build();
+            return new HofundConnection(
+                    getTarget(),
+                    getUrl(),
+                    Type.HTTP,
+                    new AtomicReference<>(testConnection()),
+                    getDescription()
+            );
         } catch (Exception e) {
             log.warn("Error creating hofund connection, skipping", e);
             return null;

@@ -34,6 +34,23 @@ public class HofundNodeMeter implements MeterBinder {
                 .flatMap(Collection::stream)
                 .collect(Collectors.toList());
         this.atomicInteger = new AtomicInteger(1);
+
+        checkIdCollision();
+    }
+
+    private void checkIdCollision() {
+        List<String> ids = new LinkedList<>();
+
+        connections.forEach(connection -> {
+            if (ids.contains(connection.toTargetTag())) {
+                throw new IllegalArgumentException("Connection target id must be unique! Connection target id is: " + connection.toTargetTag() + " and already defined connection target ids are: " + ids);
+            }
+            ids.add(connection.getTarget());
+        });
+
+        if (ids.contains(infoProvider.getApplicationName())) {
+            throw new IllegalArgumentException("Application name must be unique against connections! App name is: " + infoProvider.getApplicationName() + " and connection target ids are: " + ids);
+        }
     }
 
     @Override
@@ -56,7 +73,8 @@ public class HofundNodeMeter implements MeterBinder {
         tags.add(Tag.of("id", infoProvider.getApplicationName()));
         tags.add(Tag.of("title", infoProvider.getApplicationName()));
         tags.add(Tag.of("subtitle", infoProvider.getApplicationVersion()));
-        tags.add(Tag.of("type", "app"));
+        tags.add(Tag.of("type", infoProvider.getApplicationType()));
+        tags.add(Tag.of("icon", infoProvider.getApplicationIcon()));
 
         return tags;
     }
@@ -72,6 +90,7 @@ public class HofundNodeMeter implements MeterBinder {
 
         tags.add(Tag.of("subtitle", subtitle));
         tags.add(Tag.of("type", connection.getType().toString()));
+        tags.add(Tag.of("icon", connection.getIcon()));
         return tags;
     }
 }

@@ -67,7 +67,7 @@ Your project has to contain:
        <dependency>
            <groupId>dev.logchange.hofund</groupId>
            <artifactId>hofund-spring-boot-starter</artifactId>
-           <version>2.4.0</version>
+           <version>2.7.0</version>
        </dependency>
       ...
    </dependencies>
@@ -294,9 +294,10 @@ This simple functionality allows to print connections status in logger during bo
 You can achieve this by creating simple class:
 
 ```java
-@Slf4j
 @Configuration
 public class PrintHofundConnectionsTabel {
+
+    private static final Logger log = getLogger(PrintHofundConnectionsTabel.class);
 
     @Bean
     public CommandLineRunner demo(HofundConnectionsTable connectionsTable) {

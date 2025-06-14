@@ -1,20 +1,22 @@
 package dev.logchange.hofund.os;
 
 
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
 import org.springframework.boot.test.autoconfigure.actuate.observability.AutoConfigureObservability;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 
 import static dev.logchange.hofund.StringUtils.emptyIfNull;
+import static org.slf4j.LoggerFactory.getLogger;
 
-@Slf4j
 @AutoConfigureObservability
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class HofundOsInfoE2ETest {
+
+    private static final Logger log = getLogger(HofundOsInfoE2ETest.class);
 
     private final TestRestTemplate template = new TestRestTemplate();
 

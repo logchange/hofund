@@ -1,6 +1,5 @@
 package dev.logchange.hofund.connection;
 
-import lombok.RequiredArgsConstructor;
 import okhttp3.HttpUrl;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
@@ -20,7 +19,6 @@ class AbstractHofundBasicHttpConnectionTest {
      * AbstractHofundBasicHttpConnection is an abstract class so to test it
      * we need to create below fake class.
      */
-    @RequiredArgsConstructor
     private static class TestableAbstractHofundBasicHttpConnection extends AbstractHofundBasicHttpConnection {
 
         private final String target;
@@ -28,6 +26,14 @@ class AbstractHofundBasicHttpConnectionTest {
         private final CheckingStatus checkingStatus;
         private final RequestMethod requestMethod;
         private final List<RequestHeader> requestHeaders;
+
+        public TestableAbstractHofundBasicHttpConnection(String target, String url, CheckingStatus checkingStatus, RequestMethod requestMethod, List<RequestHeader> requestHeaders) {
+            this.target = target;
+            this.url = url;
+            this.checkingStatus = checkingStatus;
+            this.requestMethod = requestMethod;
+            this.requestHeaders = requestHeaders;
+        }
 
         @Override
         protected String getTarget() {
