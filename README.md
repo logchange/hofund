@@ -9,7 +9,6 @@
         <img src="https://img.shields.io/maven-central/v/dev.logchange.hofund/hofund-spring-boot-starter.svg?label=Maven%20Central" /></a>
 </p>
 
-
 <div align="center">
   <img src="https://github.com/logchange/hofund/raw/master/hofund.gif" />
 </div>
