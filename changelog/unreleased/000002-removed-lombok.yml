@@ -1,0 +1,8 @@
+title: Removed dependency to lombok
+authors:
+  - name: Peter Zmilczak
+    nick: marwin1991
+    url: https://github.com/marwin1991
+type: removed #[added/changed/deprecated/removed/fixed/security/other]
+merge_requests:
+  - 67

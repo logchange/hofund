@@ -1,6 +1,6 @@
 package dev.logchange.hofund.connection;
 
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -10,18 +10,21 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
-@Slf4j
+import static org.slf4j.LoggerFactory.getLogger;
+
 public abstract class AbstractHofundBasicHttpConnection {
 
+    private static final Logger log = getLogger(AbstractHofundBasicHttpConnection.class);
+
     /**
-     * Name of the resource that application connects to f.e. products.
+     * Name of the resource that application connects to f.e. Products.
      * <p>
-     * If application that we test connection to
-     * also use hofund it should be value from application.properties assign to
-     * hofund.info.application.name property (check target directory, because if
+     * If the application that we test connection to
+     * also uses hofund, it should be valued from application.properties assign to
+     * hofund.info.application.name property (check the target directory, because if
      * you are using @project.name@ it will be evaluated to real name)
      * <p>
-     * TLDR: Use value from name tag from pom.xml file from project you connect to but lower cased.
+     * TLDR: Use value from name tag from pom.xml file from a project you connect to but lower cased.
      *
      * @return Name of the target
      */
@@ -31,6 +34,21 @@ public abstract class AbstractHofundBasicHttpConnection {
      * @return Url to test http connection
      */
     protected abstract String getUrl();
+
+    /**
+     * @return Description of the connection f.e for Database it is a type like Oracle/PostgreSQL
+     */
+    protected String getDescription() {
+        return "";
+    }
+
+    /**
+     * Available icons:
+     * <a href="https://developers.grafana.com/ui/latest/index.html?path=/story/docs-overview-icon--icons-overview">Grafana BuiltIn Icons</a>
+     */
+    protected String getIcon() {
+        return "";
+    }
 
     protected int getConnectTimeout() {
         return 1000;
@@ -49,10 +67,10 @@ public abstract class AbstractHofundBasicHttpConnection {
     }
 
     /**
-     * If your connection can be disabled f.e. by parameter or should be
-     * active between 9am to 5pm you can override this method and implement it as you wish.
+     * If your connection can be disabled f.e. By parameter or should be
+     * active between 9 am to 5 pm, you can override this method and implement it as you wish.
      *
-     * @return checking status - informs if connection check is active
+     * @return checking status - informs if the connection check is active
      */
     protected CheckingStatus getCheckingStatus() {
         return CheckingStatus.ACTIVE;
@@ -69,12 +87,15 @@ public abstract class AbstractHofundBasicHttpConnection {
 
     public HofundConnection toHofundConnection() {
         try {
-            return HofundConnection.builder()
-                    .target(getTarget())
-                    .type(Type.HTTP)
-                    .url(getUrl())
-                    .fun(new AtomicReference<>(testConnection()))
-                    .build();
+            HofundConnection hofundConnection = new HofundConnection(
+                    getTarget(),
+                    getUrl(),
+                    Type.HTTP,
+                    new AtomicReference<>(testConnection()),
+                    getDescription()
+            );
+            hofundConnection.setIcon(getIcon());
+            return hofundConnection;
         } catch (Exception e) {
             log.warn("Error creating hofund connection, skipping", e);
             return null;

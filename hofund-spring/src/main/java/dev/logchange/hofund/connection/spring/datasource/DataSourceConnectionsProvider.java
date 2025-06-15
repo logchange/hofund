@@ -2,7 +2,6 @@ package dev.logchange.hofund.connection.spring.datasource;
 
 import dev.logchange.hofund.connection.HofundConnection;
 import dev.logchange.hofund.connection.HofundConnectionsProvider;
-import lombok.RequiredArgsConstructor;
 
 import javax.sql.DataSource;
 import java.util.Collections;
@@ -10,10 +9,13 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-@RequiredArgsConstructor
 public class DataSourceConnectionsProvider implements HofundConnectionsProvider {
 
     private final List<DataSource> dataSources;
+
+    public DataSourceConnectionsProvider(List<DataSource> dataSources) {
+        this.dataSources = dataSources;
+    }
 
     @Override
     public List<HofundConnection> getConnections() {

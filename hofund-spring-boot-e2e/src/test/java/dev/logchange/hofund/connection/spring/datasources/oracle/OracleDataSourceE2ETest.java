@@ -1,6 +1,6 @@
 //package dev.logchange.hofund.connection.spring.datasources.oracle;
 //
-//import lombok.extern.slf4j.Slf4j;
+//
 //import org.junit.jupiter.api.Assertions;
 //import org.junit.jupiter.api.Test;
 //import org.springframework.boot.test.autoconfigure.actuate.observability.AutoConfigureObservability;
@@ -8,7 +8,7 @@
 //import org.springframework.boot.test.web.client.TestRestTemplate;
 //import org.springframework.boot.test.web.server.LocalServerPort;
 //
-//@Slf4j
+//
 //@AutoConfigureObservability
 //@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
 //        properties = {

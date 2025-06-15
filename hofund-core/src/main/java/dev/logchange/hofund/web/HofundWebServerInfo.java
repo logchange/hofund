@@ -1,31 +1,34 @@
 package dev.logchange.hofund.web;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
 
-@Slf4j
-@Getter
-@Builder(access = AccessLevel.PRIVATE)
-@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
+import static org.slf4j.LoggerFactory.getLogger;
+
 public class HofundWebServerInfo {
+
+    private static final Logger log = getLogger(HofundWebServerInfo.class);
 
     private final String name;
 
     private final String version;
 
+    private HofundWebServerInfo(String name, String version) {
+        this.name = name;
+        this.version = version;
+    }
+
     public static HofundWebServerInfo create(String name, String version) {
         log.info("Server name: {} version: {}", name, version);
 
-        return HofundWebServerInfo.builder()
-                .name(name)
-                .version(version)
-                .build();
+        return new HofundWebServerInfo(name, version);
     }
 
+    public String getName() {
+        return name;
+    }
 
-
+    public String getVersion() {
+        return version;
+    }
 }
 

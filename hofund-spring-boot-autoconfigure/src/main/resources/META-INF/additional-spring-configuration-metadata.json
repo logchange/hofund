@@ -9,6 +9,16 @@
       "name": "hofund.info.application.version",
       "type": "java.lang.String",
       "description": "The version of your application, standard approach is the version from pom.xml by using @application.version@ ."
+    },
+    {
+      "name": "hofund.info.application.type",
+      "type": "java.lang.String",
+      "description": "The type of your application, f.e. Backend / frontend / microservice / rest-api anything that you would like to group by default is app."
+    },
+    {
+      "name": "hofund.info.application.icon",
+      "type": "java.lang.String",
+      "description": "The icon that you would like to see in grafana for this app."
     }
   ]
 }

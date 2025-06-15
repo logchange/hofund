@@ -27,21 +27,12 @@ public class HofundConnectionMeter implements MeterBinder {
                 .collect(Collectors.toList());
     }
 
-    private List<Tag> tags(HofundConnection connection) {
-        List<Tag> tags = new LinkedList<>();
-        tags.add(Tag.of("id", infoProvider.getApplicationName() + "-" + connection.getTarget() + "_" + connection.getType()));
-        tags.add(Tag.of("source", infoProvider.getApplicationName()));
-        tags.add(Tag.of("target", connection.toTargetTag()));
-        tags.add(Tag.of("type", connection.getType().toString()));
-        tags.add(Tag.of("description", connection.getDescription()));
-        return tags;
-    }
 
     @Override
     public void bindTo(MeterRegistry meterRegistry) {
         connections.forEach(connection -> Gauge.builder(NAME, connection, con -> con.getFun().get().getStatus().getValue())
                 .description(DESCRIPTION)
-                .tags(tags(connection))
+                .tags(connection.getTags(infoProvider))
                 .register(meterRegistry));
     }
 }

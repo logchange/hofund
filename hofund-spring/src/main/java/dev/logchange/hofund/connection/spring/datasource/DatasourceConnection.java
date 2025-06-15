@@ -4,8 +4,7 @@ import dev.logchange.hofund.connection.HofundConnection;
 import dev.logchange.hofund.connection.Status;
 import dev.logchange.hofund.connection.StatusFunction;
 import dev.logchange.hofund.connection.Type;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -15,22 +14,28 @@ import java.sql.SQLException;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 
-@Slf4j
-@RequiredArgsConstructor
+import static org.slf4j.LoggerFactory.getLogger;
+
 public abstract class DatasourceConnection {
+
+    private static final Logger log = getLogger(DatasourceConnection.class);
 
     private static final int QUERY_TIMEOUT = 1;
     protected final DataSource dataSource;
     protected final String testQuery;
 
+    public DatasourceConnection(DataSource dataSource, String testQuery) {
+        this.dataSource = dataSource;
+        this.testQuery = testQuery;
+    }
+
     public HofundConnection toHofundConnection() {
-        return HofundConnection.builder()
-                .target(getTarget())
-                .type(Type.DATABASE)
-                .description(getDbVendor())
-                .url(getUrl())
-                .fun(new AtomicReference<>(testConnection()))
-                .build();
+        return new HofundConnection(
+                getTarget(),
+                getUrl(),
+                Type.DATABASE,
+                new AtomicReference<>(testConnection()),
+                getDbVendor());
     }
 
     protected abstract String getTarget();

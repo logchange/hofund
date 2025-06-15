@@ -1,20 +1,22 @@
 package dev.logchange.hofund.java;
 
 
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
 import org.springframework.boot.test.autoconfigure.actuate.observability.AutoConfigureObservability;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 
 import static dev.logchange.hofund.StringUtils.emptyIfNull;
+import static org.slf4j.LoggerFactory.getLogger;
 
-@Slf4j
 @AutoConfigureObservability
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class HofundJavaInfoE2ETest {
+
+    private static final Logger log = getLogger(HofundJavaInfoE2ETest.class);
 
     private final TestRestTemplate template = new TestRestTemplate();
 
@@ -40,16 +42,16 @@ public class HofundJavaInfoE2ETest {
 
         String expected =
                 "# HELP hofund_java_info Basic information about java that is running this application\n" +
-                "# TYPE hofund_java_info gauge\n" +
-                "hofund_java_info{jvm_name=\"{jvmName}\",jvm_vendor=\"{jvmVendor}\",jvm_version=\"{jvmVersion}\",runtime_name=\"{runtimeName}\",runtime_version=\"{runtimeVersion}\",vendor_name=\"{vendor}\",vendor_version=\"{vendorVersion}\",version=\"{javaVersion}\"} 1"
-                .replace("{jvmName}", jvmName)
-                .replace("{jvmVendor}", jvmVendor)
-                .replace("{jvmVersion}", jvmVersion)
-                .replace("{runtimeName}", runtimeName)
-                .replace("{runtimeVersion}", runtimeVersion)
-                .replace("{vendor}", vendor)
-                .replace("{vendorVersion}", vendorVersion)
-                .replace("{javaVersion}", javaVersion);
+                        "# TYPE hofund_java_info gauge\n" +
+                        "hofund_java_info{jvm_name=\"{jvmName}\",jvm_vendor=\"{jvmVendor}\",jvm_version=\"{jvmVersion}\",runtime_name=\"{runtimeName}\",runtime_version=\"{runtimeVersion}\",vendor_name=\"{vendor}\",vendor_version=\"{vendorVersion}\",version=\"{javaVersion}\"} 1"
+                                .replace("{jvmName}", jvmName)
+                                .replace("{jvmVendor}", jvmVendor)
+                                .replace("{jvmVersion}", jvmVersion)
+                                .replace("{runtimeName}", runtimeName)
+                                .replace("{runtimeVersion}", runtimeVersion)
+                                .replace("{vendor}", vendor)
+                                .replace("{vendorVersion}", vendorVersion)
+                                .replace("{javaVersion}", javaVersion);
 
         //when:
         String response = template.getForObject(path, String.class);

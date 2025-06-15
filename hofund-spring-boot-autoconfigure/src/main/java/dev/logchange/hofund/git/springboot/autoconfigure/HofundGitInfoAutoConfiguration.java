@@ -2,14 +2,12 @@ package dev.logchange.hofund.git.springboot.autoconfigure;
 
 import dev.logchange.hofund.git.HofundGitInfoMeter;
 import dev.logchange.hofund.git.HofundGitInfoProvider;
-import lombok.RequiredArgsConstructor;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.ConditionalOnEnabledMetricsExport;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@RequiredArgsConstructor
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnEnabledMetricsExport(value="prometheus")
 @EnableConfigurationProperties(HofundGitInfoProperties.class)
@@ -18,6 +16,11 @@ public class HofundGitInfoAutoConfiguration {
     private final HofundGitInfoProperties properties;
 
     private final HofundDefaultGitInfoProperties defaultProperties;
+
+    public HofundGitInfoAutoConfiguration(HofundGitInfoProperties properties, HofundDefaultGitInfoProperties defaultProperties) {
+        this.properties = properties;
+        this.defaultProperties = defaultProperties;
+    }
 
     @Bean
     @ConditionalOnMissingBean
