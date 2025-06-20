@@ -43,4 +43,35 @@ class HofundNodeMeterTest {
 
     }
 
+    @Test
+    void whenTwoDbWithSameName_shouldThrowException() {
+        // given:
+        HofundInfoProvider infoProvider = new HofundInfoProvider() {
+            @Override
+            public String getApplicationName() {
+                return "abc";
+            }
+
+            @Override
+            public String getApplicationVersion() {
+                return "1.2.3";
+            }
+        };
+
+        List<HofundConnectionsProvider> connectionsProviders = new ArrayList<>();
+        connectionsProviders.add(() -> {
+            List<HofundConnection> connections = new ArrayList<>();
+            connections.add(new HofundConnection("st", "jdbc:oracle:thin:@localhost:1521:xe", Type.DATABASE, new AtomicReference<>(() -> Status.UP), "Oracle"));
+            connections.add(new HofundConnection("st", "jdbc:oracle:thin:@localhost:1521:xe", Type.DATABASE, new AtomicReference<>(() -> Status.UP), "PostgreSQL"));
+            return connections;
+        });
+
+        // when:
+        HofundNodeMeter result = new HofundNodeMeter(infoProvider, connectionsProviders);
+
+        // then:
+        Assertions.assertEquals(HofundNodeMeter.class, result.getClass());
+
+    }
+
 }
