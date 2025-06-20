@@ -1,0 +1,8 @@
+title: Fixed problem with node collision, when application has two database (f.e Postgres and Oracle) with same name.
+authors:
+  - name: Peter Zmilczak
+    nick: marwin1991
+    url: https://github.com/marwin1991
+type: fixed #[added/changed/deprecated/removed/fixed/security/other]
+merge_requests:
+  - 67

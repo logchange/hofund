@@ -29,7 +29,7 @@ public class HofundConnection {
     }
 
     public String toTargetTag() {
-        return type == Type.DATABASE ? target + "_" + type : target;
+        return type == Type.DATABASE ? target + "_" + type + getDescription().toLowerCase() : target;
     }
 
     public String getDescription() {
