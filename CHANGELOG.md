@@ -7,6 +7,14 @@
 <!-- !!! ⚠️ DO NOT MODIFY THIS FILE, YOUR CHANGES WILL BE LOST ⚠️ !!! -->
 
 
+[2.7.1] - 2025-06-20
+--------------------
+
+### Fixed (1 change)
+
+- Fixed problem with node collision, when application has two database (f.e Postgres and Oracle) with same name. !81 ([Peter Zmilczak](https://github.com/marwin1991) @marwin1991)
+
+
 [2.7.0] - 2025-06-15
 --------------------
 
