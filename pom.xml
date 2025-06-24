@@ -4,7 +4,7 @@
 
     <groupId>dev.logchange.hofund</groupId>
     <artifactId>hofund</artifactId>
-    <version>2.7.2-SNAPSHOT</version>
+    <version>2.7.3-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>hofund</name>
