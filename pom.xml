@@ -20,6 +20,7 @@
         <module>hofund-spring-boot-autoconfigure</module>
         <module>hofund-spring-boot-starter</module>
         <module>hofund-spring-boot-e2e</module>
+        <module>hofund-test-reports</module>
     </modules>
 
     <licenses>
@@ -123,6 +124,25 @@
     </build>
 
     <profiles>
+        <profile>
+            <id>jacoco</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                        <version>0.8.13</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>prepare-agent</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
         <profile>
             <id>ci-cd</id>
             <build>

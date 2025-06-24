@@ -7,6 +7,8 @@
         <img src="https://img.shields.io/github/commit-activity/m/logchange/hofund" /></a>
     <a href="https://search.maven.org/search?q=g:%22dev.logchange.hofund%22%20AND%20a:%22hofund-spring-boot-starter%22" alt="Maven Central">
         <img src="https://img.shields.io/maven-central/v/dev.logchange.hofund/hofund-spring-boot-starter.svg?label=Maven%20Central" /></a>
+    <a href="https://codecov.io/gh/logchange/hofund">
+        <img src="https://codecov.io/gh/logchange/hofund/graph/badge.svg?token=NPARS712A6" alt="codecov"/></a>
 </p>
 
 <div align="center">
@@ -66,7 +68,7 @@ Your project has to contain:
        <dependency>
            <groupId>dev.logchange.hofund</groupId>
            <artifactId>hofund-spring-boot-starter</artifactId>
-           <version>2.7.0</version>
+           <version>2.7.2</version>
        </dependency>
       ...
    </dependencies>
