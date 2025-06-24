@@ -1,0 +1,8 @@
+title: Fixed problem with duplicated datasource (to the same database with same user).
+authors:
+  - name: Peter Zmilczak
+    nick: marwin1991
+    url: https://github.com/marwin1991
+type: fixed #[added/changed/deprecated/removed/fixed/security/other]
+merge_requests:
+  - 81

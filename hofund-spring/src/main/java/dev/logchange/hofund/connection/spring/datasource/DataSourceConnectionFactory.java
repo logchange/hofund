@@ -1,6 +1,5 @@
 package dev.logchange.hofund.connection.spring.datasource;
 
-import dev.logchange.hofund.connection.HofundConnection;
 import dev.logchange.hofund.connection.spring.datasource.h2.H2Connection;
 import dev.logchange.hofund.connection.spring.datasource.oracle.OracleConnection;
 import dev.logchange.hofund.connection.spring.datasource.postgresql.PostgreSQLConnection;
@@ -18,7 +17,7 @@ public class DataSourceConnectionFactory {
 
     private static final Logger log = getLogger(DataSourceConnectionFactory.class);
 
-    public static Optional<HofundConnection> of(DataSource dataSource) {
+    public static Optional<DatasourceConnection> of(DataSource dataSource) {
         try (Connection connection = dataSource.getConnection()) {
             if (connection != null) {
                 DatabaseMetaData metaData = connection.getMetaData();
@@ -26,9 +25,9 @@ public class DataSourceConnectionFactory {
                 DatabaseProductName dbType = DatabaseProductName.of(productName);
                 log.debug("DataSource product name is: {}", productName);
                 return switch (dbType) {
-                    case POSTGRESQL -> Optional.of(new PostgreSQLConnection(metaData, dataSource).toHofundConnection());
-                    case ORACLE -> Optional.of(new OracleConnection(metaData, dataSource).toHofundConnection());
-                    case H2 -> Optional.of(new H2Connection(metaData, dataSource).toHofundConnection());
+                    case POSTGRESQL -> Optional.of(new PostgreSQLConnection(metaData, dataSource));
+                    case ORACLE -> Optional.of(new OracleConnection(metaData, dataSource));
+                    case H2 -> Optional.of(new H2Connection(metaData, dataSource));
                     default -> {
                         log.warn("Currently there is no support for DataSource: {} please create issue at: https://github.com/logchange/hofund", productName);
                         yield Optional.empty();

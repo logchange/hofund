@@ -4,6 +4,7 @@ import dev.logchange.hofund.connection.HofundConnection;
 import dev.logchange.hofund.connection.Status;
 import dev.logchange.hofund.connection.StatusFunction;
 import dev.logchange.hofund.connection.Type;
+import dev.logchange.hofund.connection.spring.datasource.oracle.OracleConnection;
 import org.slf4j.Logger;
 
 import javax.sql.DataSource;
@@ -63,6 +64,24 @@ public abstract class DatasourceConnection {
                 return Status.DOWN;
             }
         };
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+
+        DatasourceConnection that = (DatasourceConnection) o;
+        return Objects.equals(getTarget(), that.getTarget())
+                && Objects.equals(getUrl(), that.getUrl())
+                && Objects.equals(getDbVendor(), that.getDbVendor());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hashCode(getTarget());
+        result = 31 * result + Objects.hashCode(getUrl());
+        result = 31 * result + Objects.hashCode(getDbVendor());
+        return result;
     }
 
 }
