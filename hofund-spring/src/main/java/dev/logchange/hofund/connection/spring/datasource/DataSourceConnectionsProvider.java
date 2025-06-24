@@ -7,6 +7,7 @@ import javax.sql.DataSource;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class DataSourceConnectionsProvider implements HofundConnectionsProvider {
@@ -26,6 +27,8 @@ public class DataSourceConnectionsProvider implements HofundConnectionsProvider 
         return dataSources.stream()
                 .map(DataSourceConnectionFactory::of)
                 .filter(Objects::nonNull)
+                .filter(Optional::isPresent)
+                .map(Optional::get)
                 .collect(Collectors.toList());
     }
 }
