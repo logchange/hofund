@@ -130,7 +130,7 @@ public abstract class AbstractHofundBasicHttpConnection {
                     log.warn("Error testing connection to: {} finished with status code: {}", getUrl(), responseCode);
                     return Status.DOWN;
                 }
-            } catch (IOException e) {
+            } catch (Exception e) {
                 log.warn("Error testing connection to: {} msg: {}", getUrl(), e.getMessage());
                 log.debug("Exception: ", e);
                 return Status.DOWN;

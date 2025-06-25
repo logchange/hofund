@@ -1,13 +1,18 @@
 package dev.logchange.hofund.connection;
 
 import dev.logchange.hofund.AsciiTable;
+import org.slf4j.Logger;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static org.slf4j.LoggerFactory.getLogger;
+
 public class HofundConnectionsTable {
+
+    private static final Logger log = getLogger(HofundConnectionsTable.class);
 
     private static final List<String> HEADERS = Arrays.asList("TYPE", "NAME", "STATUS", "URL");
 
@@ -30,12 +35,23 @@ public class HofundConnectionsTable {
         AsciiTable table = new AsciiTable(HEADERS);
 
         for (HofundConnection connection : connections) {
-            table.addRow(
-                    connection.getType().name(),
-                    connection.getTarget(),
-                    connection.getFun().get().getStatus().getName(),
-                    connection.getUrl()
-            );
+            try {
+                table.addRow(
+                        connection.getType().name(),
+                        connection.getTarget(),
+                        connection.getFun().get().getStatus().getName(),
+                        connection.getUrl()
+                );
+            } catch (Exception e) {
+                log.warn("Error creating hofund connection for: {} url: {} with msg: {}", connection.getTarget(), connection.getUrl(), e.getMessage());
+                table.addRow(
+                        connection.getType().name(),
+                        connection.getTarget(),
+                        Status.DOWN.getName(),
+                        connection.getUrl()
+                );
+            }
+
         }
 
         return table.printTable();
