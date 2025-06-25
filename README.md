@@ -301,10 +301,8 @@ public class PrintHofundConnectionsTabel {
     private static final Logger log = getLogger(PrintHofundConnectionsTabel.class);
 
     @Bean
-    public CommandLineRunner demo(HofundConnectionsTable connectionsTable) {
-        return (args) -> {
-            log.info(connectionsTable.print());
-        };
+    public CommandLineRunner printHofundTable(HofundConnectionsTable connectionsTable) {
+        return (_) -> log.info(connectionsTable.print());
     }
 }
 ```
