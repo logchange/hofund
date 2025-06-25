@@ -7,6 +7,14 @@
 <!-- !!! ⚠️ DO NOT MODIFY THIS FILE, YOUR CHANGES WILL BE LOST ⚠️ !!! -->
 
 
+[2.7.3] - 2025-06-25
+--------------------
+
+### Fixed (1 change)
+
+- Fixed problem with failing an application at startup when an exception during testing connection other than IOException. !88 ([Peter Zmilczak](https://github.com/marwin1991) @marwin1991)
+
+
 [2.7.2] - 2025-06-24
 --------------------
 
