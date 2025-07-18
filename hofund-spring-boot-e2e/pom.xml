@@ -9,6 +9,10 @@
     </parent>
 
     <artifactId>hofund-spring-boot-e2e</artifactId>
+    <name>hofund spring boot E2E</name>
+    <description>
+        E2E test of hofund spring boot starter
+    </description>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>

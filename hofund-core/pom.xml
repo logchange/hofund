@@ -9,11 +9,11 @@
     </parent>
 
     <artifactId>hofund-core</artifactId>
-    <packaging>jar</packaging>
-
+    <name>hofund core</name>
     <description>
         Core hofund classes allowing to publish prometheus metrics
     </description>
+    <packaging>jar</packaging>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>

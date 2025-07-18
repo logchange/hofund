@@ -9,12 +9,12 @@
     </parent>
 
     <artifactId>hofund-spring-boot-autoconfigure</artifactId>
-    <packaging>jar</packaging>
-
+    <name>hofund spring boot autoconfigure</name>
     <description>
         A module for automatic configuration of Hofund in Spring Boot applications, offering predefined settings and
         integration logic to minimize the need for manual configuration.
     </description>
+    <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
