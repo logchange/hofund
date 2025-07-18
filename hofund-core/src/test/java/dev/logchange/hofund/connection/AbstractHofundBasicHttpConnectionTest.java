@@ -61,6 +61,41 @@ class AbstractHofundBasicHttpConnectionTest {
         }
     }
 
+    private static class SomeHealthCheck extends AbstractHofundBasicHttpConnection {
+
+        private final String target;
+        private final String url;
+        private final RequestMethod requestMethod;
+
+
+        public SomeHealthCheck() {
+            this.target = "some-service";
+            this.url = "http://google.com/";
+            this.requestMethod = RequestMethod.POST;
+        }
+
+        @Override
+        protected String getTarget() {
+            return target;
+        }
+
+        @Override
+        protected String getUrl() {
+            return url;
+        }
+
+        @Override
+        protected RequestMethod getRequestMethod() {
+            return requestMethod;
+        }
+
+        @Override
+        protected CheckingStatus getCheckingStatus() {
+            return CheckingStatus.INACTIVE; // zobacz niżej
+        }
+    }
+
+
     @Test
     void testGetMethod() {
         try (MockWebServer server = new MockWebServer()) {
@@ -127,6 +162,23 @@ class AbstractHofundBasicHttpConnectionTest {
 
         // then:
         assertEquals(Status.INACTIVE, status);
+        assertEquals(-1.0, status.getValue());
+    }
+
+
+    @Test
+    void testCheckingStatusInactive2() {
+        // given:
+        SomeHealthCheck connection = new SomeHealthCheck();
+
+        HofundConnection hofundConnection = connection.toHofundConnection();
+
+        // when:
+        Status status = hofundConnection.getFun().get().getStatus();
+
+        // then:
+        assertEquals(Status.INACTIVE, status);
+        assertEquals(-1.0, status.getValue());
     }
 
     @Test

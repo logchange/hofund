@@ -9,12 +9,12 @@
     </parent>
 
     <artifactId>hofund-spring</artifactId>
-    <packaging>jar</packaging>
-
+    <name>hofund spring</name>
     <description>
         A Spring-based module that provides tools to gather information about datasource and HTTP connections, enabling
         better monitoring and management of system components.
     </description>
+    <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
