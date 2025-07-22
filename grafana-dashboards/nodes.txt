@@ -1,0 +1,64 @@
+sum by (id, title, type, instance) (0 * sum_over_time(hofund_node{type="app"}[1w]))
+* on (id, instance) group_left (subtitle)
+(
+    sum (hofund_node{type="app"}) by (id, instance, subtitle)
+)
+* on (id, instance) group_left (icon)
+(
+    sum (hofund_node{type="app"}) by (id, instance, icon)
+)
+* on (id, instance) group_left (mainstat)
+(
+    count_values without () (
+        "mainstat",
+        sum by (id, instance) (sum by (id, instance) (sum without () (hofund_info) or (0 * sum_over_time(hofund_info[1w]))))
+    )
+)
+* on (id, instance) group_left (secondarystat)
+(
+    count_values without () (
+        "secondarystat",
+        round(avg_over_time(max by (id, instance) (sum without () (hofund_info) or (0 * sum_over_time(hofund_info[1w])))[1w:5m]), 0.001)
+    )
+)
+* on (id, instance) group_left (detail__upNow)
+(
+    count_values without () (
+        "detail__upNow",
+        sum by (id, instance) (sum by (id, instance) (sum without () (hofund_info) or (0 * sum_over_time(hofund_info[1w]))))
+    )
+)
+* on (id, instance) group_left (detail__upOver24h)
+(
+    count_values without () (
+        "detail__upOver24h",
+        round(avg_over_time(max by (id, instance) (sum without () (hofund_info) or (0 * sum_over_time(hofund_info[1w])))[1d:5m]), 0.001)
+    )
+)
+* on (id, instance) group_left (arc__up)
+(
+    count_values without () (
+        "arc__up",
+        sum by (id, instance) (sum by (id, instance) (sum without () (hofund_info) or (0 * sum_over_time(hofund_info[1w])))) 
+    )
+)
+* on (id, instance) group_left (arc__down)
+(
+    count_values without () (
+        "arc__down",
+        abs(sum by (id, instance) (max by (id, instance) (sum without () (hofund_info) or (0 * sum_over_time(hofund_info[1w])))) - 1)
+    )
+)
+or on (id)
+(
+sum by (id, title, subtitle, type, icon) (0 * sum_over_time(hofund_node[1w])) * on (id, type) group_left (arc__notfound)
+    (
+        max by (id, type, arc__notfound) 
+        (
+            count_values without () 
+            (
+                "arc__notfound", (0 * sum_over_time(hofund_node[1w]) + 1)
+            )
+        )
+    )
+)
