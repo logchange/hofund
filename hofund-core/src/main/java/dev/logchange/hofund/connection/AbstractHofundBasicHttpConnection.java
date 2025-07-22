@@ -168,17 +168,17 @@ public abstract class AbstractHofundBasicHttpConnection {
             return "";
         }
 
-        int versionIndex = responseBody.indexOf("\"version\"");
+        int versionIndex = responseBody.indexOf("application_version");
         if (versionIndex == -1) {
             return "";
         }
 
-        int colonIndex = responseBody.indexOf(":", versionIndex);
-        if (colonIndex == -1) {
+        int equalIndex = responseBody.indexOf("=", versionIndex);
+        if (equalIndex == -1) {
             return "";
         }
 
-        int openQuoteIndex = responseBody.indexOf("\"", colonIndex);
+        int openQuoteIndex = responseBody.indexOf("\"", equalIndex);
         if (openQuoteIndex == -1) {
             return "";
         }
