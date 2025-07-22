@@ -17,14 +17,14 @@ class HofundConnectionsTableTest {
         TastableHofundConnectionsProvider provider = new TastableHofundConnectionsProvider();
         HofundConnectionsTable table = new HofundConnectionsTable(Collections.singletonList(provider));
         String expected =
-                "+----------+---------+--------+------+\n" +
-                        "| TYPE     | NAME    | STATUS | URL  |\n" +
-                        "+----------+---------+--------+------+\n" +
-                        "| HTTP     | target1 | UP     | fake |\n" +
-                        "| HTTP     | target3 | UP     | fake |\n" +
-                        "| DATABASE | target2 | UP     | fake |\n" +
-                        "| DATABASE | target4 | UP     | fake |\n" +
-                        "+----------+---------+--------+------+\n";
+                "+----------+---------+--------+------+---------+\n" +
+                        "| TYPE     | NAME    | STATUS | URL  | VERSION |\n" +
+                        "+----------+---------+--------+------+---------+\n" +
+                        "| HTTP     | target1 | UP     | fake | 1.0.0   |\n" +
+                        "| HTTP     | target3 | UP     | fake | 1.0.1   |\n" +
+                        "| DATABASE | target2 | UP     | fake | N/A     |\n" +
+                        "| DATABASE | target4 | UP     | fake | N/A     |\n" +
+                        "+----------+---------+--------+------+---------+\n";
 
         // when:
         String result = table.print();
@@ -41,18 +41,18 @@ class HofundConnectionsTableTest {
 
         HofundConnectionsTable table = new HofundConnectionsTable(Arrays.asList(provider1, provider2));
         String expected =
-                "+----------+---------+--------+------+\n" +
-                        "| TYPE     | NAME    | STATUS | URL  |\n" +
-                        "+----------+---------+--------+------+\n" +
-                        "| HTTP     | target1 | UP     | fake |\n" +
-                        "| HTTP     | target3 | UP     | fake |\n" +
-                        "| HTTP     | target1 | UP     | fake |\n" +
-                        "| HTTP     | target3 | UP     | fake |\n" +
-                        "| DATABASE | target2 | UP     | fake |\n" +
-                        "| DATABASE | target4 | UP     | fake |\n" +
-                        "| DATABASE | target2 | UP     | fake |\n" +
-                        "| DATABASE | target4 | UP     | fake |\n" +
-                        "+----------+---------+--------+------+\n";
+                "+----------+---------+--------+------+---------+\n" +
+                        "| TYPE     | NAME    | STATUS | URL  | VERSION |\n" +
+                        "+----------+---------+--------+------+---------+\n" +
+                        "| HTTP     | target1 | UP     | fake | 1.0.0   |\n" +
+                        "| HTTP     | target3 | UP     | fake | 1.0.1   |\n" +
+                        "| HTTP     | target1 | UP     | fake | 1.0.0   |\n" +
+                        "| HTTP     | target3 | UP     | fake | 1.0.1   |\n" +
+                        "| DATABASE | target2 | UP     | fake | N/A     |\n" +
+                        "| DATABASE | target4 | UP     | fake | N/A     |\n" +
+                        "| DATABASE | target2 | UP     | fake | N/A     |\n" +
+                        "| DATABASE | target4 | UP     | fake | N/A     |\n" +
+                        "+----------+---------+--------+------+---------+\n";
 
         // when:
         String result = table.print();

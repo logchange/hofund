@@ -14,7 +14,7 @@ public class HofundConnectionsTable {
 
     private static final Logger log = getLogger(HofundConnectionsTable.class);
 
-    private static final List<String> HEADERS = Arrays.asList("TYPE", "NAME", "STATUS", "URL");
+    private static final List<String> HEADERS = Arrays.asList("TYPE", "NAME", "STATUS", "URL", "VERSION");
 
     private final List<HofundConnection> connections;
 
@@ -36,11 +36,14 @@ public class HofundConnectionsTable {
 
         for (HofundConnection connection : connections) {
             try {
+                Connection con = connection.getFun().get().getConnection();
                 table.addRow(
                         connection.getType().name(),
                         connection.getTarget(),
-                        connection.getFun().get().getConnection().getStatus().getName(),
-                        connection.getUrl()
+                        con.getStatus().getName(),
+                        connection.getUrl(),
+                        con.getVersion()
+
                 );
             } catch (Exception e) {
                 log.warn("Error creating hofund connection for: {} url: {} with msg: {}", connection.getTarget(), connection.getUrl(), e.getMessage());
@@ -48,7 +51,8 @@ public class HofundConnectionsTable {
                         connection.getType().name(),
                         connection.getTarget(),
                         Status.DOWN.getName(),
-                        connection.getUrl()
+                        connection.getUrl(),
+                        Connection.UNKNOWN
                 );
             }
 
