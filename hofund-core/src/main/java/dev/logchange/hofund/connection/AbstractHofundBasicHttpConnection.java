@@ -70,6 +70,18 @@ public abstract class AbstractHofundBasicHttpConnection {
         return Collections.emptyList();
     }
 
+    private void setRequestHeaders(HttpURLConnection urlConn) {
+        List<RequestHeader> requestHeaders = getRequestHeaders();
+
+        if (requestHeaders == null || requestHeaders.isEmpty()) {
+            return;
+        }
+
+        for (RequestHeader header : requestHeaders) {
+            urlConn.setRequestProperty(header.getName(), header.getValue());
+        }
+    }
+
     /**
      * If your connection can be disabled f.e. By parameter or should be
      * active between 9 am to 5 pm, you can override this method and implement it as you wish.
@@ -155,6 +167,11 @@ public abstract class AbstractHofundBasicHttpConnection {
             String version = extractVersionFromResponse(responseBody);
             log.debug("Extracted version: {}", version);
 
+            if (version.isEmpty()) {
+                log.debug("Extracted version is empty. Returning UNKNOWN");
+                return UNKNOWN;
+            }
+
             return version;
         } catch (IOException e) {
             log.warn("Error reading response from: {} msg: {}", getUrl(), e.getMessage());
@@ -189,17 +206,5 @@ public abstract class AbstractHofundBasicHttpConnection {
         }
 
         return responseBody.substring(openQuoteIndex + 1, closeQuoteIndex);
-    }
-
-    private void setRequestHeaders(HttpURLConnection urlConn) {
-        List<RequestHeader> requestHeaders = getRequestHeaders();
-
-        if (requestHeaders == null || requestHeaders.isEmpty()) {
-            return;
-        }
-
-        for (RequestHeader header : requestHeaders) {
-            urlConn.setRequestProperty(header.getName(), header.getValue());
-        }
     }
 }

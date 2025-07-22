@@ -63,12 +63,24 @@ class AbstractHofundBasicHttpConnectionTest {
 
     @Test
     void testGetMethod() {
+        String expectedVersion = "1.7.14-SNAPSHOT";
+        String newLine = System.lineSeparator();
+        String body = new StringBuilder()
+                .append("# HELP hofund_info Basic information about application")
+                .append(newLine)
+                .append("# TYPE hofund_info gauge")
+                .append(newLine)
+                .append("hofund_info{application_name=\"stats\",application_version=\"1.7.14-SNAPSHOT\",id=\"stats\"} 1")
+                .append(newLine)
+                .append("# HELP hofund_connection Current status of given connection")
+                .append(newLine)
+                .append("# TYPE hofund_connection gauge")
+                .toString();
+
         try (MockWebServer server = new MockWebServer()) {
 
             // given:
-            server.enqueue(new MockResponse()
-                    .setBody("hello, world!")
-            );
+            server.enqueue(new MockResponse().setBody(body));
 
             HttpUrl url = server.url("/api/some/");
 
@@ -77,12 +89,15 @@ class AbstractHofundBasicHttpConnectionTest {
             HofundConnection hofundConnection = connection.toHofundConnection();
 
             // when:
-            Status status = hofundConnection.getFun().get().getConnection().getStatus();
+            Connection con = hofundConnection.getFun().get().getConnection();
+            Status status = con.getStatus();
+            String version = con.getVersion();
 
             // then:
             RecordedRequest request = server.takeRequest();
             assertEquals(Status.UP, status);
-            assertEquals(request.getMethod(), "GET");
+            assertEquals(expectedVersion, version);
+            assertEquals("GET", request.getMethod());
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -104,12 +119,15 @@ class AbstractHofundBasicHttpConnectionTest {
             HofundConnection hofundConnection = connection.toHofundConnection();
 
             // when:
-            Status status = hofundConnection.getFun().get().getConnection().getStatus();
+            Connection con = hofundConnection.getFun().get().getConnection();
+            Status status = con.getStatus();
+            String version = con.getVersion();
 
             // then:
             RecordedRequest request = server.takeRequest();
             assertEquals(Status.UP, status);
-            assertEquals(request.getMethod(), "POST");
+            assertEquals(Connection.UNKNOWN, version);
+            assertEquals("POST", request.getMethod());
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -123,10 +141,13 @@ class AbstractHofundBasicHttpConnectionTest {
         HofundConnection hofundConnection = connection.toHofundConnection();
 
         // when:
-        Status status = hofundConnection.getFun().get().getConnection().getStatus();
+        Connection con = hofundConnection.getFun().get().getConnection();
+        Status status = con.getStatus();
+        String version = con.getVersion();
 
         // then:
         assertEquals(Status.INACTIVE, status);
+        assertEquals(Connection.NOT_APPLICABLE, version);
     }
 
     @Test
@@ -145,13 +166,16 @@ class AbstractHofundBasicHttpConnectionTest {
             HofundConnection hofundConnection = connection.toHofundConnection();
 
             // when:
-            Status status = hofundConnection.getFun().get().getConnection().getStatus();
+            Connection con = hofundConnection.getFun().get().getConnection();
+            Status status = con.getStatus();
+            String version = con.getVersion();
 
             // then:
             RecordedRequest request = server.takeRequest();
             assertEquals(Status.UP, status);
-            assertEquals(request.getMethod(), "POST");
-            assertEquals(request.getHeader("Authorization"), "Bearer 12345678");
+            assertEquals(Connection.UNKNOWN, version);
+            assertEquals("POST", request.getMethod());
+            assertEquals("Bearer 12345678", request.getHeader("Authorization"));
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
