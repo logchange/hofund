@@ -39,7 +39,7 @@ public class HofundConnectionsTable {
                 table.addRow(
                         connection.getType().name(),
                         connection.getTarget(),
-                        connection.getFun().get().getStatus().getName(),
+                        connection.getFun().get().getConnection().getStatus().getName(),
                         connection.getUrl()
                 );
             } catch (Exception e) {

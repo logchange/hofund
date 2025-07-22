@@ -1,10 +1,9 @@
 package dev.logchange.hofund.connection.spring.datasource;
 
+import dev.logchange.hofund.connection.ConnectionFunction;
 import dev.logchange.hofund.connection.HofundConnection;
 import dev.logchange.hofund.connection.Status;
-import dev.logchange.hofund.connection.StatusFunction;
 import dev.logchange.hofund.connection.Type;
-import dev.logchange.hofund.connection.spring.datasource.oracle.OracleConnection;
 import org.slf4j.Logger;
 
 import javax.sql.DataSource;
@@ -45,7 +44,7 @@ public abstract class DatasourceConnection {
 
     protected abstract String getDbVendor();
 
-    private StatusFunction testConnection() {
+    private ConnectionFunction testConnection() {
         return () -> {
             log.debug("Testing db connection to: {} url: {}", getTarget(), getUrl());
             try (Connection connection = dataSource.getConnection();
@@ -53,15 +52,15 @@ public abstract class DatasourceConnection {
                 statement.setQueryTimeout(QUERY_TIMEOUT);
                 ResultSet resultSet = statement.executeQuery();
                 if (resultSet.next() && Objects.equals(resultSet.getString(1), "1")) {
-                    return Status.UP;
+                    return dev.logchange.hofund.connection.Connection.db(Status.UP);
                 } else {
                     log.warn("No connection to database url: {}", getUrl());
-                    return Status.DOWN;
+                    return dev.logchange.hofund.connection.Connection.db(Status.DOWN);
                 }
             } catch (SQLException e) {
                 log.warn("Error testing database connection url: {} msg: {}", getUrl(), e.getMessage());
                 log.debug("Exception: ", e);
-                return Status.DOWN;
+                return dev.logchange.hofund.connection.Connection.db(Status.DOWN);
             }
         };
     }
@@ -83,5 +82,4 @@ public abstract class DatasourceConnection {
         result = 31 * result + Objects.hashCode(getDbVendor());
         return result;
     }
-
 }

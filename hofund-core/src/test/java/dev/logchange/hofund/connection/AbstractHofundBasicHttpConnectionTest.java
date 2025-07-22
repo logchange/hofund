@@ -77,7 +77,7 @@ class AbstractHofundBasicHttpConnectionTest {
             HofundConnection hofundConnection = connection.toHofundConnection();
 
             // when:
-            Status status = hofundConnection.getFun().get().getStatus();
+            Status status = hofundConnection.getFun().get().getConnection().getStatus();
 
             // then:
             RecordedRequest request = server.takeRequest();
@@ -104,7 +104,7 @@ class AbstractHofundBasicHttpConnectionTest {
             HofundConnection hofundConnection = connection.toHofundConnection();
 
             // when:
-            Status status = hofundConnection.getFun().get().getStatus();
+            Status status = hofundConnection.getFun().get().getConnection().getStatus();
 
             // then:
             RecordedRequest request = server.takeRequest();
@@ -123,7 +123,7 @@ class AbstractHofundBasicHttpConnectionTest {
         HofundConnection hofundConnection = connection.toHofundConnection();
 
         // when:
-        Status status = hofundConnection.getFun().get().getStatus();
+        Status status = hofundConnection.getFun().get().getConnection().getStatus();
 
         // then:
         assertEquals(Status.INACTIVE, status);
@@ -145,7 +145,7 @@ class AbstractHofundBasicHttpConnectionTest {
             HofundConnection hofundConnection = connection.toHofundConnection();
 
             // when:
-            Status status = hofundConnection.getFun().get().getStatus();
+            Status status = hofundConnection.getFun().get().getConnection().getStatus();
 
             // then:
             RecordedRequest request = server.takeRequest();

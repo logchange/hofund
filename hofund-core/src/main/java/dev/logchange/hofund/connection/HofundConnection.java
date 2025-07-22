@@ -16,20 +16,16 @@ public class HofundConnection {
     private final String target;
     private final String url;
     private final Type type;
-    private final AtomicReference<StatusFunction> fun;
-    private final AtomicReference<VersionFunction> funVersion;
-    private final String requiredVersion;
+    private final AtomicReference<ConnectionFunction> fun;
     private final String description;
     private String icon;
 
-    public HofundConnection(String target, String url, Type type, AtomicReference<StatusFunction> fun, String description, AtomicReference<VersionFunction> funVersion, String requiredVersion) {
+    public HofundConnection(String target, String url, Type type, AtomicReference<ConnectionFunction> fun, String description) {
         this.target = target;
         this.url = url;
         this.type = type;
         this.fun = fun;
         this.description = description;
-        this.funVersion = funVersion;
-        this.requiredVersion = requiredVersion;
     }
 
     public String toTargetTag() {
@@ -92,15 +88,7 @@ public class HofundConnection {
         return type;
     }
 
-    public AtomicReference<StatusFunction> getFun() {
+    public AtomicReference<ConnectionFunction> getFun() {
         return fun;
-    }
-
-    public AtomicReference<VersionFunction> getFunVersion() {
-        return funVersion;
-    }
-
-    public String getRequiredVersion() {
-        return requiredVersion;
     }
 }

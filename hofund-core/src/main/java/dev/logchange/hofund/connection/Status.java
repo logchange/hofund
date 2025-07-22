@@ -1,32 +1,21 @@
 package dev.logchange.hofund.connection;
 
-public class Status {
+public enum Status {
 
-    private static final double UP_VALUE = 1.0;
-    public static final Status UP = new Status(UP_VALUE);
+    UP("UP", 1.0),
+    DOWN("DOWN", 0.0),
+    INACTIVE("INACTIVE", -1.0);
 
-    private static final double DOWN_VALUE = 0.0;
-    public static final Status DOWN = new Status(DOWN_VALUE);
-
-    private static final double INACTIVE_VALUE = -1.0;
-    public static final Status INACTIVE = new Status(INACTIVE_VALUE);
-
+    private final String name;
     private final double value;
 
-    private Status(double value) {
+    Status(String name, double value) {
+        this.name = name;
         this.value = value;
     }
 
     public String getName() {
-        if (value == UP_VALUE) {
-            return "UP";
-        } else if (value == DOWN_VALUE) {
-            return "DOWN";
-        } else if (value == INACTIVE_VALUE) {
-            return "INACTIVE";
-        } else {
-            return "UNKNOWN";
-        }
+        return name;
     }
 
     public double getValue() {
