@@ -9,6 +9,10 @@
     </parent>
 
     <artifactId>hofund-test-reports</artifactId>
+    <name>hofund test reports</name>
+    <description>
+        hofund test reports allow aggregating reports from submodules and join them.
+    </description>
     <packaging>pom</packaging>
 
     <dependencies>

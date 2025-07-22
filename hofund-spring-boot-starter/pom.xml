@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>hofund-spring-boot-starter</artifactId>
-
+    <name>hofund spring boot starter</name>
     <description>
         A Spring Boot starter to easily integrate Hofund functionalities into Spring Boot applications. This starter
         includes dependencies and configurations for quick setup, while also serving as a toolset to
