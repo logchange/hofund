@@ -166,43 +166,37 @@ public abstract class AbstractHofundBasicHttpConnection {
 
             String version = extractVersionFromResponse(responseBody);
             log.debug("Extracted version: {}", version);
-
-            if (version.isEmpty()) {
-                log.debug("Extracted version is empty. Returning UNKNOWN");
-                return UNKNOWN;
-            }
-
             return version;
         } catch (IOException e) {
             log.warn("Error reading response from: {} msg: {}", getUrl(), e.getMessage());
             log.debug("Exception: ", e);
-            return "";
+            return UNKNOWN;
         }
     }
 
     protected String extractVersionFromResponse(String responseBody) {
         if (responseBody == null || responseBody.isEmpty()) {
-            return "";
+            return UNKNOWN;
         }
 
         int versionIndex = responseBody.indexOf("application_version");
         if (versionIndex == -1) {
-            return "";
+            return UNKNOWN;
         }
 
         int equalIndex = responseBody.indexOf("=", versionIndex);
         if (equalIndex == -1) {
-            return "";
+            return UNKNOWN;
         }
 
         int openQuoteIndex = responseBody.indexOf("\"", equalIndex);
         if (openQuoteIndex == -1) {
-            return "";
+            return UNKNOWN;
         }
 
         int closeQuoteIndex = responseBody.indexOf("\"", openQuoteIndex + 1);
         if (closeQuoteIndex == -1) {
-            return "";
+            return UNKNOWN;
         }
 
         return responseBody.substring(openQuoteIndex + 1, closeQuoteIndex);
