@@ -107,7 +107,7 @@ class AbstractHofundBasicHttpConnectionErrorTest {
             // given:
             server.enqueue(new MockResponse()
                     .setResponseCode(302)
-                    .setBody("hofund_info{application_name=\"stats\",application_version=\"2.1.0\",id=\"stats\"} 1"));
+                    .setBody("{\"application\":{\"version\":\"2.1.0\"},\"git\":{\"branch\":\"develop\"}}"));
 
             HttpUrl url = server.url("/api/health");
             TestHttpConnection connection = new TestHttpConnection("test-service", url.toString(), 1000, 1000);
