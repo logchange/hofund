@@ -179,26 +179,29 @@ public abstract class AbstractHofundBasicHttpConnection {
             return UNKNOWN;
         }
 
-        int versionIndex = responseBody.indexOf("application_version");
+        int applicationIndex = responseBody.indexOf("\"application\"");
+        if (applicationIndex == -1) {
+            return UNKNOWN;
+        }
+
+        String versionKey = "\"version\":\"";
+        int versionIndex = responseBody.indexOf(versionKey, applicationIndex);
         if (versionIndex == -1) {
             return UNKNOWN;
         }
 
-        int equalIndex = responseBody.indexOf("=", versionIndex);
-        if (equalIndex == -1) {
-            return UNKNOWN;
-        }
-
-        int openQuoteIndex = responseBody.indexOf("\"", equalIndex);
-        if (openQuoteIndex == -1) {
-            return UNKNOWN;
-        }
-
-        int closeQuoteIndex = responseBody.indexOf("\"", openQuoteIndex + 1);
+        int versionValueIndex = responseBody.indexOf(versionKey, applicationIndex) + versionKey.length();
+        int closeQuoteIndex = responseBody.indexOf("\"", versionValueIndex);
         if (closeQuoteIndex == -1) {
             return UNKNOWN;
         }
 
-        return responseBody.substring(openQuoteIndex + 1, closeQuoteIndex);
+        String version = responseBody.substring(versionValueIndex, closeQuoteIndex);
+        if (version.isEmpty()) {
+            return UNKNOWN;
+        }
+
+        return version;
+
     }
 }
