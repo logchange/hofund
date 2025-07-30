@@ -99,18 +99,7 @@ class AbstractHofundBasicHttpConnectionTest {
     @Test
     void testGetMethod() {
         String expectedVersion = "1.7.14-SNAPSHOT";
-        String newLine = System.lineSeparator();
-        String body = new StringBuilder()
-                .append("# HELP hofund_info Basic information about application")
-                .append(newLine)
-                .append("# TYPE hofund_info gauge")
-                .append(newLine)
-                .append("hofund_info{application_name=\"stats\",application_version=\"1.7.14-SNAPSHOT\",id=\"stats\"} 1")
-                .append(newLine)
-                .append("# HELP hofund_connection Current status of given connection")
-                .append(newLine)
-                .append("# TYPE hofund_connection gauge")
-                .toString();
+        String body = "{\"application\":{\"version\":\"1.7.14-SNAPSHOT\"},\"git\":{\"branch\":\"develop\"}}";
 
         try (MockWebServer server = new MockWebServer()) {
 
