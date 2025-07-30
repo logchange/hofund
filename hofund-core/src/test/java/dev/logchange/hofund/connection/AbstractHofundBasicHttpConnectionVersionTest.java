@@ -1,6 +1,5 @@
 package dev.logchange.hofund.connection;
 
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -13,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class AbstractHofundBasicHttpConnectionVersionTest {
 
     private static class TestVersionExtractor extends AbstractHofundBasicHttpConnection {
+
         @Override
         protected String getTarget() {
             return "test-target";
@@ -41,54 +41,6 @@ class AbstractHofundBasicHttpConnectionVersionTest {
         assertEquals(Connection.UNKNOWN, version);
     }
 
-    @Test
-    void shouldReturnUnknownWhenNoApplicationVersionFound() {
-        // given:
-        String responseBody = "Some response without version information";
-
-        // when:
-        String version = extractor.extractVersionFromResponse(responseBody);
-
-        // then:
-        assertEquals(Connection.UNKNOWN, version);
-    }
-
-    @Test
-    void shouldReturnUnknownWhenApplicationVersionFoundButNoEquals() {
-        // given:
-        String responseBody = "Some response with application_version but no equals sign";
-
-        // when:
-        String version = extractor.extractVersionFromResponse(responseBody);
-
-        // then:
-        assertEquals(Connection.UNKNOWN, version);
-    }
-
-    @Test
-    void shouldReturnUnknownWhenApplicationVersionFoundButNoOpenQuote() {
-        // given:
-        String responseBody = "Some response with application_version=but no open quote";
-
-        // when:
-        String version = extractor.extractVersionFromResponse(responseBody);
-
-        // then:
-        assertEquals(Connection.UNKNOWN, version);
-    }
-
-    @Test
-    void shouldReturnUnknownWhenApplicationVersionFoundButNoCloseQuote() {
-        // given:
-        String responseBody = "Some response with application_version=\"but no close quote";
-
-        // when:
-        String version = extractor.extractVersionFromResponse(responseBody);
-
-        // then:
-        assertEquals(Connection.UNKNOWN, version);
-    }
-
     @ParameterizedTest
     @MethodSource("provideValidVersionResponses")
     void shouldExtractVersionCorrectly(String responseBody, String expectedVersion) {
@@ -101,34 +53,30 @@ class AbstractHofundBasicHttpConnectionVersionTest {
 
     private static Stream<Arguments> provideValidVersionResponses() {
         return Stream.of(
-            Arguments.of(
-                "# HELP hofund_info Basic information about application\n" +
-                "# TYPE hofund_info gauge\n" +
-                "hofund_info{application_name=\"stats\",application_version=\"1.7.14-SNAPSHOT\",id=\"stats\"} 1\n" +
-                "# HELP hofund_connection Current status of given connection\n" +
-                "# TYPE hofund_connection gauge",
-                "1.7.14-SNAPSHOT"
-            ),
-            Arguments.of(
-                "hofund_info{application_name=\"stats\",application_version=\"2.0.0\",id=\"stats\"} 1",
-                "2.0.0"
-            ),
-            Arguments.of(
-                "hofund_info{application_name=\"stats\",application_version=\"1.0.0-beta.1+build.123\",id=\"stats\"} 1",
-                "1.0.0-beta.1+build.123"
-            ),
-            Arguments.of(
-                "application_version=\"3.1.4\" and some other text",
-                "3.1.4"
-            ),
-            Arguments.of(
-                "Some text and then application_version=\"5.0.1\"",
-                "5.0.1"
-            ),
-            Arguments.of(
-                "application_version=\"1.0.0\" and then application_version=\"2.0.0\"",
-                "1.0.0"
-            )
+                Arguments.of(
+                        "Some response without version information",
+                        "UNKNOWN"
+                ),
+                Arguments.of(
+                        "{\"application\":{\"name\":\"AntyFraud\",\"version\":\"25.3.1-SNAPSHOT\"},\"git\":{\"branch\":\"main\",\"commit\":{\"id\":\"b282301\",\"time\":\"2025-07-28T14:24:39Z\"}}}",
+                        "25.3.1-SNAPSHOT"
+                ),
+                Arguments.of(
+                        "{\"application\":{\"name\":\"TestApp\",\"version\":\"1.0.0\"},\"otherField\":\"value\"}",
+                        "1.0.0"
+                ),
+                Arguments.of(
+                        "{\"application\":{\"version\":\"2.0.0-RC1\"},\"git\":{\"branch\":\"develop\"}}",
+                        "2.0.0-RC1"
+                ),
+                Arguments.of(
+                        "{\"someField\":\"value\",\"application\":{\"name\":\"App\",\"version\":\"3.2.1+build.456\"}}",
+                        "3.2.1+build.456"
+                ),
+                Arguments.of(
+                        "{\"someField\":\"value\",\"application\":{\"name\":\"App\",\"version\":\"\"}}",
+                        "UNKNOWN"
+                )
         );
     }
 }
