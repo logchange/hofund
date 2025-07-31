@@ -2,7 +2,6 @@ package dev.logchange.hofund.connection;
 
 import org.slf4j.Logger;
 
-import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -10,6 +9,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
+import static dev.logchange.hofund.connection.HofundConnectionResult.NOT_APPLICABLE;
+import static dev.logchange.hofund.connection.HofundConnectionResult.UNKNOWN;
 import static org.slf4j.LoggerFactory.getLogger;
 
 public abstract class AbstractHofundBasicHttpConnection {
@@ -66,6 +67,18 @@ public abstract class AbstractHofundBasicHttpConnection {
         return Collections.emptyList();
     }
 
+    private void setRequestHeaders(HttpURLConnection urlConn) {
+        List<RequestHeader> requestHeaders = getRequestHeaders();
+
+        if (requestHeaders == null || requestHeaders.isEmpty()) {
+            return;
+        }
+
+        for (RequestHeader header : requestHeaders) {
+            urlConn.setRequestProperty(header.getName(), header.getValue());
+        }
+    }
+
     /**
      * If your connection can be disabled f.e. By parameter or should be
      * active between 9 am to 5 pm, you can override this method and implement it as you wish.
@@ -102,15 +115,14 @@ public abstract class AbstractHofundBasicHttpConnection {
         }
     }
 
-
-    private StatusFunction testConnection() {
+    private ConnectionFunction testConnection() {
         return () -> {
             try {
                 log.debug("Testing http connection to: {} url: {}", getTarget(), getUrl());
 
                 if (getCheckingStatus() == CheckingStatus.INACTIVE) {
                     log.debug("Skipping checking connection to: {} due to inactive status checking", getTarget());
-                    return Status.INACTIVE;
+                    return HofundConnectionResult.http(Status.INACTIVE, NOT_APPLICABLE);
                 }
 
                 HttpURLConnection urlConn = (HttpURLConnection) getURL().openConnection();
@@ -125,28 +137,16 @@ public abstract class AbstractHofundBasicHttpConnection {
                 log.debug("Connection to url: {} status code: {}", getUrl(), responseCode);
 
                 if (responseCode >= 100 && responseCode < 400) {
-                    return Status.UP;
+                    return HofundConnectionResult.http(Status.UP, urlConn);
                 } else {
                     log.warn("Error testing connection to: {} finished with status code: {}", getUrl(), responseCode);
-                    return Status.DOWN;
+                    return HofundConnectionResult.http(Status.DOWN, UNKNOWN);
                 }
             } catch (Exception e) {
                 log.warn("Error testing connection to: {} msg: {}", getUrl(), e.getMessage());
                 log.debug("Exception: ", e);
-                return Status.DOWN;
+                return HofundConnectionResult.http(Status.DOWN, UNKNOWN);
             }
         };
-    }
-
-    private void setRequestHeaders(HttpURLConnection urlConn) {
-        List<RequestHeader> requestHeaders = getRequestHeaders();
-
-        if (requestHeaders == null || requestHeaders.isEmpty()) {
-            return;
-        }
-
-        for (RequestHeader header : requestHeaders) {
-            urlConn.setRequestProperty(header.getName(), header.getValue());
-        }
     }
 }
