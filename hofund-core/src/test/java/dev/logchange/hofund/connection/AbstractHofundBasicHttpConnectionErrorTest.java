@@ -24,13 +24,13 @@ class AbstractHofundBasicHttpConnectionErrorTest {
             HofundConnection hofundConnection = connection.toHofundConnection();
 
             // when:
-            Connection con = hofundConnection.getFun().get().getConnection();
+            HofundConnectionResult con = hofundConnection.getFun().get().getConnection();
             Status status = con.getStatus();
             String version = con.getVersion();
 
             // then:
             assertEquals(Status.DOWN, status);
-            assertEquals(Connection.UNKNOWN, version);
+            assertEquals(HofundConnectionResult.UNKNOWN, version);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -49,13 +49,13 @@ class AbstractHofundBasicHttpConnectionErrorTest {
             HofundConnection hofundConnection = connection.toHofundConnection();
 
             // when:
-            Connection con = hofundConnection.getFun().get().getConnection();
+            HofundConnectionResult con = hofundConnection.getFun().get().getConnection();
             Status status = con.getStatus();
             String version = con.getVersion();
 
             // then:
             assertEquals(Status.DOWN, status);
-            assertEquals(Connection.UNKNOWN, version);
+            assertEquals(HofundConnectionResult.UNKNOWN, version);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -73,13 +73,13 @@ class AbstractHofundBasicHttpConnectionErrorTest {
             HofundConnection hofundConnection = connection.toHofundConnection();
 
             // when:
-            Connection con = hofundConnection.getFun().get().getConnection();
+            HofundConnectionResult con = hofundConnection.getFun().get().getConnection();
             Status status = con.getStatus();
             String version = con.getVersion();
 
             // then:
             assertEquals(Status.DOWN, status);
-            assertEquals(Connection.UNKNOWN, version);
+            assertEquals(HofundConnectionResult.UNKNOWN, version);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -92,13 +92,13 @@ class AbstractHofundBasicHttpConnectionErrorTest {
         HofundConnection hofundConnection = connection.toHofundConnection();
 
         // when:
-        Connection con = hofundConnection.getFun().get().getConnection();
+        HofundConnectionResult con = hofundConnection.getFun().get().getConnection();
         Status status = con.getStatus();
         String version = con.getVersion();
 
         // then:
         assertEquals(Status.DOWN, status);
-        assertEquals(Connection.UNKNOWN, version);
+        assertEquals(HofundConnectionResult.UNKNOWN, version);
     }
 
     @Test
@@ -114,7 +114,7 @@ class AbstractHofundBasicHttpConnectionErrorTest {
             HofundConnection hofundConnection = connection.toHofundConnection();
 
             // when:
-            Connection con = hofundConnection.getFun().get().getConnection();
+            HofundConnectionResult con = hofundConnection.getFun().get().getConnection();
             Status status = con.getStatus();
             String version = con.getVersion();
 

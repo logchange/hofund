@@ -113,7 +113,7 @@ class AbstractHofundBasicHttpConnectionTest {
             HofundConnection hofundConnection = connection.toHofundConnection();
 
             // when:
-            Connection con = hofundConnection.getFun().get().getConnection();
+            HofundConnectionResult con = hofundConnection.getFun().get().getConnection();
             Status status = con.getStatus();
             String version = con.getVersion();
 
@@ -143,14 +143,14 @@ class AbstractHofundBasicHttpConnectionTest {
             HofundConnection hofundConnection = connection.toHofundConnection();
 
             // when:
-            Connection con = hofundConnection.getFun().get().getConnection();
+            HofundConnectionResult con = hofundConnection.getFun().get().getConnection();
             Status status = con.getStatus();
             String version = con.getVersion();
 
             // then:
             RecordedRequest request = server.takeRequest();
             assertEquals(Status.UP, status);
-            assertEquals(Connection.UNKNOWN, version);
+            assertEquals(HofundConnectionResult.UNKNOWN, version);
             assertEquals("POST", request.getMethod());
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
@@ -165,14 +165,14 @@ class AbstractHofundBasicHttpConnectionTest {
         HofundConnection hofundConnection = connection.toHofundConnection();
 
         // when:
-        Connection con = hofundConnection.getFun().get().getConnection();
+        HofundConnectionResult con = hofundConnection.getFun().get().getConnection();
         Status status = con.getStatus();
         String version = con.getVersion();
 
         // then:
         assertEquals(Status.INACTIVE, status);
         assertEquals(-1.0, status.getValue());
-        assertEquals(Connection.NOT_APPLICABLE, version);
+        assertEquals(HofundConnectionResult.NOT_APPLICABLE, version);
     }
 
 
@@ -184,14 +184,14 @@ class AbstractHofundBasicHttpConnectionTest {
         HofundConnection hofundConnection = connection.toHofundConnection();
 
         // when:
-        Connection con = hofundConnection.getFun().get().getConnection();
+        HofundConnectionResult con = hofundConnection.getFun().get().getConnection();
         Status status = con.getStatus();
         String version = con.getVersion();
 
         // then:
         assertEquals(Status.INACTIVE, status);
         assertEquals(-1.0, status.getValue());
-        assertEquals(Connection.NOT_APPLICABLE, version);
+        assertEquals(HofundConnectionResult.NOT_APPLICABLE, version);
     }
 
     @Test
@@ -210,14 +210,14 @@ class AbstractHofundBasicHttpConnectionTest {
             HofundConnection hofundConnection = connection.toHofundConnection();
 
             // when:
-            Connection con = hofundConnection.getFun().get().getConnection();
+            HofundConnectionResult con = hofundConnection.getFun().get().getConnection();
             Status status = con.getStatus();
             String version = con.getVersion();
 
             // then:
             RecordedRequest request = server.takeRequest();
             assertEquals(Status.UP, status);
-            assertEquals(Connection.UNKNOWN, version);
+            assertEquals(HofundConnectionResult.UNKNOWN, version);
             assertEquals("POST", request.getMethod());
             assertEquals("Bearer 12345678", request.getHeader("Authorization"));
         } catch (IOException | InterruptedException e) {

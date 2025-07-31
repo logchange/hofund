@@ -36,7 +36,7 @@ public class HofundConnectionsTable {
 
         for (HofundConnection connection : connections) {
             try {
-                Connection con = connection.getFun().get().getConnection();
+                HofundConnectionResult con = connection.getFun().get().getConnection();
                 table.addRow(
                         connection.getType().name(),
                         connection.getTarget(),
@@ -52,7 +52,7 @@ public class HofundConnectionsTable {
                         connection.getTarget(),
                         Status.DOWN.getName(),
                         connection.getUrl(),
-                        Connection.UNKNOWN
+                        HofundConnectionResult.UNKNOWN
                 );
             }
 

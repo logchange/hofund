@@ -29,8 +29,8 @@ class HofundEdgeMeterTest {
         List<HofundConnectionsProvider> connectionsProviders = new ArrayList<>();
         connectionsProviders.add(() -> {
             List<HofundConnection> connections = new ArrayList<>();
-            connections.add(new HofundConnection("abc", "https//google.com", Type.HTTP, new AtomicReference<>(() -> Connection.http(Status.UP, "1.0.0")), ""));
-            connections.add(new HofundConnection("abc", "https//google.com", Type.HTTP, new AtomicReference<>(() -> Connection.http(Status.UP, "1.0.0")), ""));
+            connections.add(new HofundConnection("abc", "https//google.com", Type.HTTP, new AtomicReference<>(() -> HofundConnectionResult.http(Status.UP, "1.0.0")), ""));
+            connections.add(new HofundConnection("abc", "https//google.com", Type.HTTP, new AtomicReference<>(() -> HofundConnectionResult.http(Status.UP, "1.0.0")), ""));
             return connections;
         });
 

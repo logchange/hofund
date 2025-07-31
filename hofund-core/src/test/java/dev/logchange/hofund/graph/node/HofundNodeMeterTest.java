@@ -29,7 +29,7 @@ class HofundNodeMeterTest {
         List<HofundConnectionsProvider> connectionsProviders = new ArrayList<>();
         connectionsProviders.add(() -> {
             List<HofundConnection> connections = new ArrayList<>();
-            connections.add(new HofundConnection("abc", "https//google.com", Type.HTTP, new AtomicReference<>(() -> Connection.http(Status.UP, "1.0.0")), ""));
+            connections.add(new HofundConnection("abc", "https//google.com", Type.HTTP, new AtomicReference<>(() -> HofundConnectionResult.http(Status.UP, "1.0.0")), ""));
             return connections;
         });
 
@@ -58,8 +58,8 @@ class HofundNodeMeterTest {
         List<HofundConnectionsProvider> connectionsProviders = new ArrayList<>();
         connectionsProviders.add(() -> {
             List<HofundConnection> connections = new ArrayList<>();
-            connections.add(new HofundConnection("st", "jdbc:oracle:thin:@localhost:1521:xe", Type.DATABASE, new AtomicReference<>(() -> Connection.db(Status.UP)), "Oracle"));
-            connections.add(new HofundConnection("st", "jdbc:oracle:thin:@localhost:1521:xe", Type.DATABASE, new AtomicReference<>(() -> Connection.db(Status.UP)), "PostgreSQL"));
+            connections.add(new HofundConnection("st", "jdbc:oracle:thin:@localhost:1521:xe", Type.DATABASE, new AtomicReference<>(() -> HofundConnectionResult.db(Status.UP)), "Oracle"));
+            connections.add(new HofundConnection("st", "jdbc:oracle:thin:@localhost:1521:xe", Type.DATABASE, new AtomicReference<>(() -> HofundConnectionResult.db(Status.UP)), "PostgreSQL"));
             return connections;
         });
 

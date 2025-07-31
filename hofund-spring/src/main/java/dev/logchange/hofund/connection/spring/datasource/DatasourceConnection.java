@@ -1,9 +1,6 @@
 package dev.logchange.hofund.connection.spring.datasource;
 
-import dev.logchange.hofund.connection.ConnectionFunction;
-import dev.logchange.hofund.connection.HofundConnection;
-import dev.logchange.hofund.connection.Status;
-import dev.logchange.hofund.connection.Type;
+import dev.logchange.hofund.connection.*;
 import org.slf4j.Logger;
 
 import javax.sql.DataSource;
@@ -52,15 +49,15 @@ public abstract class DatasourceConnection {
                 statement.setQueryTimeout(QUERY_TIMEOUT);
                 ResultSet resultSet = statement.executeQuery();
                 if (resultSet.next() && Objects.equals(resultSet.getString(1), "1")) {
-                    return dev.logchange.hofund.connection.Connection.db(Status.UP);
+                    return HofundConnectionResult.db(Status.UP);
                 } else {
                     log.warn("No connection to database url: {}", getUrl());
-                    return dev.logchange.hofund.connection.Connection.db(Status.DOWN);
+                    return HofundConnectionResult.db(Status.DOWN);
                 }
             } catch (SQLException e) {
                 log.warn("Error testing database connection url: {} msg: {}", getUrl(), e.getMessage());
                 log.debug("Exception: ", e);
-                return dev.logchange.hofund.connection.Connection.db(Status.DOWN);
+                return HofundConnectionResult.db(Status.DOWN);
             }
         };
     }

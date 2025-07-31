@@ -2,9 +2,6 @@ package dev.logchange.hofund.connection;
 
 import org.slf4j.Logger;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -12,8 +9,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
-import static dev.logchange.hofund.connection.Connection.NOT_APPLICABLE;
-import static dev.logchange.hofund.connection.Connection.UNKNOWN;
+import static dev.logchange.hofund.connection.HofundConnectionResult.NOT_APPLICABLE;
+import static dev.logchange.hofund.connection.HofundConnectionResult.UNKNOWN;
 import static org.slf4j.LoggerFactory.getLogger;
 
 public abstract class AbstractHofundBasicHttpConnection {
@@ -125,7 +122,7 @@ public abstract class AbstractHofundBasicHttpConnection {
 
                 if (getCheckingStatus() == CheckingStatus.INACTIVE) {
                     log.debug("Skipping checking connection to: {} due to inactive status checking", getTarget());
-                    return Connection.http(Status.INACTIVE, NOT_APPLICABLE);
+                    return HofundConnectionResult.http(Status.INACTIVE, NOT_APPLICABLE);
                 }
 
                 HttpURLConnection urlConn = (HttpURLConnection) getURL().openConnection();
@@ -140,68 +137,16 @@ public abstract class AbstractHofundBasicHttpConnection {
                 log.debug("Connection to url: {} status code: {}", getUrl(), responseCode);
 
                 if (responseCode >= 100 && responseCode < 400) {
-                    String version = parseResponseBody(urlConn);
-                    return Connection.http(Status.UP, version);
+                    return HofundConnectionResult.http(Status.UP, urlConn);
                 } else {
                     log.warn("Error testing connection to: {} finished with status code: {}", getUrl(), responseCode);
-                    return Connection.http(Status.DOWN, UNKNOWN);
+                    return HofundConnectionResult.http(Status.DOWN, UNKNOWN);
                 }
             } catch (Exception e) {
                 log.warn("Error testing connection to: {} msg: {}", getUrl(), e.getMessage());
                 log.debug("Exception: ", e);
-                return Connection.http(Status.DOWN, UNKNOWN);
+                return HofundConnectionResult.http(Status.DOWN, UNKNOWN);
             }
         };
-    }
-
-    private String parseResponseBody(HttpURLConnection urlConn) {
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(urlConn.getInputStream()))) {
-            StringBuilder response = new StringBuilder();
-            String line = null;
-            while ((line = reader.readLine()) != null) {
-                response.append(line);
-            }
-            String responseBody = response.toString();
-            log.debug("Response body: {}", responseBody);
-
-            String version = extractVersionFromResponse(responseBody);
-            log.debug("Extracted version: {}", version);
-            return version;
-        } catch (IOException e) {
-            log.warn("Error reading response from: {} msg: {}", getUrl(), e.getMessage());
-            log.debug("Exception: ", e);
-            return UNKNOWN;
-        }
-    }
-
-    protected String extractVersionFromResponse(String responseBody) {
-        if (responseBody == null || responseBody.isEmpty()) {
-            return UNKNOWN;
-        }
-
-        int applicationIndex = responseBody.indexOf("\"application\"");
-        if (applicationIndex == -1) {
-            return UNKNOWN;
-        }
-
-        String versionKey = "\"version\":\"";
-        int versionIndex = responseBody.indexOf(versionKey, applicationIndex);
-        if (versionIndex == -1) {
-            return UNKNOWN;
-        }
-
-        int versionValueIndex = responseBody.indexOf(versionKey, applicationIndex) + versionKey.length();
-        int closeQuoteIndex = responseBody.indexOf("\"", versionValueIndex);
-        if (closeQuoteIndex == -1) {
-            return UNKNOWN;
-        }
-
-        String version = responseBody.substring(versionValueIndex, closeQuoteIndex);
-        if (version.isEmpty()) {
-            return UNKNOWN;
-        }
-
-        return version;
-
     }
 }

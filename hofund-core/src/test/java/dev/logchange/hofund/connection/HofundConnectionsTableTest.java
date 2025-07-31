@@ -79,7 +79,7 @@ class HofundConnectionsTableTest {
                 target,
                 "fake",
                 Type.HTTP,
-                new AtomicReference<>(() -> Connection.http(Status.UP, version)),
+                new AtomicReference<>(() -> HofundConnectionResult.http(Status.UP, version)),
                 null
         );
     }
@@ -88,7 +88,7 @@ class HofundConnectionsTableTest {
                 target,
                 "fake",
                 Type.DATABASE,
-                new AtomicReference<>(() -> Connection.db(Status.UP)),
+                new AtomicReference<>(() -> HofundConnectionResult.db(Status.UP)),
                 null
         );
     }
