@@ -3,11 +3,9 @@ package dev.logchange.hofund.connection;
 import dev.logchange.hofund.info.HofundInfoProvider;
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.MeterRegistry;
-import io.micrometer.core.instrument.Tag;
 import io.micrometer.core.instrument.binder.MeterBinder;
 
 import java.util.Collection;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,7 +28,7 @@ public class HofundConnectionMeter implements MeterBinder {
 
     @Override
     public void bindTo(MeterRegistry meterRegistry) {
-        connections.forEach(connection -> Gauge.builder(NAME, connection, con -> con.getFun().get().getStatus().getValue())
+        connections.forEach(connection -> Gauge.builder(NAME, connection, con -> con.getFun().get().getConnection().getStatus().getValue())
                 .description(DESCRIPTION)
                 .tags(connection.getTags(infoProvider))
                 .register(meterRegistry));

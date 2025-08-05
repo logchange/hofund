@@ -1,0 +1,11 @@
+title: "Added fetching current version of target application in hofund connection."
+authors:
+  - name: Mateusz Witkowski
+    nick: witx98
+    url: https://github.com/witx98
+merge_requests:
+  - 95
+issues:
+  - 92
+type: added
+
