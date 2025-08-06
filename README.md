@@ -277,19 +277,19 @@ If you don't want to test connection in some conditions, you can use `new Simple
 
 ### 7. Connection Tabel
 
-This simple functionality allows to print connections status in logger during booting up!
+This simple functionality allows printing connection statuses in the logger during booting up!
 
 ```txt
-+----------+--------------+----------+----------------------------------------------+
-| TYPE     | NAME         | STATUS   | URL                                          |
-+----------+--------------+----------+----------------------------------------------+
-| DATABASE | mydb         | UP       | jdbc:postgresql://localhost:5432/mydb        |
-| DATABASE | mydb2        | UP       | jdbc:mysql://localhost:3306/mydb2            |
-| DATABASE | orcl         | DOWN     | jdbc:oracle:thin:@localhost:1521:orcl        |
-| HTTP     | external-api | UP       | https://api.external-service.com             |
-| HTTP     | internal-api | UP       | https://api.internal-service.local           |
-| HTTP     | public-API   | INACTIVE | https://api.public-service.com               |
-+----------+--------------+----------+----------------------------------------------+
++----------+--------------+----------+----------------------------------------------+---------+
+| TYPE     | NAME         | STATUS   | URL                                          | VERSION |
++----------+--------------+----------+----------------------------------------------+---------+
+| DATABASE | mydb         | UP       | jdbc:postgresql://localhost:5432/mydb        | N/A     |
+| DATABASE | mydb2        | UP       | jdbc:mysql://localhost:3306/mydb2            | N/A     |
+| DATABASE | orcl         | DOWN     | jdbc:oracle:thin:@localhost:1521:orcl        | N/A     |
+| HTTP     | external-api | UP       | https://api.external-service.com             | UNKNOWN |
+| HTTP     | internal-api | UP       | https://api.internal-service.local           | 1.0.0   |
+| HTTP     | public-API   | INACTIVE | https://api.public-service.com               | N/A     |
++----------+--------------+----------+----------------------------------------------+---------+
 ```
 
 You can achieve this by creating simple class:
