@@ -296,7 +296,7 @@ For HTTP connections, you can specify the version or use HttpURLConnection:
 // Specify status and version directly
 HofundConnectionResult.http(Status.UP, "1.2.3");
 
-// Or let HofundConnectionResult extract version from HttpURLConnection
+// Or let HofundConnectionResult extract version from open HttpURLConnection
 HofundConnectionResult.http(Status.UP, httpUrlConnection);
 ```
 
