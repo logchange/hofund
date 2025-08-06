@@ -295,6 +295,20 @@ For HTTP connections, you can specify the version or use HttpURLConnection:
 ```java
 // Specify status and version directly
 HofundConnectionResult.http(Status.UP, "1.2.3");
+
+// Or let HofundConnectionResult extract version from HttpURLConnection
+HofundConnectionResult.http(Status.UP, httpUrlConnection);
+```
+
+By default, when using SimpleHofundHttpConnection or AbstractHofundBasicHttpConnection, hofund will attempt to retrieve version information from the target application. This requires the target application to expose version information at the provided endpoint URL in the following JSON format:
+
+```json
+{
+  "application": {
+    "name": "AppName",
+    "version": "25.3.1-SNAPSHOT"
+  }
+}
 ```
 
 ### 6. Metrics description
