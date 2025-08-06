@@ -29,7 +29,10 @@ public class HofundConnection {
     }
 
     public String toTargetTag() {
-        return type == Type.DATABASE ? target + "_" + type + getDescription().toLowerCase() : target;
+        if (type == Type.DATABASE || type == Type.QUEUE) {
+            return target + "_" + type + getDescription().toLowerCase();
+        }
+        return target;
     }
 
     public String getDescription() {
@@ -46,7 +49,7 @@ public class HofundConnection {
 
     /**
      * Available icons:
-     * <a href="https://developers.grafana.com/ui/latest/index.html?path=/story/docs-overview-icon--icons-overview">Grafana BuiltIn Icons</a>
+     * <a href="https://developers.grafana.com/ui/latest/index.html?path=/story/iconography-icon--icons-overview">Grafana BuiltIn Icons</a>
      */
     public String getIcon() {
         if (StringUtils.isEmpty(icon)) {
@@ -57,6 +60,8 @@ public class HofundConnection {
                     return "file-alt";
                 case HTTP:
                     return "share-alt";
+                case QUEUE:
+                    return "channel-add";
             }
         }
 

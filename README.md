@@ -253,7 +253,65 @@ If you want to use f.e `POST` method, you can use `new SimpleHofundHttpConnectio
 
 If you don't want to test connection in some conditions, you can use `new SimpleHofundHttpConnection("abc", "some_url", CheckingStatus.INACTIVE)` or override `getCheckingStatus()`.
 
-### 5. Metrics description
+### 5. Manually creating HofundConnection
+
+If you need to create a HofundConnection manually, you must define a ConnectionFunction that will query the service you're interested in. The ConnectionFunction interface has a single method `getConnection()` that returns a HofundConnectionResult object.
+
+The HofundConnectionResult stores:
+- The connection status (UP, DOWN, or INACTIVE)
+- The version of the connected service
+
+```java
+// Example of manually creating a HofundConnection with a custom ConnectionFunction
+new HofundConnection(
+    "my-service",                                // target name
+    "https://my-service.example.com/api",        // URL
+    Type.HTTP,                                   // connection target type (HTTP, DATABASE, QUEUE etc.)
+    new AtomicReference<>(() -> {                // ConnectionFunction as lambda
+        // Your custom logic to check connection and get version
+        try {
+            // Query the service and determine status
+            return HofundConnectionResult.http(Status.UP, "1.2.3");
+        } catch (Exception e) {
+            return HofundConnectionResult.http(Status.DOWN, HofundConnectionResult.UNKNOWN);
+        }
+    }),
+    "Optional description"                       // description
+);
+```
+
+#### Special values in HofundConnectionResult
+
+- **UNKNOWN** (`"UNKNOWN"`): Used when it was not possible to retrieve version information from the service.
+- **NOT_APPLICABLE** (`"N/A"`): Used when version information is not applicable for this connection type (e.g., database connections) or cannot be retrieved.
+
+For database connections, you can use the factory method:
+```java
+// For database connections, version is automatically set to NOT_APPLICABLE
+HofundConnectionResult.db(Status.UP);
+```
+
+For HTTP connections, you can specify the version or use HttpURLConnection:
+```java
+// Specify status and version directly
+HofundConnectionResult.http(Status.UP, "1.2.3");
+
+// Or let HofundConnectionResult extract version from open HttpURLConnection
+HofundConnectionResult.http(Status.UP, httpUrlConnection);
+```
+
+By default, when using SimpleHofundHttpConnection or AbstractHofundBasicHttpConnection, hofund will attempt to retrieve version information from the target application. This requires the target application to expose version information at the provided endpoint URL in the following JSON format:
+
+```json
+{
+  "application": {
+    "name": "AppName",
+    "version": "25.3.1-SNAPSHOT"
+  }
+}
+```
+
+### 6. Metrics description
 
 - `hofund_info` - used to detect if application is running and what version is used. Application name and id
   in the metric is always lowercase to make easier creation of connection graph.
@@ -269,27 +327,27 @@ If you don't want to test connection in some conditions, you can use `new Simple
   dirtiness(dirty - uncommitted changes), build machine name and time, branch. This information is useful
   for sandbox environments, where everything is changing really fast.
 
-### 6. Currently supported spring datasource's for auto-detection and providing `hofund_connection`:
+### 7. Currently supported spring datasource's for auto-detection and providing `hofund_connection`:
 
     - PostgreSQL
     - Oracle
     - H2
 
-### 7. Connection Tabel
+### 8. Connection Tabel
 
-This simple functionality allows to print connections status in logger during booting up!
+This simple functionality allows printing connection statuses in the logger during booting up!
 
 ```txt
-+----------+--------------+----------+----------------------------------------------+
-| TYPE     | NAME         | STATUS   | URL                                          |
-+----------+--------------+----------+----------------------------------------------+
-| DATABASE | mydb         | UP       | jdbc:postgresql://localhost:5432/mydb        |
-| DATABASE | mydb2        | UP       | jdbc:mysql://localhost:3306/mydb2            |
-| DATABASE | orcl         | DOWN     | jdbc:oracle:thin:@localhost:1521:orcl        |
-| HTTP     | external-api | UP       | https://api.external-service.com             |
-| HTTP     | internal-api | UP       | https://api.internal-service.local           |
-| HTTP     | public-API   | INACTIVE | https://api.public-service.com               |
-+----------+--------------+----------+----------------------------------------------+
++----------+--------------+----------+----------------------------------------------+---------+
+| TYPE     | NAME         | STATUS   | URL                                          | VERSION |
++----------+--------------+----------+----------------------------------------------+---------+
+| DATABASE | mydb         | UP       | jdbc:postgresql://localhost:5432/mydb        | N/A     |
+| DATABASE | mydb2        | UP       | jdbc:mysql://localhost:3306/mydb2            | N/A     |
+| DATABASE | orcl         | DOWN     | jdbc:oracle:thin:@localhost:1521:orcl        | N/A     |
+| HTTP     | external-api | UP       | https://api.external-service.com             | UNKNOWN |
+| HTTP     | internal-api | UP       | https://api.internal-service.local           | 1.0.0   |
+| HTTP     | public-API   | INACTIVE | https://api.public-service.com               | N/A     |
++----------+--------------+----------+----------------------------------------------+---------+
 ```
 
 You can achieve this by creating simple class:
