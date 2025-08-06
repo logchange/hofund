@@ -3,7 +3,9 @@ package dev.logchange.hofund.connection;
 public enum Type {
     DATABASE("database"),
     HTTP("http"),
-    FTP("ftp");
+    FTP("ftp"),
+    QUEUE("queue")
+    ;
 
 
     private final String name;

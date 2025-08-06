@@ -11,7 +11,7 @@ public interface HofundInfoProvider {
 
     /**
      * Available icons:
-     * <a href="https://developers.grafana.com/ui/latest/index.html?path=/story/docs-overview-icon--icons-overview">Grafana BuiltIn Icons</a>
+     * <a href="https://developers.grafana.com/ui/latest/index.html?path=/story/iconography-icon--icons-overview--icons-overview">Grafana BuiltIn Icons</a>
      */
     default String getApplicationIcon() {
         return "docker";
