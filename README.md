@@ -266,7 +266,7 @@ The HofundConnectionResult stores:
 new HofundConnection(
     "my-service",                                // target name
     "https://my-service.example.com/api",        // URL
-    Type.HTTP,                                   // connection target type
+    Type.HTTP,                                   // connection target type (HTTP, DATABASE, QUEUE etc.)
     new AtomicReference<>(() -> {                // ConnectionFunction as lambda
         // Your custom logic to check connection and get version
         try {
