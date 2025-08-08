@@ -16,12 +16,12 @@ public class HofundConnectionResult {
     public static final String NOT_APPLICABLE = "N/A";
 
     private final Status status;
-    private final String version;
+    private final Version version;
 
 
     private HofundConnectionResult(Status status, String version) {
         this.status = status;
-        this.version = version;
+        this.version = Version.of(version);
     }
 
     public static HofundConnectionResult db(Status status) {
@@ -91,6 +91,6 @@ public class HofundConnectionResult {
     }
 
     public String getVersion() {
-        return version;
+        return version.toString();
     }
 }

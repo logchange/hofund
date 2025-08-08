@@ -1,0 +1,11 @@
+title: "Added Version abstraction to compare projects versions."
+authors:
+  - name: Mateusz Witkowski
+    nick: witx98
+    url: https://github.com/witx98
+merge_requests:
+  - 103
+issues:
+  - 92
+type: added
+
