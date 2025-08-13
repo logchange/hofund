@@ -61,7 +61,7 @@ public class SimpleHofundHttpConnection extends AbstractHofundBasicHttpConnectio
         this.url = url;
         this.checkingStatus = CheckingStatus.ACTIVE;
         this.requestMethod = requestMethod;
-        this.icon = "";
+        this.icon = icon;
         this.requiredVersion = NOT_APPLICABLE;
     }
 
