@@ -7,6 +7,14 @@
 <!-- !!! ⚠️ DO NOT MODIFY THIS FILE, YOUR CHANGES WILL BE LOST ⚠️ !!! -->
 
 
+[2.9.0] - 2025-08-06
+--------------------
+
+### Added (1 change)
+
+- Added new connection type: queue. !101 #92 ([Mateusz Witkowski](https://github.com/witx98) @witx98)
+
+
 [2.8.0] - 2025-08-05
 --------------------
 

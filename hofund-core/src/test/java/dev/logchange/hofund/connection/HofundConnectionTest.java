@@ -20,14 +20,14 @@ class HofundConnectionTest {
     @ParameterizedTest
     @EnumSource(
             value = Type.class,
-            names = "DATABASE",
+            names = {"DATABASE", "QUEUE"},
             mode = EnumSource.Mode.EXCLUDE)
-    void shouldTargetPropertyWhenTypeIsDifferentThanDB() {
+    void shouldTargetPropertyWhenTypeIsDifferentThanDB(Type type) {
         // given:
         HofundConnection connection = new HofundConnection(
                 "Target",
                 "url",
-                Type.HTTP,
+                type,
                 new AtomicReference<>(),
                 "");
 
@@ -50,6 +50,26 @@ class HofundConnectionTest {
 
 
         String expected = "Target_database";
+
+        // when:
+        String targetTag = connection.toTargetTag();
+
+        // then:
+        assertEquals(expected, targetTag);
+    }
+
+    @Test
+    void shouldTargetPropertyWhenTypeIsQueue() {
+        // given:
+        HofundConnection connection = new HofundConnection(
+                "Target",
+                "url",
+                Type.QUEUE,
+                new AtomicReference<>(),
+                "");
+
+
+        String expected = "Target_queue";
 
         // when:
         String targetTag = connection.toTargetTag();

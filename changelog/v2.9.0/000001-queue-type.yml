@@ -1,0 +1,11 @@
+title: "Added new connection type: queue."
+authors:
+  - name: Mateusz Witkowski
+    nick: witx98
+    url: https://github.com/witx98
+merge_requests:
+  - 101
+issues:
+  - 92
+type: added
+
