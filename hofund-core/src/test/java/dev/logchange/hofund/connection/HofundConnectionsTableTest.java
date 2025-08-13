@@ -61,6 +61,42 @@ class HofundConnectionsTableTest {
         assertEquals(expected, result);
     }
 
+    @Test
+    void testErrorDuringConnectionCheck() {
+        // given:
+        ErrorHofundConnectionsProvider provider = new ErrorHofundConnectionsProvider();
+        HofundConnectionsTable table = new HofundConnectionsTable(Collections.singletonList(provider));
+        String expected =
+                "+------+-------+--------+------+---------+------------------+\n" +
+                        "| TYPE | NAME  | STATUS | URL  | VERSION | REQUIRED VERSION |\n" +
+                        "+------+-------+--------+------+---------+------------------+\n" +
+                        "| HTTP | error | DOWN   | fake | UNKNOWN | UNKNOWN          |\n" +
+                        "+------+-------+--------+------+---------+------------------+\n";
+
+        // when:
+        String result = table.print();
+
+        // then:
+        assertEquals(expected, result);
+    }
+
+    private static class ErrorHofundConnectionsProvider implements HofundConnectionsProvider {
+        @Override
+        public List<HofundConnection> getConnections() {
+            HofundConnection hofundConnection = new HofundConnection(
+                    "error",
+                    "fake",
+                    Type.HTTP,
+                    new AtomicReference<>(() -> {
+                        throw new RuntimeException("Error");
+                    }),
+                    null
+            );
+
+            return Collections.singletonList(hofundConnection);
+        }
+    }
+
     private static class TastableHofundConnectionsProvider implements HofundConnectionsProvider {
 
         public List<HofundConnection> getConnections() {
