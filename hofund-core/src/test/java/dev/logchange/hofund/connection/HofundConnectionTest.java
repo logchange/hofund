@@ -1,10 +1,13 @@
 package dev.logchange.hofund.connection;
 
 import dev.logchange.hofund.info.HofundInfoProvider;
+import io.micrometer.core.instrument.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -155,4 +158,82 @@ class HofundConnectionTest {
         // then
         assertEquals("app-products_database_oracle", edgeId);
     }
+
+    @Test
+    void getVersion_shouldReturnProperVersionObject() {
+        // given:
+        String value = "1.0.0";
+        Version expectedversion = Version.of(value);
+        HofundConnection connection = new HofundConnection(
+                "products",
+                "url",
+                Type.HTTP,
+                new AtomicReference<>(),
+                "Web server");
+        connection.setRequiredVersion(value);
+
+        // when:
+        Version requiredVersion = connection.getRequiredVersion();
+
+        // then:
+        assertEquals(expectedversion, requiredVersion);
+    }
+
+    @Test
+    void getTags_shouldReturnFullListOfTags() {
+        // given:
+        List<Tag> expectedTags = Arrays.asList(
+                Tag.of("id", "app-products_database_oracle"),
+                Tag.of("source", "app"),
+                Tag.of("target", "products_databaseoracle"),
+                Tag.of("type", "database"),
+                Tag.of("current_version", "1.0.0"),
+                Tag.of("required_version", "1.0.0")
+        );
+        HofundInfoProvider provider = mock(HofundInfoProvider.class);
+        when(provider.getApplicationName()).thenReturn("app");
+
+        HofundConnection connection = new HofundConnection(
+                "products",
+                "url",
+                Type.DATABASE,
+                new AtomicReference<>(() -> HofundConnectionResult.http(Status.UP, "1.0.0")),
+                "Oracle");
+        connection.setRequiredVersion("1.0.0");
+
+        // when:
+        List<Tag> tags = connection.getTags(provider);
+
+        // then:
+        assertEquals(expectedTags, tags);
+    }
+
+    @Test
+    void getTags_shouldReturnWithDefaultRequiredVersion() {
+        // given:
+        List<Tag> expectedTags = Arrays.asList(
+                Tag.of("id", "app-products_database_oracle"),
+                Tag.of("source", "app"),
+                Tag.of("target", "products_databaseoracle"),
+                Tag.of("type", "database"),
+                Tag.of("current_version", "1.0.0"),
+                Tag.of("required_version", "N/A")
+        );
+        HofundInfoProvider provider = mock(HofundInfoProvider.class);
+        when(provider.getApplicationName()).thenReturn("app");
+
+        HofundConnection connection = new HofundConnection(
+                "products",
+                "url",
+                Type.DATABASE,
+                new AtomicReference<>(() -> HofundConnectionResult.http(Status.UP, "1.0.0")),
+                "Oracle");
+
+        // when:
+        List<Tag> tags = connection.getTags(provider);
+
+        // then:
+        assertEquals(expectedTags, tags);
+    }
+
 }

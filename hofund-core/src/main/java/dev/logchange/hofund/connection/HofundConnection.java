@@ -19,6 +19,7 @@ public class HofundConnection {
     private final AtomicReference<ConnectionFunction> fun;
     private final String description;
     private String icon;
+    private String requiredVersion;
 
     public HofundConnection(String target, String url, Type type, AtomicReference<ConnectionFunction> fun, String description) {
         this.target = target;
@@ -73,7 +74,8 @@ public class HofundConnection {
         tags.add(Tag.of("source", infoProvider.getApplicationName()));
         tags.add(Tag.of("target", toTargetTag()));
         tags.add(Tag.of("type", getType().toString()));
-        tags.add(Tag.of("current_version", getFun().get().getConnection().getVersion()));
+        tags.add(Tag.of("current_version", getFun().get().getConnection().getVersion().toString()));
+        tags.add(Tag.of("required_version", getRequiredVersion().toString()));
         return tags;
     }
 
@@ -91,5 +93,13 @@ public class HofundConnection {
 
     public AtomicReference<ConnectionFunction> getFun() {
         return fun;
+    }
+
+    Version getRequiredVersion() {
+        return Version.of(requiredVersion);
+    }
+
+    public void setRequiredVersion(String requiredVersion) {
+        this.requiredVersion = requiredVersion;
     }
 }

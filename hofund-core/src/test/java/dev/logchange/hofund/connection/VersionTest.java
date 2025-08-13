@@ -1,12 +1,24 @@
 package dev.logchange.hofund.connection;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
 
 import static dev.logchange.hofund.connection.HofundConnectionResult.NOT_APPLICABLE;
 import static dev.logchange.hofund.connection.HofundConnectionResult.UNKNOWN;
 import static org.junit.jupiter.api.Assertions.*;
 
 class VersionTest {
+
+    @ParameterizedTest
+    @NullAndEmptySource
+    void shouldCreateUnknownVersionFromNullOrEmptySource(String value) {
+        // given:
+        Version version = Version.of(value);
+
+        // then:
+        assertEquals(NOT_APPLICABLE, version.toString());
+    }
 
     @Test
     void shouldInformIfVersionIsUnspecified() {
