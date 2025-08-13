@@ -14,7 +14,7 @@ public class HofundConnectionsTable {
 
     private static final Logger log = getLogger(HofundConnectionsTable.class);
 
-    private static final List<String> HEADERS = Arrays.asList("TYPE", "NAME", "STATUS", "URL", "VERSION", "REQUIRED_VERSION");
+    private static final List<String> HEADERS = Arrays.asList("TYPE", "NAME", "STATUS", "URL", "VERSION", "REQUIRED VERSION");
 
     private final List<HofundConnection> connections;
 

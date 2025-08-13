@@ -18,7 +18,7 @@ class HofundConnectionsTableTest {
         HofundConnectionsTable table = new HofundConnectionsTable(Collections.singletonList(provider));
         String expected =
                 "+----------+---------+--------+------+---------+------------------+\n" +
-                        "| TYPE     | NAME    | STATUS | URL  | VERSION | REQUIRED_VERSION |\n" +
+                        "| TYPE     | NAME    | STATUS | URL  | VERSION | REQUIRED VERSION |\n" +
                         "+----------+---------+--------+------+---------+------------------+\n" +
                         "| HTTP     | target1 | UP     | fake | 1.0.0   | 1.0.1            |\n" +
                         "| HTTP     | target3 | UP     | fake | 1.0.1   | N/A              |\n" +
@@ -42,7 +42,7 @@ class HofundConnectionsTableTest {
         HofundConnectionsTable table = new HofundConnectionsTable(Arrays.asList(provider1, provider2));
         String expected =
                 "+----------+---------+--------+------+---------+------------------+\n" +
-                        "| TYPE     | NAME    | STATUS | URL  | VERSION | REQUIRED_VERSION |\n" +
+                        "| TYPE     | NAME    | STATUS | URL  | VERSION | REQUIRED VERSION |\n" +
                         "+----------+---------+--------+------+---------+------------------+\n" +
                         "| HTTP     | target1 | UP     | fake | 1.0.0   | 1.0.1            |\n" +
                         "| HTTP     | target3 | UP     | fake | 1.0.1   | N/A              |\n" +
