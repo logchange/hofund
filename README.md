@@ -209,7 +209,7 @@ public class SimpleHofundHttpConnectionConfiguration {
 
     @Bean
     public SimpleHofundHttpConnection cartApiSimpleHofundHttpConnection() {
-        return SimpleHofundHttpConnection.of("cart-api", "http://host.docker.internal:18085/actuator/health/info", "1.0.1"); // you can also define a required version of service
+        return new SimpleHofundHttpConnection("cart-api", "http://host.docker.internal:18085/actuator/health/info").withRequiredVersion("1.0.1"); // you can also define a required version of service
     }
 }
 

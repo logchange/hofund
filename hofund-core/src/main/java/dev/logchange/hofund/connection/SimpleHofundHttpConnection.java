@@ -92,12 +92,8 @@ public class SimpleHofundHttpConnection extends AbstractHofundBasicHttpConnectio
         this.requiredVersion = requiredVersion;
     }
 
-    public static SimpleHofundHttpConnection of(String target, String url, String requiredVersion) {
-        return new SimpleHofundHttpConnection(target, url, CheckingStatus.ACTIVE, RequestMethod.GET, "", requiredVersion);
-    }
-
-    public static SimpleHofundHttpConnection of(String target, String url, CheckingStatus checkingStatus, String requiredVersion) {
-        return new SimpleHofundHttpConnection(target, url, checkingStatus, RequestMethod.GET, "", requiredVersion);
+    public SimpleHofundHttpConnection withRequiredVersion(String requiredVersion) {
+        return new SimpleHofundHttpConnection(target, url, checkingStatus, requestMethod, icon, requiredVersion);
     }
 
     @Override

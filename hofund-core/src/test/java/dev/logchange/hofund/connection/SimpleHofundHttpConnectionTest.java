@@ -127,7 +127,7 @@ class SimpleHofundHttpConnectionTest {
             HttpUrl url = server.url("/health");
 
             // when:
-            SimpleHofundHttpConnection active = SimpleHofundHttpConnection.of("svc", url.toString(), "1.0.0");
+            SimpleHofundHttpConnection active = new SimpleHofundHttpConnection("svc", url.toString()).withRequiredVersion("1.0.0");
             HofundConnection hc = active.toHofundConnection();
             assertNotNull(hc);
             HofundConnectionResult connectionResult = hc.getFun().get().getConnection();
@@ -151,7 +151,7 @@ class SimpleHofundHttpConnectionTest {
             HttpUrl url = server.url("/health");
 
             // when:
-            SimpleHofundHttpConnection inactive = SimpleHofundHttpConnection.of("svc2", url.toString(), CheckingStatus.INACTIVE, "2.0.0");
+            SimpleHofundHttpConnection inactive = new SimpleHofundHttpConnection("svc2", url.toString(), CheckingStatus.INACTIVE).withRequiredVersion("2.0.0");
             HofundConnection hc = inactive.toHofundConnection();
             assertNotNull(hc);
             HofundConnectionResult result = hc.getFun().get().getConnection();
