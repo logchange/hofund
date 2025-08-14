@@ -70,7 +70,7 @@ class HofundConnectionsTableTest {
                 "+------+-------+--------+------+---------+------------------+\n" +
                         "| TYPE | NAME  | STATUS | URL  | VERSION | REQUIRED VERSION |\n" +
                         "+------+-------+--------+------+---------+------------------+\n" +
-                        "| HTTP | error | DOWN   | fake | UNKNOWN | UNKNOWN          |\n" +
+                        "| HTTP | error | DOWN   | fake | UNKNOWN | 1.0.1            |\n" +
                         "+------+-------+--------+------+---------+------------------+\n";
 
         // when:
@@ -92,6 +92,7 @@ class HofundConnectionsTableTest {
                     }),
                     null
             );
+            hofundConnection.setRequiredVersion("1.0.1");
 
             return Collections.singletonList(hofundConnection);
         }

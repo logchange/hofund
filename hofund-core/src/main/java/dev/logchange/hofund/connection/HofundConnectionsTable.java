@@ -53,6 +53,7 @@ public class HofundConnectionsTable {
             } catch (Exception e) {
                 String target = connection.getTarget();
                 String url = connection.getUrl();
+                String requiredVersion = connection.getRequiredVersion().toString();
                 log.warn("Error creating hofund connection for: {} url: {} with msg: {}", target, url, e.getMessage());
                 table.addRow(
                         connection.getType().name(),
@@ -60,7 +61,7 @@ public class HofundConnectionsTable {
                         Status.DOWN.getName(),
                         url,
                         HofundConnectionResult.UNKNOWN,
-                        HofundConnectionResult.UNKNOWN
+                        requiredVersion
                 );
             }
         }
