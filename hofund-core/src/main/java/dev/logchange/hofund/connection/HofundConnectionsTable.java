@@ -69,7 +69,7 @@ public class HofundConnectionsTable {
     }
 
     private static void checkVersions(String target, Version version, Version requiredVersion) {
-        if (version.isUnspecified() ||  requiredVersion.isUnspecified()) {
+        if (version.isUnspecified() || requiredVersion.isUnspecified()) {
             log.debug("Either current({}) or required({}) version of {} is unspecified, cannot verify versions.", version, requiredVersion, target);
             return;
         }
