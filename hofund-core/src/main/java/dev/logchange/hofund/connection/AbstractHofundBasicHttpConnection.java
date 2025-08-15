@@ -1,5 +1,6 @@
 package dev.logchange.hofund.connection;
 
+import dev.logchange.hofund.EnvProvider;
 import org.slf4j.Logger;
 
 import java.net.HttpURLConnection;
@@ -16,6 +17,16 @@ import static org.slf4j.LoggerFactory.getLogger;
 public abstract class AbstractHofundBasicHttpConnection {
 
     private static final Logger log = getLogger(AbstractHofundBasicHttpConnection.class);
+
+    private final EnvProvider envProvider;
+
+    protected AbstractHofundBasicHttpConnection() {
+        this(new EnvProvider.SystemEnvProvider());
+    }
+
+    protected AbstractHofundBasicHttpConnection(EnvProvider envProvider) {
+        this.envProvider = envProvider;
+    }
 
     /**
      * Name of the resource that application connects to f.e. Products.
@@ -158,7 +169,7 @@ public abstract class AbstractHofundBasicHttpConnection {
     protected boolean isCheckingStatusInactiveByEnvs() {
         String target = getTarget();
         String envVarName = "HOFUND_CONNECTION_" + target.toUpperCase() + "_DISABLED";
-        String envVarValue = System.getenv(envVarName);
+        String envVarValue = envProvider.getEnv(envVarName);
 
         if ("true".equalsIgnoreCase(envVarValue) || "1".equals(envVarValue)) {
             log.info("Connection check for target '{}' is disabled by environment variable '{}' with value '{}'", target, envVarName, envVarValue);

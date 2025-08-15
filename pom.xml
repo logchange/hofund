@@ -66,6 +66,7 @@
 
         <!-- TESTS -->
         <mockwebserver.version>5.1.0</mockwebserver.version>
+        <slf4j-simple.version>2.0.17</slf4j-simple.version>
     </properties>
 
     <dependencyManagement>
