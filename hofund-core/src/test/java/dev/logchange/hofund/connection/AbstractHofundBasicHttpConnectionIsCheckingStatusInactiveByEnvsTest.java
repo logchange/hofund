@@ -3,6 +3,9 @@ package dev.logchange.hofund.connection;
 import dev.logchange.hofund.EnvProvider;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class AbstractHofundBasicHttpConnectionIsCheckingStatusInactiveByEnvsTest {
@@ -133,5 +136,23 @@ class AbstractHofundBasicHttpConnectionIsCheckingStatusInactiveByEnvsTest {
         // then:
         assertEquals("HOFUND_CONNECTION_TESTTARGET_DISABLED", capturedName[0], 
                 "Should construct correct env var name");
+    }
+
+    @Test
+    void shouldConstructCorrectEnvVarNameWhenMinusInName() {
+        // given:
+        final List<String> capturedNames = new ArrayList<>();
+        EnvProvider envProvider = name -> {
+            capturedNames.add(name);
+            return null;
+        };
+        TestConnection connection = new TestConnection("test-Target", envProvider);
+
+        // when:
+        connection.isCheckingStatusInactiveByEnvs();
+
+        // then:
+        assertEquals("HOFUND_CONNECTION_TEST-TARGET_DISABLED", capturedNames.get(0));
+        assertEquals("HOFUND_CONNECTION_TEST_TARGET_DISABLED", capturedNames.get(1));
     }
 }
