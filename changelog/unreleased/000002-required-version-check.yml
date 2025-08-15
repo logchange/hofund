@@ -1,0 +1,11 @@
+title: "Added required version chek that will log error when current version of target application is less than required."
+authors:
+  - name: Mateusz Witkowski
+    nick: witx98
+    url: https://github.com/witx98
+merge_requests:
+  - 107
+issues:
+  - 92
+type: added
+

@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 
+import static dev.logchange.hofund.connection.HofundConnectionResult.NOT_APPLICABLE;
 import static org.slf4j.LoggerFactory.getLogger;
 
 public abstract class DatasourceConnection {
@@ -27,12 +28,14 @@ public abstract class DatasourceConnection {
     }
 
     public HofundConnection toHofundConnection() {
-        return new HofundConnection(
+        HofundConnection hofundConnection = new HofundConnection(
                 getTarget(),
                 getUrl(),
                 Type.DATABASE,
                 new AtomicReference<>(testConnection()),
                 getDbVendor());
+        hofundConnection.setRequiredVersion(NOT_APPLICABLE);
+        return hofundConnection;
     }
 
     protected abstract String getTarget();

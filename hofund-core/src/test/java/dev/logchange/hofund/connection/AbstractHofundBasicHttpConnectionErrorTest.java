@@ -26,7 +26,7 @@ class AbstractHofundBasicHttpConnectionErrorTest {
             // when:
             HofundConnectionResult con = hofundConnection.getFun().get().getConnection();
             Status status = con.getStatus();
-            String version = con.getVersion();
+            String version = con.getVersion().toString();
 
             // then:
             assertEquals(Status.DOWN, status);
@@ -51,7 +51,7 @@ class AbstractHofundBasicHttpConnectionErrorTest {
             // when:
             HofundConnectionResult con = hofundConnection.getFun().get().getConnection();
             Status status = con.getStatus();
-            String version = con.getVersion();
+            String version = con.getVersion().toString();
 
             // then:
             assertEquals(Status.DOWN, status);
@@ -75,7 +75,7 @@ class AbstractHofundBasicHttpConnectionErrorTest {
             // when:
             HofundConnectionResult con = hofundConnection.getFun().get().getConnection();
             Status status = con.getStatus();
-            String version = con.getVersion();
+            String version = con.getVersion().toString();
 
             // then:
             assertEquals(Status.DOWN, status);
@@ -94,7 +94,7 @@ class AbstractHofundBasicHttpConnectionErrorTest {
         // when:
         HofundConnectionResult con = hofundConnection.getFun().get().getConnection();
         Status status = con.getStatus();
-        String version = con.getVersion();
+        String version = con.getVersion().toString();
 
         // then:
         assertEquals(Status.DOWN, status);
@@ -116,7 +116,7 @@ class AbstractHofundBasicHttpConnectionErrorTest {
             // when:
             HofundConnectionResult con = hofundConnection.getFun().get().getConnection();
             Status status = con.getStatus();
-            String version = con.getVersion();
+            String version = con.getVersion().toString();
 
             // then:
             assertEquals(Status.UP, status);
