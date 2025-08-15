@@ -22,7 +22,7 @@ public class HofundConnection {
 
     /**
      * Creates a new HofundConnection.
-     * 
+     *
      * @param target the name of the resource that application connects to
      * @param url the URL of the resource. URLs ending with "/prometheus" are forbidden as they can lead to recursive dependencies
      *           where services call each other, creating infinite loops.
@@ -32,8 +32,11 @@ public class HofundConnection {
      * @throws IllegalArgumentException if the URL ends with "/prometheus"
      */
     public HofundConnection(String target, String url, Type type, AtomicReference<ConnectionFunction> fun, String description) {
-        if (url != null && url.endsWith("/prometheus")) {
-            throw new IllegalArgumentException("URLs ending with '/prometheus' are forbidden as they can lead to recursive dependencies");
+        if (url == null) {
+            throw new IllegalArgumentException("URL for HofundConnection cannot be null. Target: " + target + " Type: " + type + " Description: " + description);
+        }
+        if (url.endsWith("/prometheus")) {
+            throw new IllegalArgumentException("URL for HofundConnection cannot end with '/prometheus'. It is forbidden as it can lead to recursive dependencies");
         }
         this.target = target;
         this.url = url;
@@ -44,7 +47,10 @@ public class HofundConnection {
 
     public String toTargetTag() {
         if (type == Type.DATABASE || type == Type.QUEUE) {
-            return target + "_" + type + getDescription().toLowerCase();
+            if (StringUtils.isEmpty(description)) {
+                return target + "_" + type;
+            }
+            return target + "_" + type + "_" + getDescription().toLowerCase();
         }
         return target;
     }
