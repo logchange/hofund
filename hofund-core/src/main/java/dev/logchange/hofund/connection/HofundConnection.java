@@ -20,7 +20,21 @@ public class HofundConnection {
     private final String description;
     private String icon;
 
+    /**
+     * Creates a new HofundConnection.
+     * 
+     * @param target the name of the resource that application connects to
+     * @param url the URL of the resource. URLs ending with "/prometheus" are forbidden as they can lead to recursive dependencies
+     *           where services call each other, creating infinite loops.
+     * @param type the type of the connection
+     * @param fun the connection function
+     * @param description the description of the connection
+     * @throws IllegalArgumentException if the URL ends with "/prometheus"
+     */
     public HofundConnection(String target, String url, Type type, AtomicReference<ConnectionFunction> fun, String description) {
+        if (url != null && url.endsWith("/prometheus")) {
+            throw new IllegalArgumentException("URLs ending with '/prometheus' are forbidden as they can lead to recursive dependencies");
+        }
         this.target = target;
         this.url = url;
         this.type = type;

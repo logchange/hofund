@@ -4,10 +4,12 @@ import dev.logchange.hofund.info.HofundInfoProvider;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.concurrent.atomic.AtomicReference;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -174,5 +176,46 @@ class HofundConnectionTest {
 
         // then
         assertEquals("app-products_database_oracle", edgeId);
+    }
+
+    @Test
+    void shouldThrowIllegalArgumentException_whenUrlEndsWithPrometheus() {
+        // given
+        String urlEndingWithPrometheus = "http://example.com/prometheus";
+
+        // when & then
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> new HofundConnection(
+                        "products",
+                        urlEndingWithPrometheus,
+                        Type.HTTP,
+                        new AtomicReference<>(),
+                        "description"
+                )
+        );
+
+        assertEquals("URLs ending with '/prometheus' are forbidden as they can lead to recursive dependencies", exception.getMessage());
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {
+            "http://example.com",
+            "http://example.com/",
+            "http://example.com/api",
+            "http://example.com/promethe",
+            "http://example.com/prometheus/api",
+            ""
+    })
+    void shouldNotThrowException_whenUrlDoesNotEndWithPrometheus(String validUrl) {
+        // when & then
+        new HofundConnection(
+                "products",
+                validUrl,
+                Type.HTTP,
+                new AtomicReference<>(),
+                "description"
+        );
+        // No exception should be thrown
     }
 }
