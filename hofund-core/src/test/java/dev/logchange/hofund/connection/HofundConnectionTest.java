@@ -207,7 +207,7 @@ class HofundConnectionTest {
                 Tag.of("source", "app"),
                 Tag.of("target", "products_databaseoracle"),
                 Tag.of("type", "database"),
-                Tag.of("current_version", "1.0.0"),
+                Tag.of("detected_version", "1.0.0"),
                 Tag.of("required_version", "1.0.0")
         );
         HofundInfoProvider provider = mock(HofundInfoProvider.class);
@@ -236,7 +236,7 @@ class HofundConnectionTest {
                 Tag.of("source", "app"),
                 Tag.of("target", "products_databaseoracle"),
                 Tag.of("type", "database"),
-                Tag.of("current_version", "1.0.0"),
+                Tag.of("detected_version", "1.0.0"),
                 Tag.of("required_version", "N/A")
         );
         HofundInfoProvider provider = mock(HofundInfoProvider.class);

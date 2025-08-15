@@ -79,7 +79,7 @@ public class HofundConnection {
         tags.add(Tag.of("source", infoProvider.getApplicationName()));
         tags.add(Tag.of("target", toTargetTag()));
         tags.add(Tag.of("type", getType().toString()));
-        tags.add(Tag.of("current_version", getFun().get().getConnection().getVersion().toString()));
+        tags.add(Tag.of("detected_version", getFun().get().getConnection().getVersion().toString()));
         tags.add(Tag.of("required_version", getRequiredVersion().toString()));
         return tags;
     }
