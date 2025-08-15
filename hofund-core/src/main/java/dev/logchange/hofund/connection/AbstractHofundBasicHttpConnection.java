@@ -125,6 +125,11 @@ public abstract class AbstractHofundBasicHttpConnection {
                     return HofundConnectionResult.http(Status.INACTIVE, NOT_APPLICABLE);
                 }
 
+                if (isCheckingStatusInactiveByEnvs()){
+                    log.debug("Skipping checking connection to: {} due to disabling it in system envs", getTarget());
+                    return HofundConnectionResult.http(Status.INACTIVE, NOT_APPLICABLE);
+                }
+
                 HttpURLConnection urlConn = (HttpURLConnection) getURL().openConnection();
                 urlConn.setConnectTimeout(getConnectTimeout());
                 urlConn.setReadTimeout(getReadTimeout());
@@ -148,5 +153,18 @@ public abstract class AbstractHofundBasicHttpConnection {
                 return HofundConnectionResult.http(Status.DOWN, UNKNOWN);
             }
         };
+    }
+
+    protected boolean isCheckingStatusInactiveByEnvs() {
+        String target = getTarget();
+        String envVarName = "HOFUND_CONNECTION_" + target.toUpperCase() + "_DISABLED";
+        String envVarValue = System.getenv(envVarName);
+
+        if ("true".equalsIgnoreCase(envVarValue) || "1".equals(envVarValue)) {
+            log.info("Connection check for target '{}' is disabled by environment variable '{}' with value '{}'", target, envVarName, envVarValue);
+            return true;
+        }
+
+        return false;
     }
 }
