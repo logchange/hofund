@@ -257,6 +257,7 @@ and `getUrl()` methods. The example above allows you to change values through sp
 If you want to use f.e `POST` method, you can use `new SimpleHofundHttpConnection("abc", "some_url", RequestMethod.POST)` or override `getRquestMethod()`.
 
 If you don't want to test connection in some conditions, you can use `new SimpleHofundHttpConnection("abc", "some_url", CheckingStatus.INACTIVE)` or override `getCheckingStatus()`.
+You can also disable connection checks for specific targets using environment variables. Set environment variable named `HOFUND_CONNECTION_<TARGET>_DISABLED` (where `<TARGET>` is the uppercase value of the target name) is set to either `true` (case-insensitive) or `1`. For example, to disable connection checks for a target named "payment-api", you would set the environment variable `HOFUND_CONNECTION_PAYMENT_API_DISABLED=true`.
 
 ### 5. Manually creating HofundConnection
 
