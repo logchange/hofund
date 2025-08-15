@@ -1,4 +1,4 @@
-title: "Add validation to reject URLs ending with "/prometheus""
+title: "Add validation to reject URLs ending with `/prometheus`"
 authors:
   - name: Peter Zmilczak
     nick: marwin1991
