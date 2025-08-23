@@ -9,7 +9,6 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -18,7 +17,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 class HofundConnectionTest {
-
 
     @ParameterizedTest
     @EnumSource(
@@ -349,7 +347,7 @@ class HofundConnectionTest {
         AtomicReference<ConnectionFunction> funRef = new AtomicReference<>();
         ConnectionFunction connectionFunction = mock(ConnectionFunction.class);
         HofundConnectionResult connectionResult = mock(HofundConnectionResult.class);
-        when(connectionResult.getVersion()).thenReturn(version);
+        when(connectionResult.getVersion()).thenReturn(Version.of(version));
         when(connectionFunction.getConnection()).thenReturn(connectionResult);
         funRef.set(connectionFunction);
 
@@ -365,7 +363,7 @@ class HofundConnectionTest {
         List<Tag> tags = hofundConnection.getTags(infoProvider);
 
         // then:
-        assertEquals(5, tags.size());
+        assertEquals(6, tags.size());
         assertEquals("id", tags.get(0).getKey());
         assertEquals("app-products_database_oracle", tags.get(0).getValue());
         assertEquals("source", tags.get(1).getKey());
@@ -374,8 +372,10 @@ class HofundConnectionTest {
         assertEquals("products_database_oracle", tags.get(2).getValue());
         assertEquals("type", tags.get(3).getKey());
         assertEquals("database", tags.get(3).getValue());
-        assertEquals("current_version", tags.get(4).getKey());
+        assertEquals("detected_version", tags.get(4).getKey());
         assertEquals("1.0.0", tags.get(4).getValue());
+        assertEquals("required_version", tags.get(5).getKey());
+        assertEquals("N/A", tags.get(5).getValue());
     }
 
     @Test
@@ -428,7 +428,7 @@ class HofundConnectionTest {
         List<Tag> expectedTags = Arrays.asList(
                 Tag.of("id", "app-products_database_oracle"),
                 Tag.of("source", "app"),
-                Tag.of("target", "products_databaseoracle"),
+                Tag.of("target", "products_database_oracle"),
                 Tag.of("type", "database"),
                 Tag.of("detected_version", "1.0.0"),
                 Tag.of("required_version", "1.0.0")
@@ -457,7 +457,7 @@ class HofundConnectionTest {
         List<Tag> expectedTags = Arrays.asList(
                 Tag.of("id", "app-products_database_oracle"),
                 Tag.of("source", "app"),
-                Tag.of("target", "products_databaseoracle"),
+                Tag.of("target", "products_database_oracle"),
                 Tag.of("type", "database"),
                 Tag.of("detected_version", "1.0.0"),
                 Tag.of("required_version", "N/A")
