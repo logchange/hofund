@@ -37,7 +37,7 @@ class HttpConnectionResultTest {
         HofundConnectionResult hofundConnectionResult = HofundConnectionResult.http(Status.UP, connection);
 
         // then:
-        assertEquals(HofundConnectionResult.UNKNOWN, hofundConnectionResult.getVersion());
+        assertEquals(HofundConnectionResult.UNKNOWN, hofundConnectionResult.getVersion().toString());
     }
 
     @Test
@@ -50,7 +50,7 @@ class HttpConnectionResultTest {
         HofundConnectionResult hofundConnectionResult = HofundConnectionResult.http(Status.UP, connection);
 
         // then:
-        assertEquals(HofundConnectionResult.UNKNOWN, hofundConnectionResult.getVersion());
+        assertEquals(HofundConnectionResult.UNKNOWN, hofundConnectionResult.getVersion().toString());
     }
 
     @ParameterizedTest
@@ -63,7 +63,7 @@ class HttpConnectionResultTest {
         HofundConnectionResult hofundConnectionResult = HofundConnectionResult.http(Status.UP, connection);
 
         // then:
-        assertEquals(expectedVersion, hofundConnectionResult.getVersion());
+        assertEquals(expectedVersion, hofundConnectionResult.getVersion().toString());
     }
 
     private static Stream<Arguments> provideValidVersionResponses() {
