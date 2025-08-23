@@ -3,12 +3,18 @@ package dev.logchange.hofund.connection;
 import dev.logchange.hofund.StringUtils;
 import dev.logchange.hofund.info.HofundInfoProvider;
 import io.micrometer.core.instrument.Tag;
+import org.slf4j.Logger;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
+import static org.slf4j.LoggerFactory.getLogger;
+
 public class HofundConnection {
+
+    private static final Logger log = getLogger(HofundConnection.class);
+
 
     /**
      * Name of the resource that application connects to f.e. Cart-db, fcm, products-app
@@ -26,6 +32,8 @@ public class HofundConnection {
         this.type = type;
         this.fun = fun;
         this.description = description;
+
+        log.info("To disable checking this connection set env var: {}=true", getEnvVarName(target));
     }
 
     public String toTargetTag() {
@@ -96,5 +104,12 @@ public class HofundConnection {
 
     public AtomicReference<ConnectionFunction> getFun() {
         return fun;
+    }
+
+    public static String getEnvVarName(String target) {
+        target = target.replace("-", "_");
+        target = target.replaceAll("[^A-Za-z0-9_]", "");
+        target = target.toUpperCase();
+        return "HOFUND_CONNECTION_" + target + "_DISABLED";
     }
 }

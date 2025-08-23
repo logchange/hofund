@@ -152,7 +152,6 @@ class AbstractHofundBasicHttpConnectionIsCheckingStatusInactiveByEnvsTest {
         connection.isCheckingStatusInactiveByEnvs();
 
         // then:
-        assertEquals("HOFUND_CONNECTION_TEST-TARGET_DISABLED", capturedNames.get(0));
-        assertEquals("HOFUND_CONNECTION_TEST_TARGET_DISABLED", capturedNames.get(1));
+        assertEquals("HOFUND_CONNECTION_TEST_TARGET_DISABLED", capturedNames.get(0));
     }
 }

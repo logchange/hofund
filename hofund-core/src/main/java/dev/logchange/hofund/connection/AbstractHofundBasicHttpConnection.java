@@ -6,11 +6,11 @@ import org.slf4j.Logger;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
+import static dev.logchange.hofund.connection.HofundConnection.getEnvVarName;
 import static dev.logchange.hofund.connection.HofundConnectionResult.NOT_APPLICABLE;
 import static dev.logchange.hofund.connection.HofundConnectionResult.UNKNOWN;
 import static org.slf4j.LoggerFactory.getLogger;
@@ -181,38 +181,22 @@ public abstract class AbstractHofundBasicHttpConnection {
      * </ul>
      *
      * <p>Example: For a target named "payment-api", the environment variable would be:
-     * {@code HOFUND_CONNECTION_PAYMENT-API_DISABLED=true}
+     * {@code HOFUND_CONNECTION_PAYMENT_API_DISABLED=true}
      *
      * @return {@code true} if the connection check should be disabled based on environment variables,
      *         {@code false} otherwise
      */
     protected boolean isCheckingStatusInactiveByEnvs() {
         String target = getTarget();
-        List<String> envVarNames = getEnvVarNames();
+        String envVarName = getEnvVarName(target);
 
-        for (String envVarName : envVarNames) {
-            String envVarValue = envProvider.getEnv(envVarName);
+        String envVarValue = envProvider.getEnv(envVarName);
 
-            if ("true".equalsIgnoreCase(envVarValue) || "1".equals(envVarValue)) {
-                log.info("Connection check for target '{}' is disabled by environment variable '{}' with value '{}'", target, envVarName, envVarValue);
-                return true;
-            }
+        if ("true".equalsIgnoreCase(envVarValue) || "1".equals(envVarValue)) {
+            log.info("Connection check for target '{}' is disabled by environment variable '{}' with value '{}'", target, envVarName, envVarValue);
+            return true;
         }
 
         return false;
-    }
-
-    private List<String> getEnvVarNames() {
-        String target = getTarget();
-
-        List<String> envVarNames = new ArrayList<>();
-
-        envVarNames.add("HOFUND_CONNECTION_" + target.toUpperCase() + "_DISABLED");
-
-        if (target.contains("-")) {
-            envVarNames.add("HOFUND_CONNECTION_" + target.toUpperCase().replace("-", "_") + "_DISABLED");
-        }
-
-        return envVarNames;
     }
 }
