@@ -286,13 +286,13 @@ class AbstractHofundBasicHttpConnectionTest {
             // when:
             HofundConnectionResult con = hofundConnection.getFun().get().getConnection();
             Status status = con.getStatus();
-            String version = con.getVersion();
+            Version version = con.getVersion();
 
             // then:
             // If isCheckingStatusInactiveByEnvs returns true, the connection check should be skipped
             // and status should be INACTIVE
             assertEquals(Status.INACTIVE, status);
-            assertEquals(HofundConnectionResult.NOT_APPLICABLE, version);
+            assertEquals(HofundConnectionResult.NOT_APPLICABLE, version.toString());
 
             // No request should be made to the server since the connection check is skipped
             assertEquals(0, server.getRequestCount());
