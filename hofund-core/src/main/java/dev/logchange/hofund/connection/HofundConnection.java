@@ -25,8 +25,26 @@ public class HofundConnection {
     private final AtomicReference<ConnectionFunction> fun;
     private final String description;
     private String icon;
+    private String requiredVersion;
 
+    /**
+     * Creates a new HofundConnection.
+     *
+     * @param target the name of the resource that application connects to
+     * @param url the URL of the resource. URLs ending with "/prometheus" are forbidden as they can lead to recursive dependencies
+     *           where services call each other, creating infinite loops.
+     * @param type the type of the connection
+     * @param fun the connection function
+     * @param description the description of the connection
+     * @throws IllegalArgumentException if the URL ends with "/prometheus"
+     */
     public HofundConnection(String target, String url, Type type, AtomicReference<ConnectionFunction> fun, String description) {
+        if (url == null) {
+            throw new IllegalArgumentException("URL for HofundConnection cannot be null. Target: " + target + " Type: " + type + " Description: " + description);
+        }
+        if (url.endsWith("/prometheus")) {
+            throw new IllegalArgumentException("URL for HofundConnection cannot end with '/prometheus'. It is forbidden as it can lead to recursive dependencies");
+        }
         this.target = target;
         this.url = url;
         this.type = type;
@@ -38,7 +56,10 @@ public class HofundConnection {
 
     public String toTargetTag() {
         if (type == Type.DATABASE || type == Type.QUEUE) {
-            return target + "_" + type + getDescription().toLowerCase();
+            if (StringUtils.isEmpty(description)) {
+                return target + "_" + type;
+            }
+            return target + "_" + type + "_" + getDescription().toLowerCase();
         }
         return target;
     }
@@ -86,7 +107,8 @@ public class HofundConnection {
         tags.add(Tag.of("source", infoProvider.getApplicationName()));
         tags.add(Tag.of("target", toTargetTag()));
         tags.add(Tag.of("type", getType().toString()));
-        tags.add(Tag.of("current_version", getFun().get().getConnection().getVersion()));
+        tags.add(Tag.of("detected_version", getFun().get().getConnection().getVersion().toString()));
+        tags.add(Tag.of("required_version", getRequiredVersion().toString()));
         return tags;
     }
 
@@ -104,6 +126,14 @@ public class HofundConnection {
 
     public AtomicReference<ConnectionFunction> getFun() {
         return fun;
+    }
+
+    Version getRequiredVersion() {
+        return Version.of(requiredVersion);
+    }
+
+    public void setRequiredVersion(String requiredVersion) {
+        this.requiredVersion = requiredVersion;
     }
 
     public static String getEnvVarName(String target) {

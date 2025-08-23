@@ -198,13 +198,18 @@ import org.springframework.context.annotation.Bean;
 public class SimpleHofundHttpConnectionConfiguration {
     
     @Bean 
-    public SimpleHofundHttpConnection paymentApiSimpleHofundHttpConnection(){
+    public SimpleHofundHttpConnection paymentApiSimpleHofundHttpConnection() {
         return new SimpleHofundHttpConnection("payment-api", "http://host.docker.internal:18083/actuator/health/info");
     }
 
     @Bean
-    public SimpleHofundHttpConnection cartApiSimpleHofundHttpConnection(){
+    public SimpleHofundHttpConnection carApiSimpleHofundHttpConnection() {
         return new SimpleHofundHttpConnection("car-api", "http://host.docker.internal:18084/actuator/health/info");
+    }
+
+    @Bean
+    public SimpleHofundHttpConnection cartApiSimpleHofundHttpConnection() {
+        return new SimpleHofundHttpConnection("cart-api", "http://host.docker.internal:18085/actuator/health/info").withRequiredVersion("1.0.1"); // you can also define a required version of service
     }
 }
 
@@ -339,16 +344,16 @@ By default, when using SimpleHofundHttpConnection or AbstractHofundBasicHttpConn
 This simple functionality allows printing connection statuses in the logger during booting up!
 
 ```txt
-+----------+--------------+----------+----------------------------------------------+---------+
-| TYPE     | NAME         | STATUS   | URL                                          | VERSION |
-+----------+--------------+----------+----------------------------------------------+---------+
-| DATABASE | mydb         | UP       | jdbc:postgresql://localhost:5432/mydb        | N/A     |
-| DATABASE | mydb2        | UP       | jdbc:mysql://localhost:3306/mydb2            | N/A     |
-| DATABASE | orcl         | DOWN     | jdbc:oracle:thin:@localhost:1521:orcl        | N/A     |
-| HTTP     | external-api | UP       | https://api.external-service.com             | UNKNOWN |
-| HTTP     | internal-api | UP       | https://api.internal-service.local           | 1.0.0   |
-| HTTP     | public-API   | INACTIVE | https://api.public-service.com               | N/A     |
-+----------+--------------+----------+----------------------------------------------+---------+
++----------+--------------+----------+----------------------------------------------+---------+------------------+
+| TYPE     | NAME         | STATUS   | URL                                          | VERSION | REQUIRED VERSION |
++----------+--------------+----------+----------------------------------------------+---------+------------------+
+| DATABASE | mydb         | UP       | jdbc:postgresql://localhost:5432/mydb        | N/A     | N/A              |
+| DATABASE | mydb2        | UP       | jdbc:mysql://localhost:3306/mydb2            | N/A     | N/A              |
+| DATABASE | orcl         | DOWN     | jdbc:oracle:thin:@localhost:1521:orcl        | N/A     | N/A              |
+| HTTP     | external-api | UP       | https://api.external-service.com             | UNKNOWN | UNKNOWN          |
+| HTTP     | internal-api | UP       | https://api.internal-service.local           | 1.0.0   | 1.0.1            |
+| HTTP     | public-API   | INACTIVE | https://api.public-service.com               | N/A     | N/A              |
++----------+--------------+----------+----------------------------------------------+---------+------------------+
 ```
 
 You can achieve this by creating simple class:
@@ -365,6 +370,10 @@ public class PrintHofundConnectionsTabel {
     }
 }
 ```
+
+If you specified a required service version using SimpleHofundHttpConnection or AbstractHofundBasicHttpConnection, 
+this method may log an error indicating that the current version of the service is lower than the required version.
+
 
 # Grafana Dashboards
 

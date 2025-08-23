@@ -115,7 +115,7 @@ class AbstractHofundBasicHttpConnectionTest {
             // when:
             HofundConnectionResult con = hofundConnection.getFun().get().getConnection();
             Status status = con.getStatus();
-            String version = con.getVersion();
+            String version = con.getVersion().toString();
 
             // then:
             RecordedRequest request = server.takeRequest();
@@ -145,7 +145,7 @@ class AbstractHofundBasicHttpConnectionTest {
             // when:
             HofundConnectionResult con = hofundConnection.getFun().get().getConnection();
             Status status = con.getStatus();
-            String version = con.getVersion();
+            String version = con.getVersion().toString();
 
             // then:
             RecordedRequest request = server.takeRequest();
@@ -167,7 +167,7 @@ class AbstractHofundBasicHttpConnectionTest {
         // when:
         HofundConnectionResult con = hofundConnection.getFun().get().getConnection();
         Status status = con.getStatus();
-        String version = con.getVersion();
+        String version = con.getVersion().toString();
 
         // then:
         assertEquals(Status.INACTIVE, status);
@@ -186,7 +186,7 @@ class AbstractHofundBasicHttpConnectionTest {
         // when:
         HofundConnectionResult con = hofundConnection.getFun().get().getConnection();
         Status status = con.getStatus();
-        String version = con.getVersion();
+        String version = con.getVersion().toString();
 
         // then:
         assertEquals(Status.INACTIVE, status);
@@ -212,7 +212,7 @@ class AbstractHofundBasicHttpConnectionTest {
             // when:
             HofundConnectionResult con = hofundConnection.getFun().get().getConnection();
             Status status = con.getStatus();
-            String version = con.getVersion();
+            String version = con.getVersion().toString();
 
             // then:
             RecordedRequest request = server.takeRequest();

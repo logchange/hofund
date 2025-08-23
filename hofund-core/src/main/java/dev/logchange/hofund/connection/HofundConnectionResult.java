@@ -90,7 +90,7 @@ public class HofundConnectionResult {
         return status;
     }
 
-    public String getVersion() {
-        return version.toString();
+    Version getVersion() {
+        return version;
     }
 }

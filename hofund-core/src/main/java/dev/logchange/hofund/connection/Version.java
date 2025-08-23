@@ -5,7 +5,6 @@ import static dev.logchange.hofund.connection.HofundConnectionResult.UNKNOWN;
 
 class Version implements Comparable<Version> {
 
-
     private final String value;
 
     private Version(String value) {
@@ -13,9 +12,11 @@ class Version implements Comparable<Version> {
     }
 
     static Version of(String value) {
+        if (value == null || value.isEmpty()) {
+            return new Version(NOT_APPLICABLE);
+        }
         return new Version(value);
     }
-
 
     private boolean isUnknown() {
         return UNKNOWN.equals(value);

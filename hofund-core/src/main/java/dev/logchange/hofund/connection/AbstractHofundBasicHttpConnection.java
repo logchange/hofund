@@ -79,6 +79,10 @@ public abstract class AbstractHofundBasicHttpConnection {
         return Collections.emptyList();
     }
 
+    protected String getRequiredVersion() {
+        return NOT_APPLICABLE;
+    }
+
     private void setRequestHeaders(HttpURLConnection urlConn) {
         List<RequestHeader> requestHeaders = getRequestHeaders();
 
@@ -120,6 +124,7 @@ public abstract class AbstractHofundBasicHttpConnection {
                     getDescription()
             );
             hofundConnection.setIcon(getIcon());
+            hofundConnection.setRequiredVersion(getRequiredVersion());
             return hofundConnection;
         } catch (Exception e) {
             log.warn("Error creating hofund connection, skipping", e);
