@@ -1,5 +1,6 @@
 package dev.logchange.hofund.connection;
 
+import dev.logchange.hofund.EnvProvider;
 import org.slf4j.Logger;
 
 import java.net.HttpURLConnection;
@@ -9,6 +10,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
+import static dev.logchange.hofund.connection.HofundConnection.getEnvVarName;
 import static dev.logchange.hofund.connection.HofundConnectionResult.NOT_APPLICABLE;
 import static dev.logchange.hofund.connection.HofundConnectionResult.UNKNOWN;
 import static org.slf4j.LoggerFactory.getLogger;
@@ -16,6 +18,16 @@ import static org.slf4j.LoggerFactory.getLogger;
 public abstract class AbstractHofundBasicHttpConnection {
 
     private static final Logger log = getLogger(AbstractHofundBasicHttpConnection.class);
+
+    private final EnvProvider envProvider;
+
+    protected AbstractHofundBasicHttpConnection() {
+        this(new EnvProvider.SystemEnvProvider());
+    }
+
+    protected AbstractHofundBasicHttpConnection(EnvProvider envProvider) {
+        this.envProvider = envProvider;
+    }
 
     /**
      * Name of the resource that application connects to f.e. Products.
@@ -130,6 +142,11 @@ public abstract class AbstractHofundBasicHttpConnection {
                     return HofundConnectionResult.http(Status.INACTIVE, NOT_APPLICABLE);
                 }
 
+                if (isCheckingStatusInactiveByEnvs()) {
+                    log.debug("Skipping checking connection to: {} due to disabling it in system envs", getTarget());
+                    return HofundConnectionResult.http(Status.INACTIVE, NOT_APPLICABLE);
+                }
+
                 HttpURLConnection urlConn = (HttpURLConnection) getURL().openConnection();
                 urlConn.setConnectTimeout(getConnectTimeout());
                 urlConn.setReadTimeout(getReadTimeout());
@@ -153,5 +170,38 @@ public abstract class AbstractHofundBasicHttpConnection {
                 return HofundConnectionResult.http(Status.DOWN, UNKNOWN);
             }
         };
+    }
+
+    /**
+     * Checks if the connection status should be set to inactive based on environment variables.
+     * This method allows disabling connection checks for specific targets using environment variables.
+     *
+     * <p>The environment variable name is constructed as: {@code HOFUND_CONNECTION_<TARGET>_DISABLED}
+     * where {@code <TARGET>} is the uppercase value returned by {@link #getTarget()}.
+     *
+     * <p>The connection check will be disabled if the environment variable value is either:
+     * <ul>
+     *   <li>"true" (case-insensitive)</li>
+     *   <li>"1"</li>
+     * </ul>
+     *
+     * <p>Example: For a target named "payment-api", the environment variable would be:
+     * {@code HOFUND_CONNECTION_PAYMENT_API_DISABLED=true}
+     *
+     * @return {@code true} if the connection check should be disabled based on environment variables,
+     *         {@code false} otherwise
+     */
+    protected boolean isCheckingStatusInactiveByEnvs() {
+        String target = getTarget();
+        String envVarName = getEnvVarName(target);
+
+        String envVarValue = envProvider.getEnv(envVarName);
+
+        if ("true".equalsIgnoreCase(envVarValue) || "1".equals(envVarValue)) {
+            log.info("Connection check for target '{}' is disabled by environment variable '{}' with value '{}'", target, envVarName, envVarValue);
+            return true;
+        }
+
+        return false;
     }
 }

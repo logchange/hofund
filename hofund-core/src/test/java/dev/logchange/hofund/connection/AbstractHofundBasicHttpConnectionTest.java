@@ -225,4 +225,79 @@ class AbstractHofundBasicHttpConnectionTest {
         }
     }
 
+    @Test
+    void testEnvironmentVariableDisabledNotSet() {
+        try (MockWebServer server = new MockWebServer()) {
+            // given:
+            server.enqueue(new MockResponse().setBody("{}"));
+
+            HttpUrl url = server.url("/api/some/");
+
+            TestableAbstractHofundBasicHttpConnection connection = new TestableAbstractHofundBasicHttpConnection(
+                    "testTarget", 
+                    url.toString(), 
+                    CheckingStatus.ACTIVE, 
+                    RequestMethod.GET, 
+                    Collections.emptyList()
+            );
+
+            HofundConnection hofundConnection = connection.toHofundConnection();
+
+            // when:
+            HofundConnectionResult con = hofundConnection.getFun().get().getConnection();
+            Status status = con.getStatus();
+
+            // then:
+            // If the environment variable is not set, the connection check should proceed normally
+            assertEquals(Status.UP, status);
+
+            // Verify that a request was made (meaning the connection check wasn't skipped)
+            RecordedRequest request = server.takeRequest();
+            assertEquals("GET", request.getMethod());
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    void testIsCheckingStatusInactiveByEnvs() {
+        try (MockWebServer server = new MockWebServer()) {
+            // given:
+            server.enqueue(new MockResponse().setBody("{}"));
+
+            HttpUrl url = server.url("/api/some/");
+
+            // Create a subclass that overrides isCheckingStatusInactiveByEnvs to return true
+            TestableAbstractHofundBasicHttpConnection connection = new TestableAbstractHofundBasicHttpConnection(
+                    "testTarget", 
+                    url.toString(), 
+                    CheckingStatus.ACTIVE, 
+                    RequestMethod.GET, 
+                    Collections.emptyList()
+            ) {
+                @Override
+                protected boolean isCheckingStatusInactiveByEnvs() {
+                    return true; // Simulate environment variable being set to disable connection
+                }
+            };
+
+            HofundConnection hofundConnection = connection.toHofundConnection();
+
+            // when:
+            HofundConnectionResult con = hofundConnection.getFun().get().getConnection();
+            Status status = con.getStatus();
+            Version version = con.getVersion();
+
+            // then:
+            // If isCheckingStatusInactiveByEnvs returns true, the connection check should be skipped
+            // and status should be INACTIVE
+            assertEquals(Status.INACTIVE, status);
+            assertEquals(HofundConnectionResult.NOT_APPLICABLE, version.toString());
+
+            // No request should be made to the server since the connection check is skipped
+            assertEquals(0, server.getRequestCount());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
