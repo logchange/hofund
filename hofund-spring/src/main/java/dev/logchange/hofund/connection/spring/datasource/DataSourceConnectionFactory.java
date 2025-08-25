@@ -30,16 +30,16 @@ public class DataSourceConnectionFactory {
                     case H2 -> Optional.of(new H2Connection(metaData, dataSource));
                     default -> {
                         log.warn("Currently there is no support for DataSource: {} please create issue at: https://github.com/logchange/hofund", productName);
-                        yield Optional.empty();
+                        yield Optional.of(new UnknownDatasourceConnection(dataSource));
                     }
                 };
             } else {
                 log.warn("Connection to database is null!");
-                return Optional.empty();
+                return Optional.of(new UnknownDatasourceConnection(dataSource));
             }
         } catch (SQLException e) {
             log.warn("Error creating datasource HofundConnection", e);
-            return Optional.empty();
+            return Optional.of(new UnknownDatasourceConnection(dataSource));
         }
     }
 }

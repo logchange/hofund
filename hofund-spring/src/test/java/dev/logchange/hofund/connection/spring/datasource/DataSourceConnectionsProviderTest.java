@@ -51,10 +51,10 @@ class DataSourceConnectionsProviderTest {
     }
 
     @Test
-    void getConnections_shouldFilterOutNullConnections() {
+    void getConnections_shouldReturnGenericConnection_whenFactoryCannotCreateSpecificConnection() {
         // given:
-        // This test relies on the fact that DataSourceConnectionFactory.of() will return null
-        // for our mock DataSource because it can't get a connection from it
+        // For a mock DataSource without stubbing, DataSourceConnectionFactory.of() cannot obtain
+        // a real connection and will return an UnknownDatasourceConnection fallback.
         List<DataSource> dataSources = new ArrayList<>();
         dataSources.add(dataSource);
 
@@ -64,7 +64,11 @@ class DataSourceConnectionsProviderTest {
         List<HofundConnection> connections = provider.getConnections();
 
         // then:
-        assertThat(connections).isEmpty();
+        assertThat(connections).hasSize(1);
+        HofundConnection c = connections.get(0);
+        assertThat(c.getTarget()).isEqualTo("unknown");
+        assertThat(c.getUrl()).isEqualTo("unknown");
+        assertThat(c.getDescription()).isEqualTo("UNKNOWN");
     }
 
     @Test

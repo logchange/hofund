@@ -1,0 +1,13 @@
+# This file is used by logchange tool to generate CHANGELOG.md 🌳 🪓 => 🪵 
+# Visit https://github.com/logchange/logchange and leave a star 🌟 
+# More info about configuration you can find https://github.com/logchange/logchange#yaml-format ⬅️⬅ ️
+title: Display "DOWN" status for broken connections in connections table
+authors:
+  - name: Junie by JetBrains
+    nick: jetbrains-junie[bot]
+    url: https://github.com/jetbrains-junie
+merge_requests:
+  - 114
+issues:
+  - 48
+type: fixed #[added/changed/deprecated/removed/fixed/security/other]
