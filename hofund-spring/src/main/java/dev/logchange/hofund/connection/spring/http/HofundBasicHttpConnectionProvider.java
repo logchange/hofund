@@ -11,10 +11,13 @@ import java.util.stream.Collectors;
 
 public class HofundBasicHttpConnectionProvider implements HofundConnectionsProvider {
 
-    private final List<AbstractHofundBasicHttpConnection> connections;
+    private final List<HofundConnection> connections;
 
     public HofundBasicHttpConnectionProvider(List<AbstractHofundBasicHttpConnection> connections) {
-        this.connections = connections;
+        this.connections = connections.stream()
+                .map(AbstractHofundBasicHttpConnection::toHofundConnection)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -22,9 +25,6 @@ public class HofundBasicHttpConnectionProvider implements HofundConnectionsProvi
         if (connections == null) {
             return Collections.emptyList();
         }
-        return connections.stream()
-                .map(AbstractHofundBasicHttpConnection::toHofundConnection)
-                .filter(Objects::nonNull)
-                .collect(Collectors.toList());
+        return connections;
     }
 }
