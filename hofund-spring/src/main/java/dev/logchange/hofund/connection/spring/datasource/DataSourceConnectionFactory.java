@@ -17,7 +17,7 @@ public class DataSourceConnectionFactory {
 
     private static final Logger log = getLogger(DataSourceConnectionFactory.class);
 
-    public static Optional<DatasourceConnection> of(DataSource dataSource) {
+    public static DatasourceConnection of(DataSource dataSource) {
         try (Connection connection = dataSource.getConnection()) {
             if (connection != null) {
                 DatabaseMetaData metaData = connection.getMetaData();
@@ -25,21 +25,21 @@ public class DataSourceConnectionFactory {
                 DatabaseProductName dbType = DatabaseProductName.of(productName);
                 log.debug("DataSource product name is: {}", productName);
                 return switch (dbType) {
-                    case POSTGRESQL -> Optional.of(new PostgreSQLConnection(metaData, dataSource));
-                    case ORACLE -> Optional.of(new OracleConnection(metaData, dataSource));
-                    case H2 -> Optional.of(new H2Connection(metaData, dataSource));
+                    case POSTGRESQL -> new PostgreSQLConnection(metaData, dataSource);
+                    case ORACLE -> new OracleConnection(metaData, dataSource);
+                    case H2 -> new H2Connection(metaData, dataSource);
                     default -> {
                         log.warn("Currently there is no support for DataSource: {} please create issue at: https://github.com/logchange/hofund", productName);
-                        yield Optional.of(new UnknownDatasourceConnection(dataSource));
+                        yield new UnknownDatasourceConnection(dataSource);
                     }
                 };
             } else {
                 log.warn("Connection to database is null!");
-                return Optional.of(new UnknownDatasourceConnection(dataSource));
+                return new UnknownDatasourceConnection(dataSource);
             }
         } catch (SQLException e) {
             log.warn("Error creating datasource HofundConnection", e);
-            return Optional.of(new UnknownDatasourceConnection(dataSource));
+            return new UnknownDatasourceConnection(dataSource);
         }
     }
 }

@@ -8,7 +8,6 @@ import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static org.slf4j.LoggerFactory.getLogger;
@@ -25,31 +24,22 @@ public class DataSourceConnectionsProvider implements HofundConnectionsProvider 
 
     @Override
     public List<HofundConnection> getConnections() {
-        if (connections == null) {
-            return Collections.emptyList();
-        }
-
         return connections;
     }
 
     private List<HofundConnection> getConnections(List<DataSource> dataSources) {
-        if (dataSources == null) {
+        if (dataSources == null || dataSources.isEmpty()) {
             return Collections.emptyList();
         }
 
         List<DatasourceConnection> result = new ArrayList<>();
 
         for (DataSource dataSource : dataSources) {
-            Optional<DatasourceConnection> datasourceConnection = DataSourceConnectionFactory.of(dataSource);
-
-            if (datasourceConnection.isPresent()) {
-                DatasourceConnection connection = datasourceConnection.get();
-
-                if (!result.contains(connection)) {
-                    result.add(connection);
-                } else {
-                    log.warn("Found duplicate datasource connection to: {} url: {}", connection.getTarget(), connection.getUrl());
-                }
+            DatasourceConnection connection = DataSourceConnectionFactory.of(dataSource);
+            if (!result.contains(connection)) {
+                result.add(connection);
+            } else {
+                log.warn("Found duplicate datasource connection to: {} url: {}", connection.getTarget(), connection.getUrl());
             }
         }
 
