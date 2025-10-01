@@ -5,6 +5,6 @@ authors:
     url: https://github.com/marwin1991
 type: fixed #[added/changed/deprecated/removed/fixed/security/other]
 issues:
-  - 122
+  - 123
 merge_requests:
   - 88
