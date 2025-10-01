@@ -17,14 +17,22 @@ public class DataSourceConnectionsProvider implements HofundConnectionsProvider 
 
     private static final Logger log = getLogger(DataSourceConnectionsProvider.class);
 
-    private final List<DataSource> dataSources;
+    private final List<HofundConnection> connections;
 
     public DataSourceConnectionsProvider(List<DataSource> dataSources) {
-        this.dataSources = dataSources;
+        this.connections = getConnections(dataSources);
     }
 
     @Override
     public List<HofundConnection> getConnections() {
+        if (connections == null) {
+            return Collections.emptyList();
+        }
+
+        return connections;
+    }
+
+    private List<HofundConnection> getConnections(List<DataSource> dataSources) {
         if (dataSources == null) {
             return Collections.emptyList();
         }
