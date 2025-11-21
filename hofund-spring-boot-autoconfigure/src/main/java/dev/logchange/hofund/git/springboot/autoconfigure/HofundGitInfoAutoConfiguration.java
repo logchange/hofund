@@ -2,14 +2,16 @@ package dev.logchange.hofund.git.springboot.autoconfigure;
 
 import dev.logchange.hofund.git.HofundGitInfoMeter;
 import dev.logchange.hofund.git.HofundGitInfoProvider;
-import org.springframework.boot.actuate.autoconfigure.metrics.export.ConditionalOnEnabledMetricsExport;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.micrometer.metrics.autoconfigure.export.ConditionalOnEnabledMetricsExport;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnEnabledMetricsExport(value="prometheus")
+@ConditionalOnProperty(name = "hofund.enabled", havingValue = "true", matchIfMissing = true)
 @EnableConfigurationProperties(HofundGitInfoProperties.class)
 public class HofundGitInfoAutoConfiguration {
 

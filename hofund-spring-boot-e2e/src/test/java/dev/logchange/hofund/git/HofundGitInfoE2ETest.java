@@ -3,14 +3,14 @@ package dev.logchange.hofund.git;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
-import org.springframework.boot.test.autoconfigure.actuate.observability.AutoConfigureObservability;
+import org.springframework.boot.micrometer.metrics.test.autoconfigure.AutoConfigureMetrics;
+import org.springframework.boot.resttestclient.TestRestTemplate;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
-@AutoConfigureObservability
+@AutoConfigureMetrics
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, properties = {
         "hofund.git-info.commit.id=SomeIdForTest",
         "hofund.git-info.commit.id-abbrev=someAbbrevIdForE2eTest",

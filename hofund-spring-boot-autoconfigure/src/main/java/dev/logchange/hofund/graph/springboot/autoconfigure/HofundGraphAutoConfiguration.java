@@ -6,10 +6,11 @@ import dev.logchange.hofund.graph.edge.HofundEdgeMeter;
 import dev.logchange.hofund.graph.node.HofundNodeMeter;
 import dev.logchange.hofund.info.HofundInfoProvider;
 import dev.logchange.hofund.info.springboot.autoconfigure.HofundInfoAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.metrics.export.ConditionalOnEnabledMetricsExport;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.micrometer.metrics.autoconfigure.export.ConditionalOnEnabledMetricsExport;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -17,6 +18,7 @@ import java.util.List;
 
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnEnabledMetricsExport(value="prometheus")
+@ConditionalOnProperty(name = "hofund.enabled", havingValue = "true", matchIfMissing = true)
 @AutoConfigureAfter({HofundInfoAutoConfiguration.class, HofundConnectionAutoConfiguration.class})
 public class HofundGraphAutoConfiguration {
 

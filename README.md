@@ -39,7 +39,8 @@ It also served as a key to activate the switch that opens the Bifrost Bridge.
 
 |        Version         |     SpringBoot Version      |    Java Version    |
 |:----------------------:|:---------------------------:|:------------------:|
-|       **2.X.X**        |       from **3.3.0**        | 17 (hofund-core 8) |
+|       **3.X.X**        |       from **4.0.0**        | 17 (hofund-core 8) |
+|       **2.X.X**        | from **3.3.0** to **3.5.8** | 17 (hofund-core 8) |
 | **1.0.X (deprecated)** | from **2.2.0** to **3.2.X** |         8          |
 
 ## Requirements

@@ -1,0 +1,10 @@
+title: "Spring Boot 4.0 support added"
+authors:
+  - name: Peter Zmilczak
+    nick: marwin1991
+    url: https://github.com/marwin1991
+type: changed #[added/changed/deprecated/removed/fixed/security/other]
+merge_requests:
+  - 123
+important_notes:
+  - "**Do not use Hofund 3.X.X with Spring Boot version less than 4.0.0!**"
