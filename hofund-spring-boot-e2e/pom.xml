@@ -5,7 +5,7 @@
     <parent>
         <artifactId>hofund</artifactId>
         <groupId>dev.logchange.hofund</groupId>
-        <version>3.0.0</version>
+        <version>3.0.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>hofund-spring-boot-e2e</artifactId>
