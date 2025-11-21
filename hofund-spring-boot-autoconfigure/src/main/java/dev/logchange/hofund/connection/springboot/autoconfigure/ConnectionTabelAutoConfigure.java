@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import java.util.List;
 
 @Configuration(proxyBeanMethods = false)
+@ConditionalOnProperty(name = "hofund.enabled", havingValue = "true", matchIfMissing = true)
 public class ConnectionTabelAutoConfigure {
 
     @Bean

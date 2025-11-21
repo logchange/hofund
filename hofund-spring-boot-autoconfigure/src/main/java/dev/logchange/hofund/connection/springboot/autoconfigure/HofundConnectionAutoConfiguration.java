@@ -7,10 +7,10 @@ import dev.logchange.hofund.connection.spring.datasource.DataSourceConnectionsPr
 import dev.logchange.hofund.connection.spring.http.HofundBasicHttpConnectionProvider;
 import dev.logchange.hofund.info.HofundInfoProvider;
 import dev.logchange.hofund.info.springboot.autoconfigure.HofundInfoAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.metrics.export.ConditionalOnEnabledMetricsExport;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.micrometer.metrics.autoconfigure.export.ConditionalOnEnabledMetricsExport;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
