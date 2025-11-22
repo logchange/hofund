@@ -69,7 +69,7 @@ Your project has to contain:
        <dependency>
            <groupId>dev.logchange.hofund</groupId>
            <artifactId>hofund-spring-boot-starter</artifactId>
-           <version>2.7.2</version>
+           <version>3.0.0</version>
        </dependency>
       ...
    </dependencies>
@@ -80,7 +80,7 @@ Your project has to contain:
           ...
          <groupId>io.github.git-commit-id</groupId>
          <artifactId>git-commit-id-maven-plugin</artifactId>
-         <version>7.0.0</version> 
+         <version>9.0.2</version> 
          <!-- 
          For older version of java (f.e. 8) see https://github.com/git-commit-id/git-commit-id-maven-plugin 
           -->
