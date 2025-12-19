@@ -62,7 +62,7 @@
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <spring-boot.version>4.0.0</spring-boot.version>
+        <spring-boot.version>4.0.1</spring-boot.version>
 
         <!-- TESTS -->
         <mockwebserver.version>5.3.2</mockwebserver.version>
