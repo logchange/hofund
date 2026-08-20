@@ -62,11 +62,11 @@
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <spring-boot.version>4.0.3</spring-boot.version>
+        <spring-boot.version>4.0.6</spring-boot.version>
 
         <!-- TESTS -->
-        <mockwebserver.version>5.3.2</mockwebserver.version>
-        <slf4j-simple.version>2.0.17</slf4j-simple.version>
+        <mockwebserver.version>5.5.0</mockwebserver.version>
+        <slf4j-simple.version>2.0.18</slf4j-simple.version>
     </properties>
 
     <dependencyManagement>
@@ -133,7 +133,7 @@
                     <plugin>
                         <groupId>org.jacoco</groupId>
                         <artifactId>jacoco-maven-plugin</artifactId>
-                        <version>0.8.14</version>
+                        <version>0.8.15</version>
                         <executions>
                             <execution>
                                 <goals>
@@ -155,7 +155,7 @@
                         <!-- https://central.sonatype.org/publish/publish-maven/#nexus-staging-maven-plugin-for-deployment-and-release -->
                         <groupId>org.sonatype.central</groupId>
                         <artifactId>central-publishing-maven-plugin</artifactId>
-                        <version>0.10.0</version>
+                        <version>0.11.0</version>
                         <extensions>true</extensions>
                         <configuration>
                             <publishingServerId>central</publishingServerId>
