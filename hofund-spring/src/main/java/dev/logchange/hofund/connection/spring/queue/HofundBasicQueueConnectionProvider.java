@@ -4,7 +4,6 @@ import dev.logchange.hofund.connection.AbstractHofundBasicQueueConnection;
 import dev.logchange.hofund.connection.HofundConnection;
 import dev.logchange.hofund.connection.HofundConnectionsProvider;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -22,9 +21,6 @@ public class HofundBasicQueueConnectionProvider implements HofundConnectionsProv
 
     @Override
     public List<HofundConnection> getConnections() {
-        if (connections == null) {
-            return Collections.emptyList();
-        }
         return connections;
     }
 }

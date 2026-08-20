@@ -20,6 +20,19 @@ class HofundConnectionsTest {
     }
 
     @Test
+    void shouldSkipNullProvider() {
+        // given:
+        List<HofundConnectionsProvider> providers = Arrays.asList(null, provider(connection("target1")));
+
+        // when:
+        List<HofundConnection> result = HofundConnections.from(providers);
+
+        // then:
+        assertEquals(1, result.size());
+        assertEquals("target1", result.get(0).getTarget());
+    }
+
+    @Test
     void shouldSkipProviderReturningNull() {
         // given:
         List<HofundConnectionsProvider> providers = Arrays.asList(() -> null, provider(connection("target1")));
