@@ -10,7 +10,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
-import static dev.logchange.hofund.connection.HofundConnection.getEnvVarName;
 import static dev.logchange.hofund.connection.HofundConnectionResult.NOT_APPLICABLE;
 import static dev.logchange.hofund.connection.HofundConnectionResult.UNKNOWN;
 import static org.slf4j.LoggerFactory.getLogger;
@@ -192,16 +191,6 @@ public abstract class AbstractHofundBasicHttpConnection {
      *         {@code false} otherwise
      */
     protected boolean isCheckingStatusInactiveByEnvs() {
-        String target = getTarget();
-        String envVarName = getEnvVarName(target);
-
-        String envVarValue = envProvider.getEnv(envVarName);
-
-        if ("true".equalsIgnoreCase(envVarValue) || "1".equals(envVarValue)) {
-            log.info("Connection check for target '{}' is disabled by environment variable '{}' with value '{}'", target, envVarName, envVarValue);
-            return true;
-        }
-
-        return false;
+        return CheckingStatusEnvs.isInactiveByEnvs(envProvider, getTarget());
     }
 }

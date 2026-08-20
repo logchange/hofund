@@ -1,6 +1,7 @@
 package dev.logchange.hofund.graph.node;
 
 import dev.logchange.hofund.connection.HofundConnection;
+import dev.logchange.hofund.connection.HofundConnections;
 import dev.logchange.hofund.connection.HofundConnectionsProvider;
 import dev.logchange.hofund.info.HofundInfoProvider;
 import io.micrometer.core.instrument.Gauge;
@@ -8,12 +9,10 @@ import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Tag;
 import io.micrometer.core.instrument.binder.MeterBinder;
 
-import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 /**
  * <a href="https://grafana.com/docs/grafana/latest/visualizations/node-graph/#node-parameters">Grafana Node Graph</a>
@@ -29,10 +28,7 @@ public class HofundNodeMeter implements MeterBinder {
 
     public HofundNodeMeter(HofundInfoProvider infoProvider, List<HofundConnectionsProvider> connectionsProviders) {
         this.infoProvider = infoProvider;
-        this.connections = connectionsProviders.stream()
-                .map(HofundConnectionsProvider::getConnections)
-                .flatMap(Collection::stream)
-                .collect(Collectors.toList());
+        this.connections = HofundConnections.from(connectionsProviders);
         this.atomicInteger = new AtomicInteger(1);
 
         checkIdCollision();

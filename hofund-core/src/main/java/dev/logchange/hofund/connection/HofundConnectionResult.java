@@ -28,6 +28,10 @@ public class HofundConnectionResult {
         return new HofundConnectionResult(status, NOT_APPLICABLE);
     }
 
+    public static HofundConnectionResult queue(Status status) {
+        return new HofundConnectionResult(status, NOT_APPLICABLE);
+    }
+
     public static HofundConnectionResult http(Status status, String version) {
         return new HofundConnectionResult(status, version);
     }

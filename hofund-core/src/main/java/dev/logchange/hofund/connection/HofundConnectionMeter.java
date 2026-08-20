@@ -5,9 +5,7 @@ import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.binder.MeterBinder;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class HofundConnectionMeter implements MeterBinder {
 
@@ -19,10 +17,7 @@ public class HofundConnectionMeter implements MeterBinder {
 
     public HofundConnectionMeter(HofundInfoProvider infoProvider, List<HofundConnectionsProvider> connectionsProviders) {
         this.infoProvider = infoProvider;
-        this.connections = connectionsProviders.stream()
-                .map(HofundConnectionsProvider::getConnections)
-                .flatMap(Collection::stream)
-                .collect(Collectors.toList());
+        this.connections = HofundConnections.from(connectionsProviders);
     }
 
 

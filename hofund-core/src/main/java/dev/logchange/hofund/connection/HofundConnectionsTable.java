@@ -20,14 +20,9 @@ public class HofundConnectionsTable {
 
     public HofundConnectionsTable(List<HofundConnectionsProvider> connectionsProviders) {
 
-        if (connectionsProviders == null || connectionsProviders.isEmpty()) {
-            this.connections = Collections.emptyList();
-        } else {
-            this.connections = connectionsProviders.stream()
-                    .flatMap(t -> t.getConnections().stream())
-                    .sorted((d1, d2) -> d2.getType().compareTo(d1.getType()))
-                    .collect(Collectors.toList());
-        }
+        this.connections = HofundConnections.from(connectionsProviders).stream()
+                .sorted((d1, d2) -> d2.getType().compareTo(d1.getType()))
+                .collect(Collectors.toList());
 
     }
 
