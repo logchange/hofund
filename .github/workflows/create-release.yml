@@ -22,7 +22,8 @@ jobs:
         with:
           #  when tag has 'v' in name no need of adding it before ${GITHUB_REF/refs\/tags\//
           body_path: ${{ env.RELEASE_BODY_FILE }}
-        env:
           # Cannot use GITHUB_TOKEN because of:
           # https://github.com/orgs/community/discussions/27028
-          GITHUB_TOKEN: ${{ secrets.LOGCHANGE_PAT_TOKEN }}
+          # Must be passed as input - since action-gh-release v2.6.0 the token input
+          # (defaulting to github.token) takes precedence over the GITHUB_TOKEN env var
+          token: ${{ secrets.LOGCHANGE_PAT_TOKEN }}
