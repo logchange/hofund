@@ -1,0 +1,11 @@
+# This file is used by logchange tool to generate CHANGELOG.md 🌳 🪓 => 🪵 
+# Visit https://github.com/logchange/logchange and leave a star 🌟 
+# More info about configuration you can find https://github.com/logchange/logchange#yaml-format ⬅️⬅ ️
+title: "A `HofundConnectionsProvider` returning `null`, or a list containing `null`, no longer breaks metric binding. Such an entry used to reach the meters and fail the whole binding with a `NullPointerException`, taking every other connection down with it; it is now skipped and logged."
+authors:
+  - name: Peter Zmilczak
+    nick: marwin1991
+    url: https://github.com/marwin1991
+type: fixed #[added/changed/deprecated/removed/fixed/security/other]
+merge_requests:
+  - 175

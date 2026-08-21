@@ -260,6 +260,45 @@ If you want to use f.e `POST` method, you can use `new SimpleHofundHttpConnectio
 If you don't want to test connection in some conditions, you can use `new SimpleHofundHttpConnection("abc", "some_url", CheckingStatus.INACTIVE)` or override `getCheckingStatus()`.
 You can also disable connection checks for specific targets using environment variables. Set environment variable named `HOFUND_CONNECTION_<TARGET>_DISABLED` (where `<TARGET>` is the uppercase value of the target name) is set to either `true` (case-insensitive) or `1`. For example, to disable connection checks for a target named "payment-api", you would set the environment variable `HOFUND_CONNECTION_PAYMENT_API_DISABLED=true`.
 
+#### Queue, topic and broker connections
+
+Hofund does not depend on any messaging client, so a queue connection is described by a probe you supply:
+returning normally means UP, throwing anything means DOWN. Use `SimpleHofundQueueConnection` or extend
+`AbstractHofundBasicQueueConnection`. It works with any client — `javax.jms`, `jakarta.jms`, a Kafka bootstrap
+socket — because hofund never sees it.
+
+```java
+import dev.logchange.hofund.connection.SimpleHofundQueueConnection;
+import jakarta.jms.Connection;
+import jakarta.jms.ConnectionFactory;
+
+@Configuration
+public class QueueConnectionConfiguration {
+
+    @Bean
+    public SimpleHofundQueueConnection brokerConnection(ConnectionFactory probeConnectionFactory) {
+        return new SimpleHofundQueueConnection("broker", "amqp://broker.example.com:5672", () -> {
+            try (Connection connection = probeConnectionFactory.createConnection()) {
+                connection.start();
+            }
+        });
+    }
+}
+```
+
+Give the probe a connection factory of its own, without caching or pooling: a shared or cached connection keeps
+reporting UP long after the broker went down. The probe runs on the thread that scrapes the metric, so keep its
+timeout short (hofund's HTTP probes default to 1 s) and never let it touch production traffic — a consumer
+created on a real destination becomes a competing consumer and can take a real message.
+
+`CheckingStatus.INACTIVE` and `HOFUND_CONNECTION_<TARGET>_DISABLED` work here as they do for HTTP, and mean
+"not monitored". A target that is monitored but misconfigured belongs in DOWN, not INACTIVE.
+
+The description is empty by default, which for `Type.QUEUE` and `Type.DATABASE` matters: hofund builds the
+`target` metric label out of the target name, the type and the description, so `new
+SimpleHofundQueueConnection("broker", url, probe)` yields the label `broker_queue`, and passing a description
+makes it part of the label.
+
 ### 5. Manually creating HofundConnection
 
 If you need to create a HofundConnection manually, you must define a ConnectionFunction that will query the service you're interested in. The ConnectionFunction interface has a single method `getConnection()` that returns a HofundConnectionResult object.

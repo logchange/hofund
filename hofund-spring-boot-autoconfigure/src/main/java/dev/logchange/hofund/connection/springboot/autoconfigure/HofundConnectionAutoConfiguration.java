@@ -1,10 +1,12 @@
 package dev.logchange.hofund.connection.springboot.autoconfigure;
 
 import dev.logchange.hofund.connection.AbstractHofundBasicHttpConnection;
+import dev.logchange.hofund.connection.AbstractHofundBasicQueueConnection;
 import dev.logchange.hofund.connection.HofundConnectionMeter;
 import dev.logchange.hofund.connection.HofundConnectionsProvider;
 import dev.logchange.hofund.connection.spring.datasource.DataSourceConnectionsProvider;
 import dev.logchange.hofund.connection.spring.http.HofundBasicHttpConnectionProvider;
+import dev.logchange.hofund.connection.spring.queue.HofundBasicQueueConnectionProvider;
 import dev.logchange.hofund.info.HofundInfoProvider;
 import dev.logchange.hofund.info.springboot.autoconfigure.HofundInfoAutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -40,5 +42,11 @@ public class HofundConnectionAutoConfiguration {
     @ConditionalOnMissingBean
     public HofundBasicHttpConnectionProvider httpBasicConnectionProvider(List<AbstractHofundBasicHttpConnection> hofundBasicHttpConnections) {
         return new HofundBasicHttpConnectionProvider(hofundBasicHttpConnections);
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public HofundBasicQueueConnectionProvider queueBasicConnectionProvider(List<AbstractHofundBasicQueueConnection> hofundBasicQueueConnections) {
+        return new HofundBasicQueueConnectionProvider(hofundBasicQueueConnections);
     }
 }

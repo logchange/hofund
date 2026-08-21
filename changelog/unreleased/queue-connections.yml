@@ -1,0 +1,11 @@
+# This file is used by logchange tool to generate CHANGELOG.md 🌳 🪓 => 🪵 
+# Visit https://github.com/logchange/logchange and leave a star 🌟 
+# More info about configuration you can find https://github.com/logchange/logchange#yaml-format ⬅️⬅ ️
+title: "Introduced `SimpleHofundQueueConnection` and `AbstractHofundBasicQueueConnection` for testing queue, topic and message broker connections. Hofund stays free of any messaging client: the application supplies a `QueueProbe`, hofund maps it to UP/DOWN, handles `CheckingStatus`, the `HOFUND_CONNECTION_<TARGET>_DISABLED` environment variable and the logging."
+authors:
+  - name: Peter Zmilczak
+    nick: marwin1991
+    url: https://github.com/marwin1991
+type: added #[added/changed/deprecated/removed/fixed/security/other]
+merge_requests:
+  - 175
