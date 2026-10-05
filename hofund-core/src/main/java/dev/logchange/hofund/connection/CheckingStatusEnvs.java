@@ -21,11 +21,15 @@ final class CheckingStatusEnvs {
         String envVarName = getEnvVarName(target);
         String envVarValue = envProvider.getEnv(envVarName);
 
-        if ("true".equalsIgnoreCase(envVarValue) || "1".equals(envVarValue)) {
+        if (isTrue(envVarValue)) {
             log.info("Connection check for target '{}' is disabled by environment variable '{}' with value '{}'", target, envVarName, envVarValue);
             return true;
         }
 
         return false;
+    }
+
+    static boolean isTrue(String envVarValue) {
+        return "true".equalsIgnoreCase(envVarValue) || "1".equals(envVarValue);
     }
 }
