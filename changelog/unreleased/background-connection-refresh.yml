@@ -1,0 +1,9 @@
+# This file is used by logchange tool to generate CHANGELOG.md 🌳 🪓 => 🪵 
+# Visit https://github.com/logchange/logchange and leave a star 🌟 
+# More info about configuration you can find https://github.com/logchange/logchange#yaml-format ⬅️⬅ ️
+title: "Connections are now probed by a background thread every 2 minutes instead of on the thread that scrapes the metric, so `hofund_connection` is served from the last known result and a scrape no longer waits for the dependencies. A slow dependency could previously push the whole endpoint past the Prometheus `scrape_timeout` and take every other metric of the application down with it, and the number of probes grew with the number of scrapers. The interval is set with `HOFUND_CONNECTIONS_REFRESH_INTERVAL_MILLIS` and the old on-scrape behaviour is restored with `HOFUND_CONNECTIONS_REFRESH_DISABLED=true`."
+authors:
+  - name: Peter Zmilczak
+    nick: marwin1991
+    url: https://github.com/marwin1991
+type: changed #[added/changed/deprecated/removed/fixed/security/other]
