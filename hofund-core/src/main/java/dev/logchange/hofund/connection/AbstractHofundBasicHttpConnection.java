@@ -164,7 +164,7 @@ public abstract class AbstractHofundBasicHttpConnection {
                     return HofundConnectionResult.http(Status.DOWN, UNKNOWN);
                 }
             } catch (Exception e) {
-                log.warn("Error testing connection to: {} msg: {}", getUrl(), e.getMessage());
+                log.warn("Error testing connection to: {} msg: {}", getUrl(), e.toString());
                 log.debug("Exception: ", e);
                 return HofundConnectionResult.http(Status.DOWN, UNKNOWN);
             }
