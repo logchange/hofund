@@ -65,7 +65,7 @@
         <spring-boot.version>4.1.1</spring-boot.version>
 
         <!-- TESTS -->
-        <mockwebserver.version>5.5.0</mockwebserver.version>
+        <mockwebserver.version>5.5.1</mockwebserver.version>
         <slf4j-simple.version>2.0.20</slf4j-simple.version>
     </properties>
 
