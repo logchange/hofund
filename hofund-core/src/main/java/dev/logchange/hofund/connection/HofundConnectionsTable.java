@@ -49,7 +49,7 @@ public class HofundConnectionsTable {
                 String target = connection.getTarget();
                 String url = connection.getUrl();
                 String requiredVersion = connection.getRequiredVersion().toString();
-                log.warn("Error creating hofund connection for: {} url: {} with msg: {}", target, url, e.getMessage());
+                log.warn("Error creating hofund connection for: {} url: {} with msg: {}", target, url, e.toString());
                 table.addRow(
                         connection.getType().name(),
                         target,

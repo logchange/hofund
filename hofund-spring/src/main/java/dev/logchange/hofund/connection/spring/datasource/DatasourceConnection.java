@@ -58,7 +58,7 @@ public abstract class DatasourceConnection {
                     return HofundConnectionResult.db(Status.DOWN);
                 }
             } catch (SQLException e) {
-                log.warn("Error testing database connection url: {} msg: {}", getUrl(), e.getMessage());
+                log.warn("Error testing database connection url: {} msg: {}", getUrl(), e.toString());
                 log.debug("Exception: ", e);
                 return HofundConnectionResult.db(Status.DOWN);
             }
