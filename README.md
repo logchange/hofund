@@ -299,6 +299,28 @@ The description is empty by default, which for `Type.QUEUE` and `Type.DATABASE` 
 SimpleHofundQueueConnection("broker", url, probe)` yields the label `broker_queue`, and passing a description
 makes it part of the label.
 
+#### Background refreshing
+
+Connections are not probed while Prometheus is scraping. On startup hofund replaces every connection function
+with one that probes in the background and keeps the last known result, so a scrape only reads a value that is
+already there. This keeps the scrape O(1): a slow dependency can no longer push the whole endpoint past the
+Prometheus `scrape_timeout` and take every other metric of the application down with it, and the number of
+probes stops growing with the number of scrapers (an HA pair plus an agent used to mean three probes).
+
+The default interval is 2 minutes. Keep the connect and read timeouts short anyway - they bound a single
+attempt, not the whole probe, and a probe that hangs occupies its thread until it gives up.
+
+| Environment variable | Default | Meaning |
+|---|---|---|
+| `HOFUND_CONNECTIONS_REFRESH_DISABLED` | `false` | `true` or `1` goes back to probing on the thread that scrapes the metric |
+| `HOFUND_CONNECTIONS_REFRESH_INTERVAL_MILLIS` | `120000` | how often the background probe runs |
+
+Note the plural: `HOFUND_CONNECTION_<TARGET>_DISABLED` disables a single connection and is singular, so a
+connection whose target is `refresh` cannot collide with the switch above.
+
+The value is up to one interval old, which for UP/DOWN does not matter, but it does mean a hanging probe is now
+reported quietly as a stale value instead of a hanging scrape.
+
 ### 5. Manually creating HofundConnection
 
 If you need to create a HofundConnection manually, you must define a ConnectionFunction that will query the service you're interested in. The ConnectionFunction interface has a single method `getConnection()` that returns a HofundConnectionResult object.
