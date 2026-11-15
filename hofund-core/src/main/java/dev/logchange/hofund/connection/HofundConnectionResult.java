@@ -54,7 +54,7 @@ public class HofundConnectionResult {
             log.debug("Response body: {}", responseBody);
             return responseBody;
         } catch (IOException e) {
-            log.warn("Error reading response from: {} msg: {}", urlConn.getURL(), e.getMessage());
+            log.warn("Error reading response from: {} msg: {}", urlConn.getURL(), e.toString());
             log.debug("Exception: ", e);
             return null;
         }

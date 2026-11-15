@@ -5,7 +5,9 @@ import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -99,6 +101,30 @@ class AbstractHofundBasicHttpConnectionErrorTest {
         // then:
         assertEquals(Status.DOWN, status);
         assertEquals(HofundConnectionResult.UNKNOWN, version);
+    }
+
+    @Test
+    void shouldLogExceptionTypeForUnknownHost() {
+        // given:
+        TestHttpConnection connection = new TestHttpConnection("test-service", "http://proxy.bliknet.invalid", 1000, 1000);
+        HofundConnection hofundConnection = connection.toHofundConnection();
+        ByteArrayOutputStream log = new ByteArrayOutputStream();
+        PrintStream originalErr = System.err;
+        System.setErr(new PrintStream(log, true));
+
+        // when:
+        HofundConnectionResult con;
+        try {
+            con = hofundConnection.getFun().get().getConnection();
+        } finally {
+            System.setErr(originalErr);
+        }
+
+        // then:
+        assertEquals(Status.DOWN, con.getStatus());
+        assertEquals("[main] WARN dev.logchange.hofund.connection.AbstractHofundBasicHttpConnection - "
+                        + "Error testing connection to: http://proxy.bliknet.invalid msg: java.net.UnknownHostException: proxy.bliknet.invalid",
+                log.toString().trim());
     }
 
     @Test
